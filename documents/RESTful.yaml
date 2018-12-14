@@ -1,0 +1,155 @@
+openapi: 3.0.0
+info:
+  version: '1.0.0'
+  title: 'SIMPLESHOP'
+  description: 'this is a simple api.'
+  termsOfService: www.sample.com/terms-of-use
+  contact:
+    name: xkfx
+    url: https://www.cnblogs.com/xkxf/
+    email: wyzxkfx@gmail.com
+  license:
+    name: DIY License
+    url: https://www.sample.com/license
+
+servers:
+  - url: http://localhost:8080/test/api/v1
+    description: Dev server
+
+  - url: https://www.sample.com/api/v1
+    description: Prod server
+
+paths:
+  /sessions:
+    post:
+      description: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SimpleUser-login'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/SimpleUser-login'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SimpleUser-login'
+      responses:
+        200:
+          description: Login successfully
+
+  /sessions/{username}:
+    get:
+      description: Obtain infomation about sessions from the memory
+      parameters:
+        - in: path
+          name: username
+          required: true
+          description: The username of the simpleUser
+          schema:
+            type: string
+            example: admin123
+
+      responses:
+        200:
+          description: Successful pull of sessions info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+    
+  /simpleUsers:
+    post:
+      description: Creates a new simpleUser in data base
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SimpleUser-register'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/SimpleUser-register'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SimpleUser-register'
+      responses:
+        200:
+          description: Successful created a new simpleUser
+
+  /simpleUsers/{nickname}:
+    get:
+      description: Obtain infomation about simpleUsers from the database
+      parameters:
+        - in: path
+          name: nickname
+          required: true
+          description: The nickname of the simpleUser
+          schema:
+            type: string
+            example: zhang
+
+      responses:
+        200:
+          description: Successful pull of simpleUser info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimpleUsers'
+
+components:
+  schemas:
+    Session:
+      description: login info
+      properties:
+        id:
+          type: string
+          example: The shopping cart        
+          
+    SimpleUsers:
+      description: Array of simpleUser info
+      type: array
+      items:
+        $ref: '#/components/schemas/SimpleUser'
+
+    SimpleUser:
+      description: Model containing simpleUser info
+      properties:
+        id:
+          type: integer
+          example: 10001
+
+        username:
+          type: string
+          example: admin
+
+        type:
+          type: integer
+          example: 1
+
+    SimpleUser-register:
+      description: Model containing simpleUser-register info
+      properties:
+        username:
+          type: string
+          example: admin
+
+        password:
+          type: string
+          example: abc12345
+
+        type:
+          type: integer
+          example: 1
+          
+    SimpleUser-login:
+      description: Model containing simpleUser-register info
+      properties:
+        username:
+          type: string
+          example: admin
+
+        password:
+          type: string
+          example: abc12345

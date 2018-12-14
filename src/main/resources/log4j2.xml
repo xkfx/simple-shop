@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn" name="MyApp" packages="" monitorInterval="1800">
+    <Properties>
+        <property name="basePath">${log4j:configParentLocation}/log4j2Logs</property>
+        <property name="defaultPattern">%d{DEFAULT} %c{1.} [%t] %p %m%n</property>
+    </Properties>
+
+    <Appenders>
+        <!-- 记录web层发起的普通日志请求 -->
+        <RollingRandomAccessFile name="web_appender" fileName="${basePath}/web.out"
+                                 filePattern="${basePath}/web/trace_%d{yyyy-MM-dd}_%i.log">
+            <PatternLayout>
+                <Pattern>${defaultPattern}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <OnStartupTriggeringPolicy />
+                <TimeBasedTriggeringPolicy modulate="true"/>
+                <SizeBasedTriggeringPolicy size="25 MB"/> <!-- 防止无限写 -->
+            </Policies>
+            <DefaultRolloverStrategy max="5"/>
+        </RollingRandomAccessFile>
+
+        <!-- 记录service层发起的普通日志请求 -->
+        <RollingRandomAccessFile name="service_appender" fileName="${basePath}/service.out"
+                                 filePattern="${basePath}/service/trace_%d{yyyy-MM-dd}_%i.log">
+            <PatternLayout>
+                <Pattern>${defaultPattern}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <OnStartupTriggeringPolicy />
+                <TimeBasedTriggeringPolicy modulate="true"/>
+                <SizeBasedTriggeringPolicy size="25 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="5"/>
+        </RollingRandomAccessFile>
+
+        <!-- 记录service层抛出的异常（异常在service层统一try-catch） -->
+        <RollingRandomAccessFile name="error_appender" fileName="${basePath}/error.out"
+                                 filePattern="${basePath}/error/error_%d{yyyy-MM-dd}_%i.log">
+            <Filters>
+                <!-- 限制日志级别在error及以上 -->
+                <ThresholdFilter level="error"/>
+            </Filters>
+            <PatternLayout>
+                <Pattern>${defaultPattern}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <OnStartupTriggeringPolicy />
+                <TimeBasedTriggeringPolicy modulate="true"/>
+                <SizeBasedTriggeringPolicy size="25 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="5"/>
+        </RollingRandomAccessFile>
+
+        <!-- 记录第三方框架/库抛出的异常 -->
+        <RollingRandomAccessFile name="third_error_appender" fileName="${basePath}/third_error.out"
+                                 filePattern="${basePath}/third/error_%d{yyyy-MM-dd}_%i.log">
+            <Filters>
+                <!-- 限制日志级别在warn及以上 -->
+                <ThresholdFilter level="warn"/>
+            </Filters>
+            <PatternLayout>
+                <Pattern>${defaultPattern}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <OnStartupTriggeringPolicy />
+                <TimeBasedTriggeringPolicy modulate="true"/>
+                <SizeBasedTriggeringPolicy size="25 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="5"/>
+        </RollingRandomAccessFile>
+
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="%m%n"/>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <!-- 该设定适用于第三方框架/库的logger，例如hikari，
+            其它不兼容的日志会被输出到catalina.out -->
+        <Root level="warn">
+            <!--<AppenderRef ref="third_error_appender"/>-->
+            <AppenderRef ref="STDOUT" />
+        </Root>
+        <!-- 该设定对所有web层logger有效 -->
+        <!--<Logger name="org.sample.shop.web" level="info" additivity="false">-->
+            <!--<AppenderRef ref="web_appender" />-->
+        <!--</Logger>-->
+        <!-- 该设定对所有service层logger有效 -->
+        <!--<Logger name="org.sample.shop.service" level="info" additivity="false">-->
+            <!--<AppenderRef ref="service_appender" />-->
+            <!--<AppenderRef ref="error_appender" />-->
+        <!--</Logger>-->
+        <Logger name="org.sample.shop" level="debug" additivity="false">
+            <AppenderRef ref="STDOUT" />
+        </Logger>
+    </Loggers>
+</Configuration>
