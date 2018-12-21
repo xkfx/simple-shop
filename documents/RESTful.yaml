@@ -28,16 +28,18 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SimpleUser-login'
+              $ref: '#/components/schemas/User-login'
           application/xml:
             schema:
-              $ref: '#/components/schemas/SimpleUser-login'
+              $ref: '#/components/schemas/User-login'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/SimpleUser-login'
+              $ref: '#/components/schemas/User-login'
       responses:
         200:
-          description: Login successfully
+          description: Login success
+        400:
+          description: Login fail 
 
   /sessions/{username}:
     get:
@@ -46,7 +48,7 @@ paths:
         - in: path
           name: username
           required: true
-          description: The username of the simpleUser
+          description: The username of the user
           schema:
             type: string
             example: admin123
@@ -59,40 +61,42 @@ paths:
               schema:
                 $ref: '#/components/schemas/Session'
     
-  /simpleUsers:
+  /users:
     post:
-      description: Creates a new simpleUser in data base
+      description: Creates a new user in data base
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SimpleUser-register'
+              $ref: '#/components/schemas/User-register'
           application/xml:
             schema:
-              $ref: '#/components/schemas/SimpleUser-register'
+              $ref: '#/components/schemas/User-register'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/SimpleUser-register'
+              $ref: '#/components/schemas/User-register'
       responses:
-        200:
-          description: Successful created a new simpleUser
+        201:
+          description: Successful created a new user
+        400:
+          description: Registration failed
 
-  /simpleUsers/{nickname}:
+  /users/{username}:
     get:
-      description: Obtain infomation about simpleUsers from the database
+      description: Obtain infomation about users from the database
       parameters:
         - in: path
-          name: nickname
+          name: username
           required: true
-          description: The nickname of the simpleUser
+          description: The username of the user
           schema:
             type: string
             example: zhang
 
       responses:
         200:
-          description: Successful pull of simpleUser info
+          description: Successful pull of user info
           content:
             application/json:
               schema:
@@ -108,13 +112,13 @@ components:
           example: The shopping cart        
           
     SimpleUsers:
-      description: Array of simpleUser info
+      description: Array of user info
       type: array
       items:
-        $ref: '#/components/schemas/SimpleUser'
+        $ref: '#/components/schemas/User'
 
     SimpleUser:
-      description: Model containing simpleUser info
+      description: Model containing user info
       properties:
         id:
           type: integer
@@ -129,7 +133,7 @@ components:
           example: 1
 
     SimpleUser-register:
-      description: Model containing simpleUser-register info
+      description: Model containing user-register info
       properties:
         username:
           type: string
@@ -144,7 +148,7 @@ components:
           example: 1
           
     SimpleUser-login:
-      description: Model containing simpleUser-register info
+      description: Model containing user-register info
       properties:
         username:
           type: string

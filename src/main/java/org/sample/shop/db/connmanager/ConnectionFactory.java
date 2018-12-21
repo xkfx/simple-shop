@@ -1,4 +1,6 @@
-package org.sample.shop.db;
+package org.sample.shop.db.connmanager;
+
+import org.sample.shop.db.datasource.HikariCPUtils;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -25,13 +27,17 @@ public class ConnectionFactory {
     public static Connection getConnection() throws SQLException {
         Connection conn = LocalConnectionHolder.get();
         if (conn == null || conn.isClosed()) {
-            conn = HikariCPDataSource.getConnection();
+            conn = HikariCPUtils.getConnection();
             LocalConnectionHolder.set(conn);
         }
         return conn;
     }
 
-    public static void removeLocalConnection() {
+    static void removeLocalConnection() {
         LocalConnectionHolder.remove();
+    }
+
+    static boolean connExisted() {
+        return LocalConnectionHolder.get() != null;
     }
 }

@@ -3,20 +3,31 @@ package org.sample.shop.entity;
 public class OrderDetail {
 
     private Long id;
-    private Item item;
-    private int status;
+    private Long orderId;
+    private Long itemId;
+    private Long userId; // 卖家id
     private int quantity;
     private double price;
+    private int status;
 
     public OrderDetail() {
     }
 
-    public OrderDetail(Long id, Item item, int status, int quantity, double price) {
-        this.id = id;
-        this.item = item;
-        this.status = status;
+    public OrderDetail(Long orderId, Long itemId, Long userId, int quantity, double price, int status) {
+        this.orderId = orderId;
+        this.itemId = itemId;
+        this.userId = userId;
         this.quantity = quantity;
         this.price = price;
+        this.status = status;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Long getId() {
@@ -27,12 +38,20 @@ public class OrderDetail {
         this.id = id;
     }
 
-    public Item getItem() {
-        return item;
+    public Long getOrderId() {
+        return orderId;
     }
 
-    public void setItem(Item item) {
-        this.item = item;
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
+    }
+
+    public Long getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(Long itemId) {
+        this.itemId = itemId;
     }
 
     public int getStatus() {
@@ -63,10 +82,12 @@ public class OrderDetail {
     public String toString() {
         return "OrderDetail{" +
                 "id=" + id +
-                ", item=" + item +
-                ", status=" + status +
+                ", orderId=" + orderId +
+                ", itemId=" + itemId +
+                ", userId=" + userId +
                 ", quantity=" + quantity +
                 ", price=" + price +
+                ", status=" + status +
                 '}';
     }
 }

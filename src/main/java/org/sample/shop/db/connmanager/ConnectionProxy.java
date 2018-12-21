@@ -1,6 +1,5 @@
-package org.sample.shop.dao;
+package org.sample.shop.db.connmanager;
 
-import org.sample.shop.db.ConnectionFactory;
 import org.sample.shop.exception.DaoException;
 
 import java.sql.Connection;
@@ -34,6 +33,9 @@ public class ConnectionProxy {
     }
 
     public static void close() {
+        if (!ConnectionFactory.connExisted()) {
+            return;
+        }
         try {
             Connection conn = ConnectionFactory.getConnection();
             conn.close();

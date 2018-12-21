@@ -29,4 +29,13 @@
         <servlet-name>SessionController</servlet-name>
         <url-pattern>/api/v1/sessions</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UserController</servlet-name>
+        <servlet-class>org.sample.shop.web.controller.SimpleUserController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserController</servlet-name>
+        <url-pattern>/api/v1/users</url-pattern>
+    </servlet-mapping>
 </web-app>

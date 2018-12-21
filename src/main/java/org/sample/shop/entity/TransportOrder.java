@@ -2,34 +2,44 @@ package org.sample.shop.entity;
 
 public class TransportOrder {
 
-    private Long id;
-    private OrderDetail detail;
-    private String location;
-    private int status;
+    private long id; // 运单id
+    private long userId; // 物流id
+    private long detailId;
+    private String location; // 描述当前位置
+    private int status; // 物流状态，大体分为：0运送中，1正在派件，2完成
 
     public TransportOrder() {
     }
 
-    public TransportOrder(OrderDetail detail, String location, int status) {
-        this.detail = detail;
+    public TransportOrder(long userId, long detailId, String location, int status) {
+        this.userId = userId;
+        this.detailId = detailId;
         this.location = location;
         this.status = status;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public OrderDetail getDetail() {
-        return detail;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setDetail(OrderDetail detail) {
-        this.detail = detail;
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public long getDetailId() {
+        return detailId;
+    }
+
+    public void setDetailId(long detailId) {
+        this.detailId = detailId;
     }
 
     public String getLocation() {
@@ -52,7 +62,8 @@ public class TransportOrder {
     public String toString() {
         return "TransportOrder{" +
                 "id=" + id +
-                ", detail=" + detail +
+                ", userId=" + userId +
+                ", detailId=" + detailId +
                 ", location='" + location + '\'' +
                 ", status=" + status +
                 '}';

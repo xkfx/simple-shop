@@ -10,14 +10,14 @@ public class ServiceResult<T> {
 
     private boolean success;
 
-    @JsonIgnore
     private T data;
 
     private ServiceEnum message;
 
-    public ServiceResult(boolean success, T data) {
+    public ServiceResult(boolean success, ServiceEnum message, T data) {
         this.success = success;
         this.data = data;
+        this.message = message;
     }
 
     public ServiceResult(boolean success, ServiceEnum message) {

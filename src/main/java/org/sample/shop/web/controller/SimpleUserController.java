@@ -4,8 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.sample.shop.dto.ServiceResult;
-import org.sample.shop.service.SimpleUserService;
-import org.sample.shop.service.impl.SimpleUserServiceImpl;
+import org.sample.shop.service.UserService;
+import org.sample.shop.service.impl.UserServiceImpl;
+import org.sample.shop.util.JsonUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,8 +18,8 @@ import java.io.PrintWriter;
 public class SimpleUserController extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final ObjectMapper MAPPER = new ObjectMapper();
-    private SimpleUserService userService = SimpleUserServiceImpl.INSTANCE;
+    private static final ObjectMapper MAPPER = JsonUtil.getMapper();
+    private UserService userService = UserServiceImpl.INSTANCE;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -27,20 +28,12 @@ public class SimpleUserController extends HttpServlet {
         final String password = req.getParameter("password");
         final String type = req.getParameter("type");
         // 调服务
-        LOGGER.debug("SimpleUserController: username={}, password={}, type={}", username, password, type);
+        LOGGER.debug("[UserController]register: username={}, password={}, type={}", username, password, type);
         ServiceResult result = userService.register(Integer.valueOf(type), username, password);
-        LOGGER.debug("SimpleUserController: {}", result);
-        // 返回json
+        LOGGER.debug("[UserController]register: username={}, {}", username, result);
+        // 返回HTTP状态码 + json
         PrintWriter pw = resp.getWriter();
-        String jsonString;
-        if (result.isSuccess()) { // 成功返回数据
-            resp.setStatus(201);
-            jsonString = MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(result.getData());
-        } else { // 失败返回理由
-
-            jsonString = MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(result);
-        }
-        pw.print(jsonString);
+        pw.print(JsonUtil.restfulResponse(resp, result));
         pw.flush();
     }
 }

@@ -3,6 +3,7 @@ package org.sample.shop.entity;
 public class Item {
 
     private Long id;
+    private Long uid;
     private String name;
     private double price;
     private int status;
@@ -11,7 +12,8 @@ public class Item {
     public Item() {
     }
 
-    public Item(String name, double price, int status, int quantity) {
+    public Item(Long uid, String name, double price, int status, int quantity) {
+        this.uid = uid;
         this.name = name;
         this.price = price;
         this.status = status;
@@ -24,6 +26,14 @@ public class Item {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getUid() {
+        return uid;
+    }
+
+    public void setUid(Long uid) {
+        this.uid = uid;
     }
 
     public String getName() {

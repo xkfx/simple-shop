@@ -81,12 +81,14 @@ CREATE TABLE order_detail (
   id NUMBER(8, 0),
   order_id NUMBER(8, 0) NOT NULL,
   item_id NUMBER(8, 0) NOT NULL,
+  user_id NUMBER(8, 0) NOT NULL,
   status NUMBER(1, 0) NOT NULL, -- 0待付款，1待发货，2已发货，3等待买家确认收获，4交易完成
   quantity NUMBER(4, 0) NOT NULL, -- 数量上限9999
   price NUMBER(8, 2) NOT NULL,
 	PRIMARY KEY (id),
 	FOREIGN KEY(order_id) REFERENCES simple_order(id),
-	FOREIGN KEY(item_id) REFERENCES item(id)
+	FOREIGN KEY(item_id) REFERENCES item(id),
+	FOREIGN KEY(user_id) REFERENCES item(id)
 );
 CREATE SEQUENCE order_detail_seq
 MINVALUE 1000

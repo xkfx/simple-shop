@@ -5,15 +5,30 @@ import java.util.List;
 public class Order {
 
     private Long id;
+    private Long userId; // 买家id
     private double total;
     private List<OrderDetail> details;
 
     public Order() {
     }
 
-    public Order(double total, List<OrderDetail> details) {
+    public Order(Long userId, double total) {
+        this.userId = userId;
+        this.total = total;
+    }
+
+    public Order(Long userId, double total, List<OrderDetail> details) {
+        this.userId = userId;
         this.total = total;
         this.details = details;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Long getId() {
@@ -44,6 +59,7 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "id=" + id +
+                ", userId=" + userId +
                 ", total=" + total +
                 ", details=" + details +
                 '}';

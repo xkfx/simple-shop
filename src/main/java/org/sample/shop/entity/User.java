@@ -2,7 +2,7 @@ package org.sample.shop.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class SimpleUser {
+public class User {
 
     private Long id;
     private String username;
@@ -10,10 +10,10 @@ public class SimpleUser {
     private String password;
     private int type;
 
-    public SimpleUser() {
+    public User() {
     }
 
-    public SimpleUser(int type, String username, String password) {
+    public User(int type, String username, String password) {
         this.username = username;
         this.password = password;
         this.type = type;
@@ -53,7 +53,7 @@ public class SimpleUser {
 
     @Override
     public String toString() {
-        return "SimpleUser{" +
+        return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
