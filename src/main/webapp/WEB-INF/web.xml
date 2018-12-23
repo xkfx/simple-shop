@@ -32,7 +32,7 @@
 
     <servlet>
         <servlet-name>UserController</servlet-name>
-        <servlet-class>org.sample.shop.web.controller.SimpleUserController</servlet-class>
+        <servlet-class>org.sample.shop.web.controller.UserController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UserController</servlet-name>

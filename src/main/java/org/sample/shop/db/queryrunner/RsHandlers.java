@@ -8,6 +8,8 @@ public interface RsHandlers {
 
     BeanHandler<User> USER = new BeanHandler<>(User.class);
 
+    BeanHandler<Item> ITEM = new BeanHandler<>(Item.class);
+
     BeanListHandler<Item> ITEM_LIST = new BeanListHandler<>(Item.class);
 
     BeanListHandler<Order> ORDER_LIST = new BeanListHandler<>(Order.class);

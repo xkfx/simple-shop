@@ -6,7 +6,8 @@ public interface SQLs {
     String ITEM_SAVE_ITEM = "INSERT INTO item(user_id, name, price, status, quantity) VALUES (?, ?, ?, ?, ?)";
     String ITEM_REMOVE_BY_ID = "DELETE FROM item WHERE id=?";
     String ITEM_UPDATE_BY_ID = "UPDATE item SET name=?, price=?, status=?, quantity=? WHERE id=?";
-    // order
+    String ITEM_GET_BY_ID = "SELECT id, user_id AS userId, name, price, status, quantity FROM item WHERE id=?";
+            // order
     String ORDER_GET_BY_UID = "SELECT id, user_id AS userId, total FROM simple_order WHERE user_id=?";
     String ORDER_SAVE_ORDER = "INSERT INTO simple_order(user_id, total) VALUES(?, ?)";
     String ORDER_SAVE_ORDER_DETAIL = "INSERT INTO order_detail(order_id, item_id, user_id, quantity, price, status) VALUES(?, ?, ?, ?, ?, ?)";
@@ -22,5 +23,6 @@ public interface SQLs {
     String TRANSPORT_ORDER_SAVE_ORDER = "INSERT INTO transport_order(user_id, order_detail_id, location, status) VALUES (?, ?, ?, ?)";
     String TRANSPORT_ORDER_GET_BY_UID = "SELECT id, user_id AS userId, order_detail_id AS detailId, location, status FROM transport_order WHERE user_id=?";
     String TRANSPORT_ORDER_GET_BY_DETAIL_ID = "SELECT id, user_id AS userId, order_detail_id AS detailId, location, status FROM transport_order WHERE order_detail_id=?";
+    String TRANSPORT_ORDER_GET_BY_ID = "SELECT id, user_id AS userId, order_detail_id AS detailId, location, status FROM transport_order WHERE id=?";
     String TRANSPORT_ORDER_UPDATE_BY_ID = "UPDATE transport_order SET location=?, status=? WHERE id=?";
 }

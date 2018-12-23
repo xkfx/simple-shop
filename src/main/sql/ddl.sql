@@ -54,7 +54,7 @@ CREATE TABLE item (
   user_id NUMBER(8, 0) NOT NULL,
   name VARCHAR2(20) NOT NULL,
 	price NUMBER(8, 2) NOT NULL,
-	status NUMBER(1, 0) NOT NULL, -- 0下架，1上架
+	code NUMBER(1, 0) NOT NULL, -- 0下架，1上架
 	quantity NUMBER(4, 0) NOT NULL, -- 数量上限9999
 	PRIMARY KEY (id),
 	FOREIGN KEY(user_id) REFERENCES simple_user(id)
@@ -82,7 +82,7 @@ CREATE TABLE order_detail (
   order_id NUMBER(8, 0) NOT NULL,
   item_id NUMBER(8, 0) NOT NULL,
   user_id NUMBER(8, 0) NOT NULL,
-  status NUMBER(1, 0) NOT NULL, -- 0待付款，1待发货，2已发货，3等待买家确认收获，4交易完成
+  code NUMBER(1, 0) NOT NULL, -- 0待付款，1待发货，2已发货，3等待买家确认收获，4交易完成
   quantity NUMBER(4, 0) NOT NULL, -- 数量上限9999
   price NUMBER(8, 2) NOT NULL,
 	PRIMARY KEY (id),
@@ -112,7 +112,7 @@ CREATE TABLE transport_order (
   user_id NUMBER(8, 0) NOT NULL,
   order_detail_id NUMBER(8, 0) NOT NULL,
   location VARCHAR2(20),
-  status NUMBER(1, 0) NOT NULL, -- 0运送中，1正在派件，2完成
+  code NUMBER(1, 0) NOT NULL, -- 0运送中，1正在派件，2完成
 	PRIMARY KEY (id),
 	FOREIGN KEY(order_detail_id) REFERENCES order_detail(id),
 	FOREIGN KEY(user_id) REFERENCES simple_user(id)

@@ -1,10 +1,10 @@
 package org.sample.shop.service;
 
-import org.sample.shop.dto.ServiceResult;
+import org.sample.shop.entity.User;
 
 public interface UserService {
 
-    ServiceResult register(int type, String username, String password);
+    ServiceResult<User> register(int type, String username, String password);
 
     ServiceResult login(String username, String password);
 }

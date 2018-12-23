@@ -6,7 +6,7 @@ public class TransportOrder {
     private long userId; // 物流id
     private long detailId;
     private String location; // 描述当前位置
-    private int status; // 物流状态，大体分为：0运送中，1正在派件，2完成
+    private int status; // 物流状态，大体分为：0等待出货，1运送中，2正在派件，3完成
 
     public TransportOrder() {
     }

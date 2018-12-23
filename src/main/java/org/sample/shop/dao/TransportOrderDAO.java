@@ -10,7 +10,9 @@ public interface TransportOrderDAO {
 
     List<TransportOrder> getByUid(long uid); // 物流调用
 
-    TransportOrder getByDetailId(long id); // 买家&卖家调用
+    TransportOrder getByDetailId(long detailId); // 买家&卖家调用
+
+    TransportOrder getById(long id); // 物流调用
 
     int updateById(TransportOrder order); // 主要用于更新物流状态
 }

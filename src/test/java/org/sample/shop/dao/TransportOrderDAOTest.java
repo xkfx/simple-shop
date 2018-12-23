@@ -41,4 +41,11 @@ public class TransportOrderDAOTest {
         dao.updateById(order);
         ConnectionProxy.close();
     }
+
+    @Test
+    public void getById() {
+        TransportOrder order = dao.getById(1000L);
+        System.out.println(order);
+        ConnectionProxy.close();
+    }
 }

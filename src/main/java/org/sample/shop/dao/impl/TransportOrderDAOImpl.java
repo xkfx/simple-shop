@@ -23,8 +23,13 @@ public enum TransportOrderDAOImpl implements TransportOrderDAO {
     }
 
     @Override
-    public TransportOrder getByDetailId(long id) {
-        return QueryRunnerProxy.query(SQLs.TRANSPORT_ORDER_GET_BY_DETAIL_ID, RsHandlers.TRANSPORT_ORDER, id);
+    public TransportOrder getByDetailId(long detailId) {
+        return QueryRunnerProxy.query(SQLs.TRANSPORT_ORDER_GET_BY_DETAIL_ID, RsHandlers.TRANSPORT_ORDER, detailId);
+    }
+
+    @Override
+    public TransportOrder getById(long id) {
+        return QueryRunnerProxy.query(SQLs.TRANSPORT_ORDER_GET_BY_ID, RsHandlers.TRANSPORT_ORDER, id);
     }
 
     @Override

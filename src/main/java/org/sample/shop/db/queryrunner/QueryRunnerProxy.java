@@ -30,7 +30,7 @@ public class QueryRunnerProxy {
     }
 
     public static <T> T query(String sql, ResultSetHandler<T> rsh, Object... params) {
-        T result = null;
+        T result;
         try {
             result = runner.query(ConnectionFactory.getConnection(), sql, rsh, params);
         } catch (SQLException e) {

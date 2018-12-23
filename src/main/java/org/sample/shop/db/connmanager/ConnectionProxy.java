@@ -1,15 +1,26 @@
 package org.sample.shop.db.connmanager;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.sample.shop.exception.DaoException;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
+/**
+ * conn.close是业务无关的，出现了异常
+ * 也不会影响之前的操作，不需要通知用户，
+ * 所以抛出的sqlexception内部处理。
+ */
 public class ConnectionProxy {
+
+    private static final Logger LOGGER = LogManager.getLogger();
+
     public static void setAutoCommit(boolean autoCommit) {
         try {
             Connection conn = ConnectionFactory.getConnection();
             conn.setAutoCommit(autoCommit);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new DaoException(e);
         }
     }
@@ -18,7 +29,7 @@ public class ConnectionProxy {
         try {
             Connection conn = ConnectionFactory.getConnection();
             conn.commit();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new DaoException(e);
         }
     }
@@ -27,7 +38,7 @@ public class ConnectionProxy {
         try {
             Connection conn = ConnectionFactory.getConnection();
             conn.rollback();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new DaoException(e);
         }
     }
@@ -37,11 +48,10 @@ public class ConnectionProxy {
             return;
         }
         try {
-            Connection conn = ConnectionFactory.getConnection();
-            conn.close();
+            ConnectionFactory.getConnection().close();
             ConnectionFactory.removeLocalConnection();
-        } catch (Exception e) {
-            throw new DaoException(e);
+        } catch (SQLException e) {
+            LOGGER.error(e);
         }
     }
 }
