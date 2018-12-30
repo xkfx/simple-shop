@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   version: '1.0.0'
   title: 'SIMPLESHOP'
-  defaultDescription: 'this is a simple api.'
+  description: 'this is a simple api.'
   termsOfService: www.sample.com/terms-of-use
   contact:
     name: xkfx
@@ -14,15 +14,15 @@ info:
 
 servers:
   - url: http://localhost:8080/test/api/v1
-    defaultDescription: Dev server
+    description: Dev server
 
   - url: https://www.sample.com/api/v1
-    defaultDescription: Prod server
+    description: Prod server
 
 paths:
   /sessions:
     post:
-      defaultDescription: login
+      description: user login
       requestBody:
         required: true
         content:
@@ -37,25 +37,25 @@ paths:
               $ref: '#/components/schemas/SimpleUser-login'
       responses:
         200:
-          defaultDescription: Login success
+          description: Login success
         400:
-          defaultDescription: Login fail
+          description: Login fail
 
   /sessions/{username}:
     get:
-      defaultDescription: Obtain infomation about sessions from the memory
+      description: Obtain infomation about sessions from the memory
       parameters:
         - in: path
           name: username
           required: true
-          defaultDescription: The username of the simpleUser
+          description: The username of the simpleUser
           schema:
             type: string
             example: admin123
 
       responses:
         200:
-          defaultDescription: Successful pull of sessions info
+          description: Successful pull of sessions info
           content:
             application/json:
               schema:
@@ -63,7 +63,7 @@ paths:
 
   /users:
     post:
-      defaultDescription: Creates a new simpleUser in data base
+      description: Creates a new simpleUser in data base
       requestBody:
         required: true
         content:
@@ -78,25 +78,25 @@ paths:
               $ref: '#/components/schemas/SimpleUser-register'
       responses:
         201:
-          defaultDescription: Successful created a new simpleUser
+          description: Successful created a new simpleUser
         400:
-          defaultDescription: Registration failed
+          description: Registration failed
 
   /users/{username}:
     get:
-      defaultDescription: Obtain infomation about users from the database
+      description: Obtain infomation about users from the database
       parameters:
         - in: path
           name: username
           required: true
-          defaultDescription: The username of the simpleUser
+          description: The username of the simpleUser
           schema:
             type: string
             example: zhang
 
       responses:
         200:
-          defaultDescription: Successful pull of simpleUser info
+          description: Successful pull of simpleUser info
           content:
             application/json:
               schema:
@@ -105,20 +105,20 @@ paths:
 components:
   schemas:
     Session:
-      defaultDescription: login info
+      description: login info
       properties:
         id:
           type: string
           example: The shopping cart
 
     SimpleUsers:
-      defaultDescription: Array of simpleUser info
+      description: Array of simpleUser info
       type: array
       items:
         $ref: '#/components/schemas/SimpleUser'
 
     SimpleUser:
-      defaultDescription: Model containing simpleUser info
+      description: Model containing simpleUser info
       properties:
         id:
           type: integer
@@ -133,7 +133,7 @@ components:
           example: 1
 
     SimpleUser-register:
-      defaultDescription: Model containing simpleUser-register info
+      description: Model containing simpleUser-register info
       properties:
         username:
           type: string
@@ -148,7 +148,7 @@ components:
           example: 1
 
     SimpleUser-login:
-      defaultDescription: Model containing simpleUser-register info
+      description: Model containing simpleUser-register info
       properties:
         username:
           type: string
