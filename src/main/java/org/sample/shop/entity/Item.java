@@ -3,7 +3,7 @@ package org.sample.shop.entity;
 public class Item {
 
     private Long id;
-    private Long uid;
+    private Long userId;
     private String name;
     private double price;
     private int status;
@@ -12,8 +12,8 @@ public class Item {
     public Item() {
     }
 
-    public Item(Long uid, String name, double price, int status, int quantity) {
-        this.uid = uid;
+    public Item(Long userId, String name, double price, int status, int quantity) {
+        this.userId = userId;
         this.name = name;
         this.price = price;
         this.status = status;
@@ -28,12 +28,12 @@ public class Item {
         this.id = id;
     }
 
-    public Long getUid() {
-        return uid;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUid(Long uid) {
-        this.uid = uid;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getName() {
@@ -72,6 +72,7 @@ public class Item {
     public String toString() {
         return "Item{" +
                 "id=" + id +
+                ", userId=" + userId +
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", status=" + status +

@@ -3,6 +3,7 @@ package org.sample.shop.dao;
 import org.junit.Test;
 import org.sample.shop.dao.impl.ItemDAOImpl;
 import org.sample.shop.db.connmanager.ConnectionProxy;
+import org.sample.shop.db.queryrunner.Statements;
 import org.sample.shop.entity.Item;
 import org.sample.shop.enums.entitystatus.impl.ItemStatus;
 
@@ -14,7 +15,7 @@ public class ItemDAOTest {
 
     @Test
     public void saveItem() {
-        Item item = new Item(1000L, "牙刷", 23.5, ItemStatus.OFF_SALE.getCode(), 20);
+        Item item = new Item(1002L, "牙膏", 23.5, ItemStatus.ON_SALE.getCode(), 20);
         itemDAO.saveItem(item); // uid不存在会抛出异常：java.sql.SQLIntegrityConstraintViolationException: ORA-02291: 违反完整约束条件
 
         ConnectionProxy.close();
@@ -22,7 +23,7 @@ public class ItemDAOTest {
 
     @Test
     public void listByUidAndStatus() {
-        List<Item> items = itemDAO.listByUidAndStatus(1000L, ItemStatus.OFF_SALE.getCode(), 0, 0);
+        List<Item> items = itemDAO.listByUidAndStatus(1000L, ItemStatus.OFF_SALE.getCode(), 0, 5);
         System.out.println(items);
 
         ConnectionProxy.close();

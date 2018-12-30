@@ -4,10 +4,9 @@ import org.junit.Test;
 import org.sample.shop.dao.impl.OrderDetailDAOImpl;
 import org.sample.shop.db.connmanager.ConnectionProxy;
 import org.sample.shop.entity.OrderDetail;
+import org.sample.shop.enums.entitystatus.impl.OrderDetailStatus;
 
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class OrderDetailDAOTest {
 
@@ -15,7 +14,7 @@ public class OrderDetailDAOTest {
 
     @Test
     public void getByOrderId() throws Exception {
-        List<OrderDetail> list = dao.getByOrderId(1000L);
+        List<OrderDetail> list = dao.listByOrderId(1000L);
         System.out.println(list);
 
         ConnectionProxy.close();
@@ -23,7 +22,7 @@ public class OrderDetailDAOTest {
 
     @Test
     public void getByUid() throws Exception {
-        List<OrderDetail> list = dao.getByUid(1000L);
+        List<OrderDetail> list = dao.listByUid(1000L);
         System.out.println(list);
 
         ConnectionProxy.close();
@@ -31,9 +30,7 @@ public class OrderDetailDAOTest {
 
     @Test
     public void updateById() {
-        OrderDetail detail = new OrderDetail();
-        detail.setId(1000L);
-        detail.setStatus(9);
+        OrderDetail detail = new OrderDetail(1001L, OrderDetailStatus.COMPLETED.getCode());
         dao.updateById(detail);
 
         ConnectionProxy.close();

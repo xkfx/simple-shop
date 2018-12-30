@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   version: '1.0.0'
   title: 'SIMPLESHOP'
-  description: 'this is a simple api.'
+  defaultDescription: 'this is a simple api.'
   termsOfService: www.sample.com/terms-of-use
   contact:
     name: xkfx
@@ -14,89 +14,89 @@ info:
 
 servers:
   - url: http://localhost:8080/test/api/v1
-    description: Dev server
+    defaultDescription: Dev server
 
   - url: https://www.sample.com/api/v1
-    description: Prod server
+    defaultDescription: Prod server
 
 paths:
   /sessions:
     post:
-      description: login
+      defaultDescription: login
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/User-login'
+              $ref: '#/components/schemas/SimpleUser-login'
           application/xml:
             schema:
-              $ref: '#/components/schemas/User-login'
+              $ref: '#/components/schemas/SimpleUser-login'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/User-login'
+              $ref: '#/components/schemas/SimpleUser-login'
       responses:
         200:
-          description: Login success
+          defaultDescription: Login success
         400:
-          description: Login fail 
+          defaultDescription: Login fail
 
   /sessions/{username}:
     get:
-      description: Obtain infomation about sessions from the memory
+      defaultDescription: Obtain infomation about sessions from the memory
       parameters:
         - in: path
           name: username
           required: true
-          description: The username of the user
+          defaultDescription: The username of the simpleUser
           schema:
             type: string
             example: admin123
 
       responses:
         200:
-          description: Successful pull of sessions info
+          defaultDescription: Successful pull of sessions info
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Session'
-    
+
   /users:
     post:
-      description: Creates a new user in data base
+      defaultDescription: Creates a new simpleUser in data base
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/User-register'
+              $ref: '#/components/schemas/SimpleUser-register'
           application/xml:
             schema:
-              $ref: '#/components/schemas/User-register'
+              $ref: '#/components/schemas/SimpleUser-register'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/User-register'
+              $ref: '#/components/schemas/SimpleUser-register'
       responses:
         201:
-          description: Successful created a new user
+          defaultDescription: Successful created a new simpleUser
         400:
-          description: Registration failed
+          defaultDescription: Registration failed
 
   /users/{username}:
     get:
-      description: Obtain infomation about users from the database
+      defaultDescription: Obtain infomation about users from the database
       parameters:
         - in: path
           name: username
           required: true
-          description: The username of the user
+          defaultDescription: The username of the simpleUser
           schema:
             type: string
             example: zhang
 
       responses:
         200:
-          description: Successful pull of user info
+          defaultDescription: Successful pull of simpleUser info
           content:
             application/json:
               schema:
@@ -105,20 +105,20 @@ paths:
 components:
   schemas:
     Session:
-      description: login info
+      defaultDescription: login info
       properties:
         id:
           type: string
-          example: The shopping cart        
-          
+          example: The shopping cart
+
     SimpleUsers:
-      description: Array of user info
+      defaultDescription: Array of simpleUser info
       type: array
       items:
-        $ref: '#/components/schemas/User'
+        $ref: '#/components/schemas/SimpleUser'
 
     SimpleUser:
-      description: Model containing user info
+      defaultDescription: Model containing simpleUser info
       properties:
         id:
           type: integer
@@ -133,7 +133,7 @@ components:
           example: 1
 
     SimpleUser-register:
-      description: Model containing user-register info
+      defaultDescription: Model containing simpleUser-register info
       properties:
         username:
           type: string
@@ -146,9 +146,9 @@ components:
         type:
           type: integer
           example: 1
-          
+
     SimpleUser-login:
-      description: Model containing user-register info
+      defaultDescription: Model containing simpleUser-register info
       properties:
         username:
           type: string

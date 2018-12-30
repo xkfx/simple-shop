@@ -4,7 +4,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import org.sample.shop.entity.Item;
-import org.sample.shop.enums.entitystatus.impl.ItemStatus;
 import org.sample.shop.service.impl.ItemServiceImpl;
 
 import java.util.List;
@@ -22,7 +21,7 @@ public class ItemServiceTest {
 
     @Test
     public void listByUidAndStatus() throws Exception {
-        ServiceResult<List<Item>> result = itemService.listByUidAndStatus(2004L, ItemStatus.OFF_SALE, 1, 20);
+        ServiceResult<List<Item>> result = itemService.listOffSale(1000L, 0, 2);
         LOGGER.debug(result);
     }
 

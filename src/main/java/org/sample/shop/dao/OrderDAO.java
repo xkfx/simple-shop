@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface OrderDAO {
 
-    List<Order> getByUid(long uid);
+    List<Order> listByUid(long uid);
 
     int saveOrder(Order order);
 }

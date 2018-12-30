@@ -1,7 +1,6 @@
 package org.sample.shop.service;
 
 import org.sample.shop.entity.Item;
-import org.sample.shop.enums.entitystatus.impl.ItemStatus;
 
 import java.util.List;
 
@@ -9,13 +8,13 @@ public interface ItemService {
 
     ServiceResult<Item> createNew(Long uid, String name, double price, int quantity);
 
-    ServiceResult<List<Item>> listByUid(Long uid, int curPage); // 客户调用
+    ServiceResult<List<Item>> listOnSale(Long uid, int curPage); // 客户调用
 
-    ServiceResult<List<Item>> listByUid(Long uid, int curPage, int pageSize);
+    ServiceResult<List<Item>> listOnSale(Long uid, int curPage, int pageSize);
 
-    ServiceResult<List<Item>> listByUidAndStatus(Long uid, ItemStatus status, int curPage); // 商家调用
+    ServiceResult<List<Item>> listOffSale(Long uid, int curPage); // 商家调用
 
-    ServiceResult<List<Item>> listByUidAndStatus(Long uid, ItemStatus status, int curPage, int pageSize);
+    ServiceResult<List<Item>> listOffSale(Long uid, int curPage, int pageSize);
 
     ServiceResult<Item> delete(Long id);
 

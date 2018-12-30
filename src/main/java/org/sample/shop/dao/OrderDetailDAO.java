@@ -10,12 +10,12 @@ public interface OrderDetailDAO {
      * 买家调用
      * @return
      */
-     List<OrderDetail> getByOrderId(long orderId);
+     List<OrderDetail> listByOrderId(long orderId);
 
     /**
      * 商家调用
      */
-    List<OrderDetail> getByUid(long uid);
+    List<OrderDetail> listByUid(long uid);
 
     /**
      * 商家调用，更改订单状态

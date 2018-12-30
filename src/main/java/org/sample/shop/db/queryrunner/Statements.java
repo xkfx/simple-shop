@@ -1,13 +1,15 @@
 package org.sample.shop.db.queryrunner;
 
-public interface SQLs {
+import org.sample.shop.db.queryrunner.statementfactory.StatementFactory;
+
+public interface Statements {
     // item
-    String ITEM_LIST_BY_UID_AND_STATUS = "SELECT id, user_id AS userId, name, price, status, quantity FROM item WHERE user_id=? AND status=?";
-    String ITEM_SAVE_ITEM = "INSERT INTO item(user_id, name, price, status, quantity) VALUES (?, ?, ?, ?, ?)";
-    String ITEM_REMOVE_BY_ID = "DELETE FROM item WHERE id=?";
-    String ITEM_UPDATE_BY_ID = "UPDATE item SET name=?, price=?, status=?, quantity=? WHERE id=?";
-    String ITEM_GET_BY_ID = "SELECT id, user_id AS userId, name, price, status, quantity FROM item WHERE id=?";
-            // order
+    String ITEM_LIST_BY_UID_AND_STATUS = StatementFactory.getStatement("#ITEM_LIST_BY_UID_AND_STATUS");
+    String ITEM_SAVE_ITEM = StatementFactory.getStatement("#ITEM_SAVE_ITEM");
+    String ITEM_REMOVE_BY_ID = StatementFactory.getStatement("#ITEM_REMOVE_BY_ID");
+    String ITEM_UPDATE_BY_ID = StatementFactory.getStatement("#ITEM_UPDATE_BY_ID");
+    String ITEM_GET_BY_ID = StatementFactory.getStatement("#ITEM_GET_BY_ID");;
+    // order
     String ORDER_GET_BY_UID = "SELECT id, user_id AS userId, total FROM simple_order WHERE user_id=?";
     String ORDER_SAVE_ORDER = "INSERT INTO simple_order(user_id, total) VALUES(?, ?)";
     String ORDER_SAVE_ORDER_DETAIL = "INSERT INTO order_detail(order_id, item_id, user_id, quantity, price, status) VALUES(?, ?, ?, ?, ?, ?)";

@@ -14,9 +14,11 @@ public class ConnectionFactory {
         // Exists to defeat instantiation
     }
 
+    private static final String JDBC_DRIVER = "oracle.jdbc.driver.OracleDriver";
+
     static {
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Class.forName(JDBC_DRIVER);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

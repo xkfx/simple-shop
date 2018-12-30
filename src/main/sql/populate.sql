@@ -15,12 +15,12 @@ COMMIT;
 INSERT INTO order_detail(order_id, item_id, user_id, quantity, price, code) VALUES(1000, 1000, 1000, 22, 32.5, 0);
 COMMIT;
 
--- List<Order> getByUid(long uid)
+-- List<Order> listByUid(long userId)
 SELECT id, user_id, total FROM simple_order WHERE user_id=1000;
 SELECT id, order_id AS orderId, item_id AS itemId, user_id AS userId, quantity, price, code FROM order_detail WHERE order_id=1000;
 
--- List<OrderDetail> getByOrderId(long orderId)
+-- List<OrderDetail> listByOrderId(long orderId)
 SELECT id, order_id AS orderId, item_id AS itemId, user_id AS userId, quantity, price, code FROM order_detail WHERE order_id=1000;
 
--- List<OrderDetail> getByUid(long uid)
+-- List<OrderDetail> listByUid(long userId)
 SELECT id, order_id AS orderId, item_id AS itemId, user_id AS userId, quantity, price, code FROM order_detail WHERE user_id=1000;

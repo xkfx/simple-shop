@@ -22,6 +22,11 @@ public class OrderDetail {
         this.status = status;
     }
 
+    public OrderDetail(Long id, int status) {
+        this.id = id;
+        this.status = status;
+    }
+
     public Long getUserId() {
         return userId;
     }

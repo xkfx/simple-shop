@@ -38,4 +38,13 @@
         <servlet-name>UserController</servlet-name>
         <url-pattern>/api/v1/users</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ItemController</servlet-name>
+        <servlet-class>org.sample.shop.web.controller.ItemController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ItemController</servlet-name>
+        <url-pattern>/api/v1/items</url-pattern>
+    </servlet-mapping>
 </web-app>

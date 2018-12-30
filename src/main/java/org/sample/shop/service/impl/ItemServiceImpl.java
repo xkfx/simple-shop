@@ -40,22 +40,30 @@ public enum ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ServiceResult<List<Item>> listByUid(Long uid, int curPage) {
+    public ServiceResult<List<Item>> listOnSale(Long uid, int curPage) {
         return listByUidAndStatus(uid, ItemStatus.ON_SALE, curPage);
     }
 
     @Override
-    public ServiceResult<List<Item>> listByUid(Long uid, int curPage, int pageSize) {
+    public ServiceResult<List<Item>> listOnSale(Long uid, int curPage, int pageSize) {
         return listByUidAndStatus(uid, ItemStatus.ON_SALE, curPage, pageSize);
     }
 
     @Override
-    public ServiceResult<List<Item>> listByUidAndStatus(Long uid, ItemStatus status, int curPage) {
-        return listByUidAndStatus(uid, status, curPage, DEFAULT_PAGE_SIZE);
+    public ServiceResult<List<Item>> listOffSale(Long uid, int curPage) {
+        return listByUidAndStatus(uid, ItemStatus.OFF_SALE, curPage);
     }
 
     @Override
-    public ServiceResult<List<Item>> listByUidAndStatus(Long uid, ItemStatus status, int curPage, int pageSize) {
+    public ServiceResult<List<Item>> listOffSale(Long uid, int curPage, int pageSize) {
+        return listByUidAndStatus(uid, ItemStatus.OFF_SALE, curPage, pageSize);
+    }
+
+    private ServiceResult<List<Item>> listByUidAndStatus(Long uid, ItemStatus status, int curPage) {
+        return listByUidAndStatus(uid, status, curPage, DEFAULT_PAGE_SIZE);
+    }
+
+    private ServiceResult<List<Item>> listByUidAndStatus(Long uid, ItemStatus status, int curPage, int pageSize) {
         try {
             return new ServiceResult<>(ITEM_LIST_SUCCESS, itemDAO.listByUidAndStatus(uid, status.getCode(), curPage, pageSize));
         } catch (DaoException e) {

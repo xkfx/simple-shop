@@ -30,7 +30,7 @@ public class OrderDAOTest {
 
     @Test
     public void getByUid() {
-        List<Order> order = dao.getByUid(1000L);
+        List<Order> order = dao.listByUid(1000L);
         System.out.println(order);
 
         ConnectionProxy.close();
