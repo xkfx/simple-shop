@@ -15,14 +15,15 @@ public class TransportOrderDAOTest {
 
     @Test
     public void saveOrder() throws Exception {
-        TransportOrder order = new TransportOrder(1000L, 1000L, "上海", 0);
+        TransportOrder order = new TransportOrder(1000L, 1000L, "加勒比", 0);
         dao.saveOrder(order);
+
         ConnectionProxy.close();
     }
 
     @Test
     public void getByUid() throws Exception {
-        List<TransportOrder> list = dao.getByUid(1000L);
+        List<TransportOrder> list = dao.getByUid(1000L, 1, 1);
         System.out.println(list);
         ConnectionProxy.close();
     }

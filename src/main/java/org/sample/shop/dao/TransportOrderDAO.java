@@ -8,7 +8,14 @@ public interface TransportOrderDAO {
 
     int saveOrder(TransportOrder order);
 
-    List<TransportOrder> getByUid(long uid); // 物流调用
+    /**
+     * 获得指定物流的运单
+     * @param uid 物流id
+     * @param start 由1开始的起始值
+     * @param offset 偏移量，也就是查多少条出来
+     * @return
+     */
+    List<TransportOrder> getByUid(long uid, int start, int offset); // 物流调用
 
     TransportOrder getByDetailId(long detailId); // 买家&卖家调用
 

@@ -3,11 +3,11 @@ package org.sample.shop.service;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
+import org.sample.shop.dto.ServiceResult;
 import org.sample.shop.entity.TransportOrder;
 import org.sample.shop.service.impl.TransportServiceImpl;
 
 import java.util.List;
-import java.util.Map;
 
 public class TransportServiceTest {
 
@@ -22,7 +22,7 @@ public class TransportServiceTest {
 
     @Test
     public void getByUid() throws Exception {
-        ServiceResult<List<TransportOrder>> result = transportService.getByUid(1000L);
+        ServiceResult<List<TransportOrder>> result = transportService.getByUid(1000L, 1, 2);
         LOGGER.debug(result);
     }
 

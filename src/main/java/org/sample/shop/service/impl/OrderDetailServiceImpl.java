@@ -8,7 +8,7 @@ import org.sample.shop.db.connmanager.ConnectionProxy;
 import org.sample.shop.entity.OrderDetail;
 import org.sample.shop.exception.DaoException;
 import org.sample.shop.service.OrderDetailService;
-import org.sample.shop.service.ServiceResult;
+import org.sample.shop.dto.ServiceResult;
 
 import java.util.List;
 

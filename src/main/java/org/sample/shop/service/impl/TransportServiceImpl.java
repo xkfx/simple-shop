@@ -8,7 +8,7 @@ import org.sample.shop.db.connmanager.ConnectionProxy;
 import org.sample.shop.entity.TransportOrder;
 import org.sample.shop.enums.entitystatus.impl.TransportStatus;
 import org.sample.shop.exception.DaoException;
-import org.sample.shop.service.ServiceResult;
+import org.sample.shop.dto.ServiceResult;
 import org.sample.shop.service.TransportService;
 
 import java.util.HashMap;
@@ -38,9 +38,9 @@ public enum TransportServiceImpl implements TransportService {
     }
 
     @Override
-    public ServiceResult<List<TransportOrder>> getByUid(long uid) {
+    public ServiceResult<List<TransportOrder>> getByUid(long uid,  int start, int offset) {
         try {
-            List<TransportOrder> list = transportOrderDAO.getByUid(uid);
+            List<TransportOrder> list = transportOrderDAO.getByUid(uid, start, offset);
             return new ServiceResult<>(TRANSPORT_GET_SUCCESS, list);
         } catch (DaoException e) {
             return new ServiceResult<>(TRANSPORT_GET_FAIL);

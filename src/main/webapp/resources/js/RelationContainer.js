@@ -10,6 +10,6 @@ class RelationContainer {
  * @param {Object} action 动作
  * @param {Object} ievent 回调函数
  */
-function addRel(componentId, action, ievent) {
-	RelationContainer.addRelation(qE(componentId), action, ievent);
+function addRel(component, action, ievent) {
+	RelationContainer.addRelation(component, action, ievent);
 }

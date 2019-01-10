@@ -23,7 +23,7 @@
 
     <servlet>
         <servlet-name>SessionController</servlet-name>
-        <servlet-class>org.sample.shop.web.controller.SessionController</servlet-class>
+        <servlet-class>org.sample.shop.web.controller.v1.SessionController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>SessionController</servlet-name>
@@ -32,7 +32,7 @@
 
     <servlet>
         <servlet-name>UserController</servlet-name>
-        <servlet-class>org.sample.shop.web.controller.UserController</servlet-class>
+        <servlet-class>org.sample.shop.web.controller.v1.UserController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UserController</servlet-name>
@@ -41,10 +41,28 @@
 
     <servlet>
         <servlet-name>ItemController</servlet-name>
-        <servlet-class>org.sample.shop.web.controller.ItemController</servlet-class>
+        <servlet-class>org.sample.shop.web.controller.v1.ItemController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ItemController</servlet-name>
         <url-pattern>/api/v1/items</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>TransportController</servlet-name>
+        <servlet-class>org.sample.shop.web.controller.v1.TransportController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TransportController</servlet-name>
+        <url-pattern>/api/v1/transports</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ItemController-v2</servlet-name>
+        <servlet-class>org.sample.shop.web.controller.v2.ItemController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ItemController-v2</servlet-name>
+        <url-pattern>/api/v2/items</url-pattern>
     </servlet-mapping>
 </web-app>

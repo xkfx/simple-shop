@@ -26,6 +26,7 @@ public class CharacterEncodingFilter implements Filter {
         HttpServletResponse resp2 = (HttpServletResponse) resp;
         resp2.setHeader("Access-Control-Allow-Credentials", "true");
         resp2.setHeader("Access-Control-Allow-Origin", req2.getHeader("Origin"));
+        resp2.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
         resp.setContentType("application/json");
         resp.setCharacterEncoding(charset);
 

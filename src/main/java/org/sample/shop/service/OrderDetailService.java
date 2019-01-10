@@ -1,5 +1,6 @@
 package org.sample.shop.service;
 
+import org.sample.shop.dto.ServiceResult;
 import org.sample.shop.entity.OrderDetail;
 
 import java.util.List;

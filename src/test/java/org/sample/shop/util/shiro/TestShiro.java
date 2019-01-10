@@ -26,7 +26,7 @@
 //        UsernamePasswordToken token = new UsernamePasswordToken("wang", "123");
 //
 //        try {
-//            subject.login(token);
+//            subject.getUser(token);
 //        } catch (AuthenticationException e) {
 //            LOGGER.debug(e);
 //        }
@@ -51,7 +51,7 @@
 //
 //        try {
 //            //4、登录，即身份验证
-//            subject.login(token);
+//            subject.getUser(token);
 //        } catch (AuthenticationException e) {
 //            //5、身份验证失败
 //            LOGGER.debug(e);

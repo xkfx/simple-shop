@@ -15,7 +15,8 @@ public class ItemDAOTest {
 
     @Test
     public void saveItem() {
-        Item item = new Item(1002L, "牙膏", 23.5, ItemStatus.ON_SALE.getCode(), 20);
+        double price = Math.random() * 1000;
+        Item item = new Item(1002L, "牙膏", price, ItemStatus.ON_SALE.getCode(), 20);
         itemDAO.saveItem(item); // uid不存在会抛出异常：java.sql.SQLIntegrityConstraintViolationException: ORA-02291: 违反完整约束条件
 
         ConnectionProxy.close();
@@ -24,6 +25,14 @@ public class ItemDAOTest {
     @Test
     public void listByUidAndStatus() {
         List<Item> items = itemDAO.listByUidAndStatus(1000L, ItemStatus.OFF_SALE.getCode(), 0, 5);
+        System.out.println(items);
+
+        ConnectionProxy.close();
+    }
+
+    @Test
+    public void listByUidAndStatusNew() {
+        List<Item> items = itemDAO.listByUidAndStatusNew(1000L, ItemStatus.OFF_SALE.getCode(), 1, 1);
         System.out.println(items);
 
         ConnectionProxy.close();

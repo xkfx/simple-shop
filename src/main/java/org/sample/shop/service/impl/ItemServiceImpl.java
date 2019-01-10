@@ -9,7 +9,7 @@ import org.sample.shop.entity.Item;
 import org.sample.shop.enums.entitystatus.impl.ItemStatus;
 import org.sample.shop.exception.DaoException;
 import org.sample.shop.service.ItemService;
-import org.sample.shop.service.ServiceResult;
+import org.sample.shop.dto.ServiceResult;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,9 +17,7 @@ import java.util.Map;
 
 import static org.sample.shop.enums.business.BusinessCode.*;
 
-public enum ItemServiceImpl implements ItemService {
-
-    INSTANCE;
+public class ItemServiceImpl implements ItemService {
 
     private static final Logger LOGGER = LogManager.getLogger();
     private final ItemDAO itemDAO = ItemDAOImpl.INSTANCE;
@@ -57,6 +55,29 @@ public enum ItemServiceImpl implements ItemService {
     @Override
     public ServiceResult<List<Item>> listOffSale(Long uid, int curPage, int pageSize) {
         return listByUidAndStatus(uid, ItemStatus.OFF_SALE, curPage, pageSize);
+    }
+
+    @Override
+    public ServiceResult<List<Item>> listByUidAndStatusNew(Long uid) {
+        int defaultStatus = ItemStatus.ON_SALE.getCode();
+        return listByUidAndStatusNew(uid, defaultStatus);
+    }
+
+    @Override
+    public ServiceResult<List<Item>> listByUidAndStatusNew(Long uid, Integer status) {
+        int defaultOffset = Short.MAX_VALUE;
+        return listByUidAndStatusNew(uid, status, 1, defaultOffset);
+    }
+
+    @Override
+    public ServiceResult<List<Item>> listByUidAndStatusNew(Long uid, Integer status, Integer start, Integer offset) {
+        try {
+            return new ServiceResult<>(ITEM_LIST_SUCCESS, itemDAO.listByUidAndStatusNew(uid, status, start, offset));
+        } catch (DaoException e) {
+            return new ServiceResult<>(ITEM_LIST_FAIL);
+        } finally {
+            ConnectionProxy.close();
+        }
     }
 
     private ServiceResult<List<Item>> listByUidAndStatus(Long uid, ItemStatus status, int curPage) {
@@ -147,6 +168,13 @@ public enum ItemServiceImpl implements ItemService {
     @Override
     public ServiceResult<Item> offShelf(Long id) {
         return abstractUpdateStatus(id, ItemStatus.OFF_SALE);
+    }
+
+    @Override
+    public ServiceResult<Item> updateStatus(Long id, int status) {
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("status", status);
+        return abstractUpdate(id, parameters);
     }
 
     private ServiceResult<Item> abstractUpdateStatus(Long id, ItemStatus status) {

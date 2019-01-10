@@ -3,6 +3,7 @@ package org.sample.shop.service;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
+import org.sample.shop.dto.ServiceResult;
 import org.sample.shop.entity.Item;
 import org.sample.shop.service.impl.ItemServiceImpl;
 
@@ -11,7 +12,7 @@ import java.util.List;
 public class ItemServiceTest {
 
     private static final Logger LOGGER = LogManager.getLogger();
-    private final ItemService itemService = ItemServiceImpl.INSTANCE;
+    private final ItemService itemService = new ItemServiceImpl();
 
     @Test
     public void createNew() throws Exception {

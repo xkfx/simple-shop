@@ -1,4 +1,4 @@
-package org.sample.shop.service;
+package org.sample.shop.dto;
 
 import org.sample.shop.enums.business.BusinessCode;
 
@@ -39,6 +39,10 @@ public class ServiceResult<T> {
 
     public T getData() {
         return data;
+    }
+
+    public boolean isSuccess() {
+        return this.getCode() % 100 < 50;
     }
 
     @Override

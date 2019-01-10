@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 
 public class UserDAOTest {
 
-    private UserDAO dao = UserDAOImpl.INSTANCE;
+    private UserDAO dao = new UserDAOImpl();
 
     public static String randomStr() {
         return Math.random() + "";
@@ -48,6 +48,12 @@ public class UserDAOTest {
     }
 
     @Test
+    public void getUser() {
+        System.out.println(dao.getUser("xkfx1997", "123"));
+        ConnectionProxy.close();
+    }
+
+    @Test
     public void updateById() {
         User user = new User();
         user.setId(1000L);
@@ -56,4 +62,6 @@ public class UserDAOTest {
 
         ConnectionProxy.close();
     }
+
+
 }

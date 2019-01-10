@@ -3,7 +3,7 @@ DROP TABLE simple_user;
 DROP SEQUENCE simple_user_id_seq;
 CREATE TABLE simple_user (
   id NUMBER(8, 0),
-  type NUMBER(1,0) NOT NULL, -- 0卖家，1卖家，2物流
+  type NUMBER(1,0) NOT NULL, -- 0买家，1卖家，2物流
   username VARCHAR2(20) UNIQUE NOT NULL,
 	password VARCHAR2(20) NOT NULL,
 	PRIMARY KEY (id)

@@ -36,6 +36,16 @@ function obj2url(obj) {
 	for(let attr of Object.keys(obj)) {
 		urlTail.push(`${attr}=${obj[attr]}`);
 	}
-	urlTail = urlTail.join("&");	
+	urlTail = urlTail.join("&");
 	return urlTail;
+}
+
+
+function getParamFromUrl(paramName) {
+	let urL = location.href;
+	let params = urL.slice(urL.indexOf("?") + 1);
+	params = params.split("&");
+	for (let [name, value] of params.map(x => x.split("="))) {
+		if (name === paramName) return value;
+	}
 }

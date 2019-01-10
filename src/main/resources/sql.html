@@ -27,3 +27,15 @@
     FROM item
     WHERE id=?
 </sql>
+<!-- transport-->
+<sql id="TRANSPORT_ORDER_GET_BY_UID">
+    SELECT *
+    FROM (
+    SELECT rownum AS r, id, user_id AS userId, order_detail_id
+    AS detailId, location, status
+    FROM transport_order
+    WHERE user_id=?
+    ORDER BY id DESC
+    )temp
+    WHERE r >= ? AND r < ?
+</sql>

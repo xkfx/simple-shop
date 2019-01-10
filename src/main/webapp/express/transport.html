@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+		<script src="../resources/js/Iconst.js"></script>
+		<script src="../resources/js/utils/customUtils.js"></script>
+		<script src="../resources/js/utils/PageSet.js"></script>
+		<script src="../resources/js/RelationContainer.js"></script>
+		<script src="../resources/js/business/Transports.js"></script>
+	</head>
+	<body>
+		<p>这里是xxx快递</p>
+		<div id="container-transports">
+			<table id="table-transports"></table>
+		</div>
+		<p></p>
+		<button id="button-init">初始化</button>
+		<button id="button-pre">上翻</button>
+		<button id="button-next">下翻</button>	
+		<p id="p-console" style="color: red;">提示字符</p>	
+		<script>
+			/**
+			 * 后台分页+前台分页
+			 * 1.描述:js内存里缓存一定数量页数,在前台又一次分页,当超出缓存范畴时,再次请求接下来的数据.
+			 * 2.优缺点:实现较麻烦,可以应对无限数据.
+			 * 前台分页
+			 * 1.描述:一次性请求所有数据在前台分页.
+			 * 2.优缺点:实现简单,在数据有限的情况下可行.
+			 * 优化与改善:重写代码,采用类似滑动窗口的设计.
+			 */
+			$(document).ready(() => {
+				let container = qE("#container-transports");
+				let pConsole = qE("#p-console");
+				let myPg = {					
+					pgs: null, // var：存储已经分页的数据PageSet
+					start: 1, // var：每次请求新数据的起始点
+					offset: 50, // const：每次请求新数据的偏移量（数量）
+					pageSize: 10, // const：每页的数据量					
+					pagesPerQuery: null, // const：在init里初始化。每次请求新数据的页数offset/pageSize
+					queryTimes: 0, // var：请求新记录集的次数，在每次queryNew时更新。
+					firstQuery: function() {
+						myPg.start += myPg.offset;
+						return Transports.defaultQuery(myPg.start, myPg.offset);					
+					},
+					queryNew: function() {	
+						myPg.queryTimes++;
+						return myPg.firstQuery();					
+					},
+					showData: function() {
+						container.replaceChild(Transports.toTable(myPg.pgs.getPage()), container.firstChild);
+					},
+					showPrompt: function(str) {
+						let textNode = document.createTextNode(str);
+						pConsole.replaceChild(textNode, pConsole.firstChild);
+					},
+					curPage: function() {
+						return myPg.pagesPerQuery * myPg.queryTimes + myPg.pgs.getNo();
+					},
+					defaultAction: function(defaultStr=`第${myPg.curPage()}页`) {
+						myPg.showData();
+						myPg.showPrompt(defaultStr);						
+					},
+					init: function() {
+						myPg.start = 1;
+						myPg.queryTimes = 0;
+						myPg.pagesPerQuery = myPg.offset / myPg.pageSize;
+						myPg.firstQuery(myPg.start, myPg.offset).then(result => {
+							myPg.pgs = new PageSet(result, myPg.pageSize);					
+							myPg.defaultAction("Hello，快递员编号1003");
+						});			
+					},	
+					next: function() {
+						if (myPg.pgs.next()) {
+							myPg.defaultAction();
+						} else if (myPg.pgs.getPage().length < myPg.pageSize) { // 判断是否还有数据
+							myPg.showPrompt("到尾了。");	
+						} else { // 请求新的数据集合
+							myPg.queryNew(myPg.start, myPg.offset).then(result => {
+								myPg.pgs = new PageSet(result, myPg.pageSize);					
+								myPg.defaultAction();
+							});		
+						}
+					},
+					prev: function() {
+						if (myPg.pgs.prev()) {
+							myPg.defaultAction();
+						} else {
+							myPg.showPrompt("你不能往前翻阅了。");	
+						}						
+					},
+				};
+				addRel(qE("#button-init"), "click", myPg.init);
+				addRel(qE("#button-next"), "click", myPg.next);
+				addRel(qE("#button-pre"), "click", myPg.prev);
+				myPg.init();			
+			});
+		</script>
+	</body>
+</html>

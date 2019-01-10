@@ -7,20 +7,19 @@ import org.sample.shop.dao.impl.UserDAOImpl;
 import org.sample.shop.db.connmanager.ConnectionProxy;
 import org.sample.shop.entity.User;
 import org.sample.shop.exception.DaoException;
-import org.sample.shop.service.ServiceResult;
+import org.sample.shop.dto.ServiceResult;
 import org.sample.shop.service.UserService;
 
 import static org.sample.shop.enums.business.BusinessCode.*;
 
-public enum UserServiceImpl implements UserService {
-
-    INSTANCE;
+public class UserServiceImpl implements UserService {
 
     private static final Logger LOGGER = LogManager.getLogger();
-    private final UserDAO userDAO = UserDAOImpl.INSTANCE;
+    private final UserDAO userDAO = new UserDAOImpl();
 
     @Override
     public ServiceResult<User> register(int type, String username, String password) {
+        // TODO 其实只要再拿个uid就可以了.........
         User user = new User(type, username, password);
         try {
             userDAO.saveUser(user);
@@ -33,10 +32,9 @@ public enum UserServiceImpl implements UserService {
     }
 
     @Override
-    public ServiceResult login(String username, String password) {
-        // TODO
-        User user = userDAO.getByUsername(username);
-        if (user != null && user.getPassword().equals(password)) {
+    public ServiceResult getUser(String username, String password) {
+        User user = userDAO.getUser(username, password);
+        if (user != null) {
             return new ServiceResult<>(LOGIN_SUCCESS, user);
         } else {
             return new ServiceResult<>(LOGIN_FAIL);

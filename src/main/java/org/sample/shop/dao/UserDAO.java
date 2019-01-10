@@ -6,6 +6,8 @@ public interface UserDAO {
 
     User getByUsername(String username);
 
+    User getUser(String username, String password);
+
     int saveUser(User user);
 
     int updateById(User user);

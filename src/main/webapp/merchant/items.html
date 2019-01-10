@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+		<script src="../resources/js/Iconst.js"></script>
+		<script src="../resources/js/utils/customUtils.js"></script>
+		<script src="../resources/js/utils/PageSet.js"></script>
+		<script src="../resources/js/RelationContainer.js"></script>
+		<script src="../resources/js/business/Items.js"></script>
+	</head>
+
+	<body>
+		<p>某某人的商铺后台
+			<select id="select-status">
+				<option value="0">下架商品</option>
+				<option value="1">上架商品</option>
+			</select>
+		</p>
+		<p></p>
+		<div id="container-items">
+			<table id="table-items">正在努力加载！！！</table>
+		</div>
+		<p></p>
+
+		<button id="button-pre">上翻</button>
+		<button id="button-next">下翻</button>
+		<button id="button-init">刷新</button>
+		<button id="button-create">创建新的商品</button>
+		<button id="button-remove">删</button>
+		<button id="button-update">改</button>
+		<p></p>
+		<button id="button-onoff">上架/下架</button>
+		<div id="div-item-create" hidden>
+			<p>创建新商品：</p>
+			<table id="table-item-create" border="1">
+				<tr>
+					<td>商品名</td>
+					<td><input type="text" name="name" id="inputName" value="" /></td>
+				</tr>
+				<tr>
+					<td>价格</td>
+					<td><input type="number" name="price" id="inputPrice" min="0" /></td>
+				</tr>
+				<tr>
+					<td>数量</td>
+					<td><input type="number" name="quantity" id="inputQuantity" min="0" /></td>
+				</tr>
+			</table>
+			<p></p>
+			<button id="btn-item-submit">提交</button>
+			<button id="btn-item-clear">清空</button>
+			<button id="btn-item-hide">隐藏</button>
+		</div>
+		<div id="div-item-remove" hidden>
+			<p>删除商品：</p>
+			<table id="table-item-remove" border="1">
+				<tr>
+					<td>商品id</td>
+					<td><input type="number" name="id" id="input-deleteItem-id" min="1000" /></td>
+				</tr>
+			</table>
+			<p></p>
+			<button id="btn-remove-submit">提交</button>
+			<button id="btn-remove-hide">隐藏</button>
+		</div>
+		<div id="div-item-update" hidden>
+			<p>更新商品信息：</p>
+			<table id="table-item-update" border="1">
+				<tr>
+					<td>商品id</td>
+					<td><input type="text" name="name" id="inputUpId" value="" /></td>
+				</tr>
+				<tr>
+					<td>商品名</td>
+					<td><input type="text" name="name" id="inputUpName" value="" /></td>
+				</tr>
+				<tr>
+					<td>价格</td>
+					<td><input type="number" name="price" id="inputUpPrice" min="0" /></td>
+				</tr>
+				<tr>
+					<td>数量</td>
+					<td><input type="number" name="quantity" id="inputUpQuantity" min="0" /></td>
+				</tr>
+			</table>
+			<p></p>
+			<button id="btn-update-submit">提交</button>
+			<button id="btn-update-clear">清空</button>
+			<button id="btn-update-hide">隐藏</button>
+		</div>
+		<div id="div-item-onoff" hidden>
+			<p>上架/下架：</p>
+			<table id="table-item-onoff" border="1">
+				<tr>
+					<td>商品id</td>
+					<td><input type="number" name="name" id="ipUpdateStatusId" value="" /></td>
+				</tr>
+			</table>
+			<p></p>
+			<button id="btn-onoff-on">上架</button>
+			<button id="btn-onoff-off">下架</button>
+			<button id="btn-onoff-hide">隐藏</button>
+		</div>
+		<p id="p-console" style="color: red;">提示字符</p>
+
+		<script>
+			$(document).ready(() => {
+				let container = qE("#container-items");
+				let pConsole = qE("#p-console");
+				let statusSelector = qE("#select-status");
+				let uid = getParamFromUrl("uid");
+
+				let pgSet;
+				let ipg = {
+					log: function(str) {
+						let textNode = document.createTextNode(str);
+						pConsole.replaceChild(textNode, pConsole.firstChild);
+					},
+					showData: function() {
+						container.replaceChild(Items.toTable(pgSet.getPage()), container.firstChild);
+					},
+					getSelectedStatus: function() {
+						for(let option of Array.from(statusSelector.options)) {
+							if(option.selected) {
+								return option.value;
+							}
+						}
+					},
+					queryNew: function() {
+						return Items.queryAll4merchant(uid, ipg.getSelectedStatus());
+					},
+					init: function() {
+						ipg.log("init");
+						ipg.queryNew().then(data => {
+							pgSet = new PageSet(data, 10);
+							pgSet.setNo(1);
+							ipg.showData();
+						});
+					},
+					next: function() {
+						ipg.log("next");
+						if(pgSet.next()) {
+							ipg.showData();
+						}
+					},
+					prev: function() {
+						ipg.log("prev");
+						if(pgSet.prev()) {
+							ipg.showData();
+						}
+					},
+					refresh: function() {
+						ipg.queryNew().then(data => {
+							pgSet = new PageSet(data, 10);
+							pgSet.setNo(1);
+							ipg.showData();
+						});
+					},
+				};
+
+				addRel(qE("#button-init"), "click", ipg.init);
+				addRel(qE("#button-next"), "click", ipg.next);
+				addRel(qE("#button-pre"), "click", ipg.prev);
+				addRel(statusSelector, "change", ipg.refresh);
+
+				ipg.init();
+
+				/**
+				 * 添加商品
+				 */
+				let ItemCreatePanel = qE("#div-item-create");
+				let btnCreate = qE("#button-create");
+				let inputName = qE("#inputName");
+				let inputPrice = qE("#inputPrice");
+				let inputQuantity = qE("#inputQuantity");
+
+				let icp = {
+					appear: function() {
+						ItemCreatePanel.hidden = false;
+						btnCreate.disabled = true;
+					},
+					hide: function() {
+						ItemCreatePanel.hidden = true;
+						btnCreate.disabled = false;
+					},
+					_submit: function() {
+						ipg.log("_submit");
+						let name = inputName.value;
+						let price = inputPrice.value;
+						let quantity = inputQuantity.value;
+						ipg.log(name + ":" + price + ":" + quantity);
+						Items.saveItem(uid, name, price, quantity).then(item => {
+							ipg.log(obj2url(item));
+						}).catch(e => {
+							ipg.log(obj2url(e));
+						});
+					},
+					clear: function() {
+						ipg.log("clear");
+						inputName.value = "";
+						inputPrice.value = "";
+						inputQuantity.value = "";
+					},
+				};
+
+				icp.hide();
+				addRel(btnCreate, "click", icp.appear);
+				addRel(qE("#btn-item-hide"), "click", icp.hide);
+				addRel(qE("#btn-item-submit"), "click", icp._submit);
+				addRel(qE("#btn-item-clear"), "click", icp.clear);
+
+				/*
+				 * 删除商品
+				 */
+				let ItemRemovePanel = qE("#div-item-remove");
+				let inputDeleteItemId = qE("#input-deleteItem-id");
+				let btnRemoveSubmit = qE("#btn-remove-submit");
+				let btnRemoveHide = qE("#btn-remove-hide");
+				let btnRemovePanelShow = qE("#button-remove");
+
+				let irp = { // item remove panel
+					remove: function() { // rpc
+						ipg.log("irp:remove");
+						// 1.拿参数
+						let id = inputDeleteItemId.value;
+						// 2.调方法
+						Items.deleteItem(id).then(result => {
+							// 3.更新ui
+							ipg.log("删除成功!");
+						}).catch(e => {
+							ipg.log(obj2url(e));
+						});
+					},
+					appear: function() { // local
+						ItemRemovePanel.hidden = false;
+						btnRemovePanelShow.disabled = true;
+						// 隐藏其它操作面板
+					},
+					hide: function() { // local
+						ItemRemovePanel.hidden = true;
+						btnRemovePanelShow.disabled = false;
+					},
+				};
+
+				addRel(btnRemoveSubmit, "click", irp.remove);
+				addRel(btnRemovePanelShow, "click", irp.appear);
+				addRel(btnRemoveHide, "click", irp.hide);
+
+				/**
+				 * 商品更新
+				 */
+				// 显示&控制组件
+				let itemUpdatePanel = qE("#div-item-update");
+				let btnUpSubmit = qE("#btn-update-submit");
+				let btnUpClear = qE("#btn-update-clear");
+				let btnUpHide = qE("#btn-update-hide");
+				let buttonUpdate = qE("#button-update");
+				// 参数组件
+				let inputUpId = qE("#inputUpId");
+				let inputUpName = qE("#inputUpName");
+				let inputUpPrice = qE("#inputUpPrice");
+				let inputUpQuantity = qE("#inputUpQuantity");
+				let iup = { // item update panel
+					// handler methods 
+					update: function() {
+						ipg.log("iup:update:prepare");
+						// 1.拿参数
+						let id = inputUpId.value;
+						let name = inputUpName.value;
+						let price = inputUpPrice.value;
+						let quantity = inputUpQuantity.value;
+						// 2.调方法: update(id, name, price, quantity)
+						Items.update(id, name, price, quantity).then(result => {
+							// 3.更新ui
+							ipg.log("iup:update:success");
+						}).catch(e => {
+							ipg.log(obj2url(e));
+						});
+					},
+					appear: function() { // local
+						itemUpdatePanel.hidden = false;
+						buttonUpdate.disabled = true;
+					},
+					hide: function() { // local
+						itemUpdatePanel.hidden = true;
+						buttonUpdate.disabled = false;
+					},
+				};
+				
+				addRel(btnUpSubmit, "click", iup.update);
+				addRel(buttonUpdate, "click", iup.appear);
+				addRel(btnUpHide, "click", iup.hide);
+				
+				/**
+				 * 商品上架&下架管理
+				 */
+				// 显示&操控组件
+				let itemOnoffPanel = qE("#div-item-onoff");
+				let btnOnoff = qE("#button-onoff");
+				let btnOnoffOn = qE("#btn-onoff-on");
+				let btnOnoffoff = qE("#btn-onoff-off");
+				let btnOnoffHide = qE("#btn-onoff-hide");
+				// 参数组件
+				let ipUpdateStatusId = qE("#ipUpdateStatusId");
+				let ionoffp = {
+					updateStatusOn: function() {
+						ipg.log("ionoffp:updateStatusOn:prepare");
+						// 1.拿参数
+						let id = ipUpdateStatusId.value;
+						// 2.调方法
+						Items.updateStatus(id, 1).then(result => {
+							// 3.更新ui
+							ipg.log("ionoffp:updateStatusOn:success");
+						}).catch(e => {
+							ipg.log(obj2url(e));
+						});						
+					},
+					updateStatusOff: function() {
+						ipg.log("ionoffp:updateStatusOff:prepare");
+						// 1.拿参数
+						let id = ipUpdateStatusId.value;
+						// 2.调方法
+						Items.updateStatus(id, 0).then(result => {
+							// 3.更新ui
+							ipg.log("ionoffp:updateStatusOff:success");
+						}).catch(e => {
+							ipg.log(obj2url(e));
+						});						
+					},
+					appear: function() { // local
+						itemOnoffPanel.hidden = false;
+						btnOnoff.disabled = true;
+					},
+					hide: function() { // local
+						itemOnoffPanel.hidden = true;
+						btnOnoff.disabled = false;
+					},					
+				};				
+				addRel(btnOnoffHide, "click", ionoffp.hide);
+				addRel(btnOnoff, "click", ionoffp.appear);
+				addRel(btnOnoffOn, "click", ionoffp.updateStatusOn);
+				addRel(btnOnoffoff, "click", ionoffp.updateStatusOff);
+				
+				
+			});
+		</script>
+	</body>
+
+</html>

@@ -9,13 +9,16 @@ import org.sample.shop.entity.User;
 /**
  * 该类方法统一抛出DaoException！！！
  */
-public enum UserDAOImpl implements UserDAO {
-
-    INSTANCE;
+public class UserDAOImpl implements UserDAO {
 
     @Override
     public User getByUsername(String username) {
         return QueryRunnerProxy.query(Statements.USER_GET_BY_USERNAME, RsHandlers.USER, username);
+    }
+
+    @Override
+    public User getUser(String username, String password) {
+        return QueryRunnerProxy.query(Statements.USER_GET, RsHandlers.USER, username, password);
     }
 
     @Override

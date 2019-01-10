@@ -18,8 +18,8 @@ public enum TransportOrderDAOImpl implements TransportOrderDAO {
     }
 
     @Override
-    public List<TransportOrder> getByUid(long uid) {
-        return QueryRunnerProxy.query(Statements.TRANSPORT_ORDER_GET_BY_UID, RsHandlers.TRANSPORT_ORDER_LIST, uid);
+    public List<TransportOrder> getByUid(long uid, int start, int offset) {
+        return QueryRunnerProxy.query(Statements.TRANSPORT_ORDER_GET_BY_UID, RsHandlers.TRANSPORT_ORDER_LIST, uid, start, start + offset);
     }
 
     @Override

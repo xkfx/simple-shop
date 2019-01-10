@@ -13,6 +13,11 @@ public enum ItemDAOImpl implements ItemDAO {
     INSTANCE;
 
     @Override
+    public List<Item> listByUidAndStatusNew(Long uid, int status, int start, int offset) {
+        return QueryRunnerProxy.query(Statements.ITEM_LIST_BY_UID_AND_STATUS, RsHandlers.ITEM_LIST, uid, status, start, start + offset);
+    }
+
+    @Override
     public List<Item> listByUidAndStatus(Long uid, int status, int curPage, int pageSize) {
         int start = curPage * pageSize + 1;
         int end = start + pageSize;

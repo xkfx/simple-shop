@@ -6,10 +6,9 @@ import org.sample.shop.dao.OrderDAO;
 import org.sample.shop.dao.impl.OrderDAOImpl;
 import org.sample.shop.db.connmanager.ConnectionProxy;
 import org.sample.shop.entity.Order;
-import org.sample.shop.enums.business.BusinessCode;
 import org.sample.shop.exception.DaoException;
 import org.sample.shop.service.OrderService;
-import org.sample.shop.service.ServiceResult;
+import org.sample.shop.dto.ServiceResult;
 
 import javax.servlet.http.HttpSession;
 

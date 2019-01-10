@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+		<script src="../resources/js/Iconst.js"></script>
+		<script src="../resources/js/utils/customUtils.js"></script>
+		<script src="../resources/js/RelationContainer.js"></script>
+		<script src="../resources/js/business/User.js"></script>
+	</head>
+
+	<body>
+		<p>注册界面</p>
+
+		<p></p>
+		<div id="div-reg">
+			<table id="table-reg" border="1">
+				<tr>
+					<td>用户名</td>
+					<td><input type="text" name="username" id="input-username" /></td>
+				</tr>
+				<tr>
+					<td>密码</td>
+					<td><input type="password" name="password" id="input-pwd" /></td>
+				</tr>
+				<tr>
+					<td>类型</td>
+					<td>
+						<label><input type="radio" name="type" value="0" checked />买家</label>
+						<label><input type="radio" name="type" value="1" />卖家</label>
+						<label><input type="radio" name="type" value="2" />物流</label>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<p></p>
+		<button id="button-reg">提交</button>
+		<button id="button-clear">清空</button>
+		<p id="p-console" style="color: red;">empty</p>
+		<div id="div-console" style="color: red;">
+			<div></div>
+		</div>
+		<a href=""></a>
+		<script>
+			$(document).ready(() => {
+				let inputUsername = qE("#input-username");
+				let inputPwd = qE("#input-pwd");
+				let inputTypes = document.querySelectorAll("[name=type]");
+				let pConsole = qE("#p-console");
+				let divConsole = qE("#div-console");
+				let ipg = {
+					log: function(str) {
+						let textNode = document.createTextNode(str);
+						pConsole.replaceChild(textNode, pConsole.firstChild);
+					},
+					powerfulLog: function(dom) {
+						if(["string", "number"].indexOf(typeof dom) != -1) {
+							dom = document.createTextNode(dom);
+						} 
+						divConsole.replaceChild(dom, divConsole.firstChild);
+					},
+					getSelectedType: function() {
+						for(let x of Array.from(inputTypes)) {
+							if(x.checked) {
+								return x.value;
+							}
+						}
+					},
+					clear: function() {
+						inputUsername.value = "";
+						inputPwd.value = "";
+						inputTypes[0].checked = true;
+					},
+					_submit: function() {
+						let username = inputUsername.value;
+						let pwd = inputPwd.value;
+						let type = ipg.getSelectedType();
+						ipg.log(username + ":" + pwd + ":" + type);
+						User.save(username, pwd, type).then(user => {
+							ipg.log(obj2url(user));						
+							if(user.type === 1) {
+								let = dom = elt("div", {}, "管理你的商品：", elt("a", {
+									href: "../merchant/items.html?uid=" + user.id,
+								}, "url4" + user.id));
+								ipg.powerfulLog(dom);
+							}
+						}).catch(e => {
+							ipg.log(obj2url(e));
+							ipg.powerfulLog("");
+						});
+					},
+				};
+				addRel(qE("#button-reg"), "click", ipg._submit);
+				addRel(qE("#button-clear"), "click", ipg.clear);
+			});
+		</script>
+	</body>
+
+</html>
