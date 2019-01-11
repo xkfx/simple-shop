@@ -130,3 +130,30 @@ BEGIN
   SELECT transport_order_seq.nextval INTO:NEW.id FROM DUAL;
 END;
 /
+
+
+-- 购物车
+DROP TABLE cart;
+DROP SEQUENCE cart_id_seq;
+CREATE TABLE cart (
+  id NUMBER(8, 0),
+  user_id NUMBER(8, 0) NOT NULL,
+  item_id NUMBER(8, 0) NOT NULL,
+  quantity NUMBER(4, 0), -- 数量上限9999
+  PRIMARY KEY (id),
+  FOREIGN KEY(user_id) REFERENCES simple_user(id),
+  FOREIGN KEY(item_id) REFERENCES item(id)
+);
+CREATE SEQUENCE cart_id_seq
+MINVALUE 1000
+MAXVALUE 99999999
+START WITH 1000
+INCREMENT BY 1
+CACHE 50;
+CREATE OR REPLACE TRIGGER cart_autoincrement
+BEFORE INSERT ON cart
+FOR EACH ROW
+BEGIN
+  SELECT cart_id_seq.nextval INTO:NEW.id FROM DUAL;
+END;
+/

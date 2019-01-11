@@ -111,7 +111,7 @@
 				let container = qE("#container-items");
 				let pConsole = qE("#p-console");
 				let statusSelector = qE("#select-status");
-				let uid = getParamFromUrl("uid");
+				let userId = getParamFromUrl("uid");
 
 				let pgSet;
 				let ipg = {
@@ -130,7 +130,7 @@
 						}
 					},
 					queryNew: function() {
-						return Items.queryAll4merchant(uid, ipg.getSelectedStatus());
+						return Items.queryAll4merchant(userId, ipg.getSelectedStatus());
 					},
 					init: function() {
 						ipg.log("init");
@@ -192,7 +192,7 @@
 						let price = inputPrice.value;
 						let quantity = inputQuantity.value;
 						ipg.log(name + ":" + price + ":" + quantity);
-						Items.saveItem(uid, name, price, quantity).then(item => {
+						Items.saveItem(userId, name, price, quantity).then(item => {
 							ipg.log(obj2url(item));
 						}).catch(e => {
 							ipg.log(obj2url(e));

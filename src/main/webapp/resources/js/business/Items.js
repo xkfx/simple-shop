@@ -156,4 +156,24 @@ class Items {
 		// table.insertBefore(elt("th", {}, ...Object.keys(items[0])), table.firstChild);
 		return table;
 	}
+
+	static toTable4customer(items = [], id = "table-items") {
+		// define tr-s
+		items = items.map(item => {
+			item["btnAdd"] = elt("button", {
+				class: "btn-cart-add",
+			}, "加入购物车");
+			item["btnAdd"].dataset.itemId = item.id;
+			return item;
+		});
+		// generate table
+		let table = elt("table", {
+			border: 1,
+			id: id,
+		}, ...items.map(item => {
+			return elt("tr", {}, ...object2tds(item));
+		}));
+		// table.insertBefore(elt("th", {}, ...Object.keys(items[0])), table.firstChild);
+		return table;
+	}
 }

@@ -89,7 +89,7 @@
             <!--<AppenderRef ref="web_appender" />-->
         <!--</Logger>-->
         <!-- 该设定对所有service层logger有效 -->
-        <!--<Logger name="org.sample.shop.service" level="info" additivity="false">-->
+        <!--<Logger naorg.sample.shop.common.servicevice" level="info" additivity="false">-->
             <!--<AppenderRef ref="service_appender" />-->
             <!--<AppenderRef ref="error_appender" />-->
         <!--</Logger>-->

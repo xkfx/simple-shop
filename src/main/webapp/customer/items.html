@@ -10,11 +10,12 @@
 		<script src="../resources/js/utils/PageSet.js"></script>
 		<script src="../resources/js/RelationContainer.js"></script>
 		<script src="../resources/js/business/Items.js"></script>
+		<script src="../resources/js/business/Cart.js"></script>
 	</head>
 
 	<body>
 		<p>欢迎光临！商户id：
-			<input id="ip-q4c-uid" type="number" min="1000" max="9999" value="1000">
+			<input id="ip-q4c-userId" type="number" min="1000" max="9999" value="1000">
 			<button id="button-init">查看上架商品</button>
 		</p>
 
@@ -32,12 +33,15 @@
 		<input type="number" name="" id="ip-customer-id" value="1000" hidden />
 		<script>
 			$(document).ready(() => {
+				// global + hidden
+				let ipQ4cUid = qE("#ip-q4c-userId");
+				let inputCustomerId = qE("#ip-customer-id");
+				// basic ui
 				let container = qE("#container-items");
 				let pConsole = qE("#p-console");
 				let btnOrder = qE("#button-order");
 				let btnRecover = qE("#button-recover");
 				btnRecover.disabled = true;
-				let ipQ4cUid = qE("#ip-q4c-uid");
 				
 				let pgSet = null;
 				let defaultOrder;
@@ -47,13 +51,25 @@
 						let textNode = document.createTextNode(str);
 						pConsole.replaceChild(textNode, pConsole.firstChild);
 					},
-					showData: function() {
-						container.replaceChild(Items.toTable(pgSet.getPage()), container.firstChild);
+					cartAdd: function(e) {
+						let itemId = e.target.dataset.itemId;
+						Cart.addItem(inputCustomerId.value, itemId).then(result => {
+							ipg.log(itemId + ":success");
+						}).catch(e => {
+							console.log(e);
+						});
+					},
+					showData: function() {						
+						container.replaceChild(Items.toTable4customer(pgSet.getPage()), container.firstChild);
+						let btnCartAdds = document.querySelectorAll(".btn-cart-add");
+						for (let btn of Array.from(btnCartAdds)) {
+							addRel(btn, "click", ipg.cartAdd);
+						}
 					},
 					init: function() {
-						ipg.log("ipg:init");
-						let uid = ipQ4cUid.value;
-						Items.queryAll4customer(uid).then(data => {
+						ipg.log("ipg:init:" + ipQ4cUid.value);
+						let userId = ipQ4cUid.value; // 卖家id
+						Items.queryAll4customer(userId).then(data => {
 							defaultOrder = new PageSet(data, 10);
 							orderByPrice = new PageSet(data.slice().sort((a, b) => a.price - b.price), 10);							
 							pgSet = defaultOrder;

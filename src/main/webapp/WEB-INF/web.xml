@@ -10,7 +10,7 @@
 
     <filter>
         <filter-name>CharacterEncodingFilter</filter-name>
-        <filter-class>org.sample.shop.web.filter.CharacterEncodingFilter</filter-class>
+        <filter-class>org.sample.shop.common.web.filter.CharacterEncodingFilter</filter-class>
         <init-param>
             <param-name>charset</param-name>
             <param-value>UTF-8</param-value>
@@ -22,17 +22,8 @@
     </filter-mapping>
 
     <servlet>
-        <servlet-name>SessionController</servlet-name>
-        <servlet-class>org.sample.shop.web.controller.v1.SessionController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>SessionController</servlet-name>
-        <url-pattern>/api/v1/sessions</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>UserController</servlet-name>
-        <servlet-class>org.sample.shop.web.controller.v1.UserController</servlet-class>
+        <servlet-class>org.sample.shop.common.web.controller.v1.UserController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UserController</servlet-name>
@@ -41,7 +32,7 @@
 
     <servlet>
         <servlet-name>ItemController</servlet-name>
-        <servlet-class>org.sample.shop.web.controller.v1.ItemController</servlet-class>
+        <servlet-class>org.sample.shop.merchant.web.controller.v1.ItemController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ItemController</servlet-name>
@@ -50,7 +41,7 @@
 
     <servlet>
         <servlet-name>TransportController</servlet-name>
-        <servlet-class>org.sample.shop.web.controller.v1.TransportController</servlet-class>
+        <servlet-class>org.sample.shop.express.web.controller.v1.TransportController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>TransportController</servlet-name>
@@ -58,8 +49,26 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>CartController</servlet-name>
+        <servlet-class>org.sample.shop.customer.web.controller.v1.CartController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CartController</servlet-name>
+        <url-pattern>/api/v1/carts</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>OrderController</servlet-name>
+        <servlet-class>org.sample.shop.customer.web.controller.v1.OrderController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OrderController</servlet-name>
+        <url-pattern>/api/v1/orders</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>ItemController-v2</servlet-name>
-        <servlet-class>org.sample.shop.web.controller.v2.ItemController</servlet-class>
+        <servlet-class>org.sample.shop.merchant.web.controller.v2.ItemController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ItemController-v2</servlet-name>

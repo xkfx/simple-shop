@@ -1,9 +1,9 @@
 package org.sample.shop;
 
-import org.sample.shop.entity.Item;
-import org.sample.shop.service.ItemService;
-import org.sample.shop.dto.ServiceResult;
-import org.sample.shop.service.impl.ItemServiceImpl;
+import org.sample.shop.common.entity.Item;
+import org.sample.shop.merchant.service.ItemService;
+import org.sample.shop.common.dto.ServiceResult;
+import org.sample.shop.merchant.service.impl.ItemServiceImpl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
