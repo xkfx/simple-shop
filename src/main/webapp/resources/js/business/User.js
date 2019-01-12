@@ -1,6 +1,6 @@
 class User {
 	static save(username, pwd, type) {
-		let item = {
+		let user = {
 			username: username,
 			password: pwd,
 			type: type,

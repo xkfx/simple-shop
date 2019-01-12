@@ -3,11 +3,13 @@ package org.sample.shop.merchant.service.impl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.sample.shop.common.dao.OrderDetailDAO;
+import org.sample.shop.common.dao.TransportOrderDAO;
 import org.sample.shop.common.dao.impl.OrderDetailDAOImpl;
+import org.sample.shop.common.dao.impl.TransportOrderDAOImpl;
 import org.sample.shop.common.db.connmanager.ConnectionProxy;
 import org.sample.shop.common.entity.OrderDetail;
+import org.sample.shop.common.entity.TransportOrder;
 import org.sample.shop.common.exception.DaoException;
-import org.sample.shop.merchant.manager.TransportManager4merchant;
 import org.sample.shop.merchant.service.OrderDetailService;
 import org.sample.shop.common.dto.ServiceResult;
 
@@ -20,7 +22,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 
     private static final Logger LOGGER = LogManager.getLogger();
     private final OrderDetailDAO detailDAO = new OrderDetailDAOImpl();
-    private final TransportManager4merchant transportManager4merchant = new TransportManager4merchant();
+    private final TransportOrderDAO transportDAO = TransportOrderDAOImpl.INSTANCE;
 
     @Override
     public ServiceResult<List<OrderDetail>> getByMerchantId(long merchantId) {
@@ -70,12 +72,12 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     }
 
     @Override
-    public ServiceResult<OrderDetail> deliver(long detailId, long expressId) {
+    public ServiceResult<OrderDetail> deliver(long detailId, long expressUid) {
         try {
             // 1. 更改订单明细状态
             detailDAO.updateById(new OrderDetail(detailId, DELIVERED.getCode()));
             // 2. 生成运单.. 假装transportService是第三方...而对物流系统而言该service是第三方.
-            transportManager4merchant.createNew(expressId, detailId, "起点");
+            transportDAO.saveOrder(new TransportOrder(expressUid, detailId, "起点", 0));
             return new ServiceResult<>(DETAIL_UPDATE_SUCCESS);
         } catch (DaoException e) {
             return new ServiceResult<>(DETAIL_UPDATE_FAIL);

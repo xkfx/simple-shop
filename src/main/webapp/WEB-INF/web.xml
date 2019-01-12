@@ -67,6 +67,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>OrderDetailController</servlet-name>
+        <servlet-class>org.sample.shop.merchant.web.controller.v1.OrderDetailController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OrderDetailController</servlet-name>
+        <url-pattern>/api/v1/details</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>ItemController-v2</servlet-name>
         <servlet-class>org.sample.shop.merchant.web.controller.v2.ItemController</servlet-class>
     </servlet>

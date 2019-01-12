@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+		<script src="../resources/js/Iconst.js"></script>
+		<script src="../resources/js/utils/customUtils.js"></script>
+		<script src="../resources/js/utils/PageSet.js"></script>
+		<script src="../resources/js/RelationContainer.js"></script>
+		<script src="../resources/js/business/Details.js"></script>
+	</head>
+
+	<body>
+		<div id="my-log">
+			<p>this is my powerful console.</p>
+		</div>
+		<p>请输入单子号：<input type="number" name="" id="input-DetailId" value="" /></p>
+		<p><button id="btn-pay">我要付款</button></p>
+		<script>
+			// global 
+			let oid = getParamFromUrl("oid");
+			// ui for rpc methods..
+			let inputDetailId =qE("#input-DetailId");
+			
+			$(document).ready(() => {
+				// common ui 
+				let myConsole = qE("#my-log");
+				// handler methods
+				let ipg = {
+					log: function(sth) {
+						if(["string", "number"].indexOf(typeof sth) != -1) {
+							sth = document.createTextNode(sth);
+						}
+						myConsole.replaceChild(sth, myConsole.firstChild);
+					},
+					init: function() {
+						Details.getByOrderId(oid).then(details => {
+							ipg.log("getByOrderId成功,oid=" + oid + ",详细内容看控制台!");	
+							let i = 0;
+							for (let x of details) {
+								let desc = "没定义的状态";
+								if (x.status === 0) {
+									desc = "等你付款";
+								}
+								console.log(`单子${++i}：detailId=${x.id}，${desc}`);
+							}
+						}).catch(e => {
+							ipg.log("getByOrderId失败,oid=" + oid);
+						});						
+					},
+					iWantToPay: function() {
+						let detailId = inputDetailId.value;
+						ipg.log("正在为单子" + detailId + "付款。");
+						Details.pay(detailId).then(result => {
+							ipg.log("正在为单子" + detailId + "付款。恭喜你付款成功！");
+						}).catch(e => {
+							ipg.log("正在为单子" + detailId + "付款。不好意思付款失败！");
+						});
+					},
+				};
+				
+				ipg.init();
+				addRel(qE("#btn-pay"), "click", ipg.iWantToPay);
+			});
+		</script>
+	</body>
+
+</html>

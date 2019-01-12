@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+		<script src="../resources/js/Iconst.js"></script>
+		<script src="../resources/js/utils/customUtils.js"></script>
+		<script src="../resources/js/utils/PageSet.js"></script>
+		<script src="../resources/js/RelationContainer.js"></script>
+		<script src="../resources/js/business/Details.js"></script>
+		<script src="../resources/js/business/Order.js"></script>
+	</head>
+
+	<body>
+		<div id="my-log">
+			<p>this is my powerful console.</p>
+		</div>
+		<script>
+			// global 
+			let userId = getParamFromUrl("userId");
+			$(document).ready(() => {
+				// common ui 
+				let myConsole = qE("#my-log");
+				// handler methods
+				let ipg = {
+					log: function(sth) {
+						if(["string", "number"].indexOf(typeof sth) != -1) {
+							sth = document.createTextNode(sth);
+						}
+						myConsole.replaceChild(sth, myConsole.firstChild);
+					},
+				};
+				
+				Order.listOrders(userId).then(orders => {
+					ipg.log("listOrders,userId=" + userId + ",详细内容看控制台!");	
+					console.log(orders);
+					for (let x of orders) {
+						console.log(location.origin + "/webapp/customer/details.html?oid=" + x.id);
+					}					
+				}).catch(e => {
+					ipg.log("listOrders,userId=" + userId);
+				});
+			});
+		</script>
+	</body>
+
+</html>

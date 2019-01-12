@@ -1,5 +1,15 @@
 class Order {
 
+	static listOrders(uid) { // rpc
+		var settings = {
+			"async": true,
+			"crossDomain": true,
+			"url": "http://localhost:8080/test/api/v1/orders?uid=" + uid,
+			"method": "GET",
+		}
+		return Order.wrapAjax(settings);
+	}
+
 	static getPreOrder(uid) { // rpc
 		let settings = {
 			"async": true,
@@ -9,16 +19,18 @@ class Order {
 		};
 		return Order.wrapAjax(settings);
 	}
-	
+
 	static placeOrder(uid) { // rpc
 		let settings = {
 			"async": true,
 			"crossDomain": true,
 			"url": BASE_URL + "/orders",
-			"data": { uid: uid },
+			"data": {
+				uid: uid
+			},
 			"method": "POST",
 		};
-		return Order.wrapAjax(settings);		
+		return Order.wrapAjax(settings);
 	}
 
 	static wrapAjax(settings) {
@@ -30,8 +42,8 @@ class Order {
 			});;
 		});
 	}
-	
-	static preOrder2Table(preOrder, id="table-pre-order") {
+
+	static preOrder2Table(preOrder, id = "table-pre-order") {
 		let details = preOrder.details;
 		details.map(x => {
 			delete x.orderId;
@@ -45,6 +57,6 @@ class Order {
 		}));
 		table.insertBefore(elt("p", {}, "账单"), table.firstChild);
 		table.appendChild(elt("p", {}, "合计：" + preOrder.total));
-		return table;		
+		return table;
 	}
 }

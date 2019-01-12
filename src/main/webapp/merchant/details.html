@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+		<script src="../resources/js/Iconst.js"></script>
+		<script src="../resources/js/utils/customUtils.js"></script>
+		<script src="../resources/js/utils/PageSet.js"></script>
+		<script src="../resources/js/RelationContainer.js"></script>
+		<script src="../resources/js/business/Details.js"></script>
+	</head>
+
+	<body>
+		<div id="my-log">
+			<p>this is my powerful console.</p>
+		</div>
+		<script>
+			// global 
+			let userId = getParamFromUrl("userId");
+			$(document).ready(() => {
+				// common ui 
+				let myConsole = qE("#my-log");
+				// handler methods
+				let ipg = {
+					log: function(sth) {
+						if(["string", "number"].indexOf(typeof sth) != -1) {
+							sth = document.createTextNode(sth);
+						}
+						myConsole.replaceChild(sth, myConsole.firstChild);
+					},
+				};
+				
+				Details.getByMerchantId(userId).then(details => {
+					ipg.log("getByMerchantId成功,userId=" + userId + ",详细内容看控制台!");	
+					let i = 0;
+					for (let x of details) {
+						let desc = "没定义的状态";
+						if (x.status === 0) {
+							desc = "还没付钱!";
+						} 
+						if (x.status === 1) {
+							desc = "。。。等你发货";
+						} 						
+						console.log(`单子${++i}：detailId=${x.id}，${desc}`);
+					}
+				}).catch(e => {
+					ipg.log("getByMerchantId失败,userId=" + userId);
+				});
+			});
+		</script>
+	</body>
+
+</html>

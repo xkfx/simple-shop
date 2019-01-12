@@ -63,11 +63,33 @@
 						ipg.log(username + ":" + pwd);
 						User.query(username, pwd).then(user => {
 							ipg.log(obj2url(user));
-							if(user.type === 1) {
-								let dom = elt("div", {}, "管理你的商品：", elt("a", {
+							if(user.type === 1) {								
+								let dom1 = elt("div", {}, "管理你的商品：", elt("a", {
 									href: "../merchant/items.html?userId=" + user.id,
-								}, "url4" + user.id));
-								ipg.powerfulLog(dom);
+									target: "_blank",
+								}, "items_url4_" + user.id));
+								let dom2 = elt("div", {}, "管理客户订单：", elt("a", {
+									href: "../merchant/details.html?userId=" + user.id,
+									target: "_blank",
+								}, "details_url4_" + user.id));
+								let parent = elt("div", {}, dom1, dom2);
+								ipg.powerfulLog(parent);
+							}
+							if (user.type === 0) {
+								let dom1 = elt("div", {}, "逛店铺：", elt("a", {
+									href: "../customer/items.html?userId=" + user.id,
+									target: "_blank",
+								}, "items_url4_" + user.id));
+								let dom2 = elt("div", {}, "查看我的购物车：", elt("a", {
+									href: "../customer/cart.html?userId=" + user.id,
+									target: "_blank",
+								}, "cart_url4_" + user.id));
+								let dom3 = elt("div", {}, "查看我的订单：", elt("a", {
+									href: "../customer/orders.html?userId=" + user.id,
+									target: "_blank",
+								}, "orders_url4_" + user.id));
+								let parent = elt("div", {}, dom1, dom2, dom3);
+								ipg.powerfulLog(parent);								
 							}
 						}).catch(e => {
 							ipg.log(obj2url(e));

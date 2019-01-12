@@ -2,7 +2,9 @@ package org.sample.shop.express.service.impl;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.sample.shop.common.dao.OrderDetailDAO;
 import org.sample.shop.common.dao.TransportOrderDAO;
+import org.sample.shop.common.dao.impl.OrderDetailDAOImpl;
 import org.sample.shop.common.dao.impl.TransportOrderDAOImpl;
 import org.sample.shop.common.db.connmanager.ConnectionProxy;
 import org.sample.shop.common.entity.TransportOrder;
@@ -23,7 +25,7 @@ public class TransportServiceImpl implements TransportService {
 
     private static final Logger LOGGER = LogManager.getLogger();
     private TransportOrderDAO transportOrderDAO = TransportOrderDAOImpl.INSTANCE;
-    private OrderDetailService service = new OrderDetailServiceImpl();
+    private OrderDetailDAO detailDAO = new OrderDetailDAOImpl();
 
     @Override
     public ServiceResult<TransportOrder> createNew(long userId, long detailId, String location) {

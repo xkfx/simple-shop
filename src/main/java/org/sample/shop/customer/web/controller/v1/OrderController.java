@@ -47,13 +47,13 @@ public class OrderController extends HttpServlet {
         final String p1 = req.getParameter("uid");
         final String p2 = req.getParameter("pay");
         final String p3 = req.getParameter("orderId");
-        Long uid = Long.parseLong(p1);
 
         ServiceResult result;
         if (p2 != null && p3 != null) {
             Long orderId = Long.parseLong(p3);
             result = service.payOrder(orderId);
         } else {
+            Long uid = Long.parseLong(p1);
             result = service.placeOrder(uid);
         }
 

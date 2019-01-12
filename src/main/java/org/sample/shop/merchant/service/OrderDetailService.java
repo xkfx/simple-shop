@@ -28,5 +28,5 @@ public interface OrderDetailService {
      */
     ServiceResult<OrderDetail> completed(long detailId);
 
-    ServiceResult<OrderDetail> deliver (long detailId, long expressId);
+    ServiceResult<OrderDetail> deliver (long detailId, long expressUid);
 }

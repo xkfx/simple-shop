@@ -24,7 +24,7 @@
 		<script>
 			$(document).ready(() => {
 				// global info
-				let uid = getParamFromUrl("uid");
+				let uid = getParamFromUrl("userId");
 				// basic ui 
 				let container = qE("#container-carts");
 				let pConsole = qE("#p-console");
@@ -70,16 +70,18 @@
 					},
 					placeOrder: function() {
 						Order.placeOrder(uid).then(result => {
-							
+							ipg.log("恭喜你下单成功啦，单子的详细内容请在控制台查看!");
+							btnPlaceOrder.disabled = true;
+							console.log(result);
 						});
 					},
 				};
 
-				ipg.log(uid);
+				ipg.log("这是" + uid + "的购物车!");
 				ipg.init();
 
 				addRel(btnCheckout, "click", ipg.checkout);
-				addRel(btnCheckout, "click", ipg.placeOrder);
+				addRel(btnPlaceOrder, "click", ipg.placeOrder);
 			});
 		</script>
 	</body>

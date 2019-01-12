@@ -54,7 +54,7 @@
     SELECT id, user_id AS userId, item_id AS itemId FROM cart WHERE user_id=?
 </sql>
 <sql id="cart_getPreOrder">
-    SELECT cart.id, item_id AS itemId, cart.user_id AS userId, price
+    SELECT cart.id, item_id AS itemId, item.user_id AS userId, price
     FROM cart
     LEFT JOIN item ON cart.item_id = item.id
     WHERE cart.user_id=?

@@ -10,7 +10,7 @@ import java.util.List;
 
 public class OrderDetailDAOTest {
 
-    private final OrderDetailDAO dao = OrderDetailDAOImpl.INSTANCE;
+    private final OrderDetailDAO dao = new OrderDetailDAOImpl();
 
     @Test
     public void getByOrderId() throws Exception {

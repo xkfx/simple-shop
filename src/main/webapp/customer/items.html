@@ -30,12 +30,13 @@
 		<button id="button-recover">恢复</button>
 
 		<p id="p-console" style="color: red;">提示字符</p>
-		<input type="number" name="" id="ip-customer-id" value="1000" hidden />
+		<input type="number" name="" id="ip-customer-id" value="1505" hidden />
 		<script>
 			$(document).ready(() => {
 				// global + hidden
 				let ipQ4cUid = qE("#ip-q4c-userId");
 				let inputCustomerId = qE("#ip-customer-id");
+				inputCustomerId.value = getParamFromUrl("userId");
 				// basic ui
 				let container = qE("#container-items");
 				let pConsole = qE("#p-console");
@@ -67,7 +68,7 @@
 						}
 					},
 					init: function() {
-						ipg.log("ipg:init:" + ipQ4cUid.value);
+						ipg.log("ipg:init:店铺id:" + ipQ4cUid.value);
 						let userId = ipQ4cUid.value; // 卖家id
 						Items.queryAll4customer(userId).then(data => {
 							defaultOrder = new PageSet(data, 10);

@@ -43,13 +43,15 @@
 			<div></div>
 		</div>
 		<a href=""></a>
-		<script>
+		<script>			
 			$(document).ready(() => {
 				let inputUsername = qE("#input-username");
 				let inputPwd = qE("#input-pwd");
 				let inputTypes = document.querySelectorAll("[name=type]");
 				let pConsole = qE("#p-console");
 				let divConsole = qE("#div-console");
+				
+				
 				let ipg = {
 					log: function(str) {
 						let textNode = document.createTextNode(str);
@@ -79,7 +81,7 @@
 						let type = ipg.getSelectedType();
 						ipg.log(username + ":" + pwd + ":" + type);
 						User.save(username, pwd, type).then(user => {
-							ipg.log(obj2url(user));						
+							ipg.log("成功：" + obj2url(user));						
 							if(user.type === 1) {
 								let = dom = elt("div", {}, "管理你的商品：", elt("a", {
 									href: "../merchant/items.html?userId=" + user.id,
@@ -87,7 +89,7 @@
 								ipg.powerfulLog(dom);
 							}
 						}).catch(e => {
-							ipg.log(obj2url(e));
+							ipg.log("失败：" + obj2url(e));
 							ipg.powerfulLog("");
 						});
 					},
