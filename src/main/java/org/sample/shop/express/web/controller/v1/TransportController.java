@@ -1,12 +1,11 @@
 package org.sample.shop.express.web.controller.v1;
 
 import org.sample.shop.common.dto.JsonError;
-import org.sample.shop.common.entity.TransportOrder;
 import org.sample.shop.common.dto.ServiceResult;
 import org.sample.shop.common.enums.business.BusinessCode;
+import org.sample.shop.common.util.JsonUtil;
 import org.sample.shop.express.service.TransportService;
 import org.sample.shop.express.service.impl.TransportServiceImpl;
-import org.sample.shop.common.util.JsonUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 public class TransportController extends HttpServlet {
 

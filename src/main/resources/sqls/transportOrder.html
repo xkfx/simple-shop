@@ -1,0 +1,26 @@
+<sql id="transportOrder_saveOrder">
+    INSERT ignore INTO transport_order(user_id, order_detail_id, location, status)
+    VALUES (?, ?, ?, ?)
+</sql>
+<sql id="transportOrder_getByUid" type="org.sample.shop.common.entity.TransportOrder">
+    SELECT id, user_id AS userId, order_detail_id AS detailId, location, status
+    FROM transport_order
+    WHERE user_id=?
+    ORDER BY id DESC
+    LIMIT ?,?
+</sql>
+<sql id="transportOrder_getByDetailId" type="org.sample.shop.common.entity.TransportOrder">
+    SELECT id, user_id AS userId, order_detail_id AS detailId, location, status
+    FROM transport_order
+    WHERE order_detail_id=?
+</sql>
+<sql id="transportOrder_getById" type="org.sample.shop.common.entity.TransportOrder">
+    SELECT id, user_id AS userId, order_detail_id AS detailId, location, status
+    FROM transport_order
+    WHERE id=?
+</sql>
+<sql id="transportOrder_updateById">
+    UPDATE transport_order
+    SET location=?, status=?
+    WHERE id=?
+</sql>

@@ -57,7 +57,7 @@ public class Test {
             parametersTypes[i] = parameters.get(i).getClass();
         }
         System.out.println(ItemServiceImpl.class);
-        Method m = ItemService.class.getMethod("listByUidAndStatusNew", parametersTypes);
+        Method m = ItemService.class.getMethod("listByUidAndStatus", parametersTypes);
 
         ServiceResult<List<Item>> result = (ServiceResult<List<Item>>) m.invoke(itemService, parameters.toArray());
         System.out.println(result.getData());
@@ -69,7 +69,7 @@ public class Test {
 //        // 可以用高阶函数改造
 //
 //        try {
-//            Method m = ItemServiceImpl.class.getClass().getMethod("listByUidAndStatusNew", arrayParameterType);
+//            Method m = ItemServiceImpl.class.getClass().getMethod("listByUidAndStatus", arrayParameterType);
 //            ServiceResult<List<Item>> result = (ServiceResult<List<Item>>) m.invoke(itemService, arrayParameterType);
 //            System.out.println(result.getData());
 //        } catch (NoSuchMethodException e) {

@@ -20,7 +20,7 @@ class Details {
 		return Details.wrapAjax(settings)
 	}
 
-	static pay(detailId) {
+	static pay(detailId) { // rpc4customer
 		let settings = {
 			"async": true,
 			"crossDomain": true,
@@ -31,7 +31,21 @@ class Details {
 				"pay": "true",
 			},
 		}
-		return Details.wrapAjax(settings)
+		return Details.wrapAjax(settings);
+	}
+
+	static deliver(detailId, expressUid) {
+		let settings = {
+			"async": true,
+			"crossDomain": true,
+			"url": "http://localhost:8080/test/api/v1/details",
+			"method": "POST",
+			"data": {
+				"detailId": detailId,
+				"expressUid": expressUid,
+			}
+		}
+		return Details.wrapAjax(settings);
 	}
 
 	static wrapAjax(settings) {

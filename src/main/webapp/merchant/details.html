@@ -16,9 +16,16 @@
 		<div id="my-log">
 			<p>this is my powerful console.</p>
 		</div>
+		<p>请输入单子号：<input type="number" id="input-detailId" /></p>
+		<p>请输入快递员号码：<input type="number" id="input-expressUid" value="1603" /></p>
+		<button id="btn-deliver">我要发货!</button>
 		<script>
 			// global 
 			let userId = getParamFromUrl("userId");
+			// ui for rpc
+			let inputDetailId = qE("#input-detailId");
+			let inputExpressUid = qE("#input-expressUid");
+
 			$(document).ready(() => {
 				// common ui 
 				let myConsole = qE("#my-log");
@@ -30,24 +37,43 @@
 						}
 						myConsole.replaceChild(sth, myConsole.firstChild);
 					},
+					init: function() {
+						Details.getByMerchantId(userId).then(details => {
+							ipg.log("getByMerchantId成功,userId=" + userId + ",详细内容看控制台!");
+							let i = 0;
+							for(let x of details) {
+								let desc = "没定义的状态";
+								if(x.status === 0) {
+									desc = "还没付钱!";
+								}
+								if(x.status === 1) {
+									desc = "。。。等你发货";
+								}
+								if(x.status === 2) {
+									desc = "已发货";
+								}
+								console.log(`单子${++i}：detailId=${x.id}，${desc}`);
+							}
+						}).catch(e => {
+							ipg.log("getByMerchantId失败,userId=" + userId);
+							console.log(e);
+						});
+					},
+					deliver: function() {
+						let expressUid = inputExpressUid.value;
+						let detailId = inputDetailId.value;
+						Details.deliver(detailId, expressUid).then(result => {
+							ipg.log("deliver成功,detailId=" + detailId + ",详细内容看控制台!");
+							console.log(result);
+						}).catch(e => {
+							ipg.log("deliver失败,detailId=" + detailId);
+							console.log(e);
+						});
+					},
 				};
-				
-				Details.getByMerchantId(userId).then(details => {
-					ipg.log("getByMerchantId成功,userId=" + userId + ",详细内容看控制台!");	
-					let i = 0;
-					for (let x of details) {
-						let desc = "没定义的状态";
-						if (x.status === 0) {
-							desc = "还没付钱!";
-						} 
-						if (x.status === 1) {
-							desc = "。。。等你发货";
-						} 						
-						console.log(`单子${++i}：detailId=${x.id}，${desc}`);
-					}
-				}).catch(e => {
-					ipg.log("getByMerchantId失败,userId=" + userId);
-				});
+
+				ipg.init();
+				addRel(qE("#btn-deliver"), "click", ipg.deliver);
 			});
 		</script>
 	</body>

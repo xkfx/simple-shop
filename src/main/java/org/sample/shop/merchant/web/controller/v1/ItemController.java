@@ -25,22 +25,17 @@ public class ItemController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // 拿参数
-        final String param1 = req.getParameter("status");
-        final String param2 = req.getParameter("uid");
-        final String param3 = req.getParameter("curPage");
-        final String param4 = req.getParameter("pageSize");
-        LOGGER.debug("status={},uid={},curpage={},pgsize={}", param1, param2, param3, param4);
-        final int status = Integer.parseInt(param1);
-        final long uid = Long.parseLong(param2);
-        final int curPage = Integer.parseInt(param3);
-        final int pageSize = Integer.parseInt(param4);
+        final String parameter = req.getParameter("uid");
+        final String p2 = req.getParameter("status");
+        final Long uid = Long.parseLong(parameter);
 
-        // 用参数签名调服务
+        // 根据参数签名调服务
         ServiceResult<List<Item>> result;
-        if (status == 0) {
-            result = itemService.listOffSale(uid, curPage, pageSize);
+        if (p2 != null) {
+            final int status = Integer.parseInt(p2);
+            result = itemService.listByUidAndStatus(uid, status);
         } else {
-            result = itemService.listOnSale(uid, curPage, pageSize);
+            result = itemService.listByUidAndStatus(uid);
         }
 
         // 将结果解析封装成对应的接口
@@ -58,6 +53,76 @@ public class ItemController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        // 拿参数
+        final String p1 = req.getParameter("uid");
+        final String name = req.getParameter("name");
+        final String p3 = req.getParameter("price");
+        final String p4 = req.getParameter("quantity");
+        final Long uid = Long.parseLong(p1);
+        final Double price = Double.parseDouble(p3);
+        final int quantity = Integer.parseInt(p4);
+        // 根据参数签名调服务
+        ServiceResult<Item> result = itemService.createNew(uid, name, price, quantity);
+        // 将结果解析封装成对应的接口
+        PrintWriter pw = resp.getWriter();
+        if(result.getCode() % 100 >= 50) { // 失败
+            resp.setStatus(400);
+            JsonError error = new JsonError(result.getDefaultDescription());
+            pw.print(JsonUtil.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(error));
+        } else {
+            resp.setStatus(201);
+            pw.print(JsonUtil.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(result.getData()));
+        }
+        pw.flush();
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        final String p1 = req.getParameter("id");
+        final Long id = Long.parseLong(p1);
+        // 根据参数签名调服务
+        ServiceResult<Item> result = itemService.delete(id);
+        // 将结果解析封装成对应的接口
+        PrintWriter pw = resp.getWriter();
+        if(result.getCode() % 100 >= 50) { // 失败
+            resp.setStatus(400);
+            JsonError error = new JsonError(result.getDefaultDescription());
+            pw.print(JsonUtil.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(error));
+        } else {
+            resp.setStatus(204);
+            pw.print(JsonUtil.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(result.getData()));
+        }
+        pw.flush();
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        final String p1 = req.getParameter("id");
+        final String p2 = req.getParameter("status");
+        final String name = req.getParameter("name");
+        final String p3 = req.getParameter("price");
+        final String p4 = req.getParameter("quantity");
+
+        ServiceResult<Item> result;
+        final Long id = Long.parseLong(p1);
+        if (name != null && p3 != null && p4 != null) {
+            final Double price = Double.parseDouble(p3);
+            final int quantity = Integer.parseInt(p4);
+            result = itemService.updateInfo(id, name, price, quantity);
+        } else {
+            final int status = Integer.parseInt(p2);
+            result = itemService.updateStatus(id, status);
+        }
+        // 将结果解析封装成对应的接口
+        PrintWriter pw = resp.getWriter();
+        if(result.getCode() % 100 >= 50) { // 失败
+            resp.setStatus(400);
+            JsonError error = new JsonError(result.getDefaultDescription());
+            pw.print(JsonUtil.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(error));
+        } else {
+            resp.setStatus(200);
+            pw.print(JsonUtil.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(result.getData()));
+        }
+        pw.flush();
     }
 }

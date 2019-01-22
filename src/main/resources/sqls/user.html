@@ -1,0 +1,19 @@
+<sql id="user_get" type="org.sample.shop.common.entity.User">
+    SELECT id, username, password, type
+    FROM simple_user
+    WHERE username=? AND password=?
+</sql>
+<sql id="user_getByUsername" type="org.sample.shop.common.entity.User">
+    SELECT id, username, password, type
+    FROM simple_user
+    WHERE username=?
+</sql>
+<sql id="user_saveUser">
+    INSERT ignore INTO simple_user(type, username, password)
+    VALUES (?, ?, ?)
+</sql>
+<sql id="user_updateById">
+    UPDATE simple_user
+    SET password=?
+    WHERE id=?
+</sql>

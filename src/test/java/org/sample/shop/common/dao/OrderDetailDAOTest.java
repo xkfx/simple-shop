@@ -14,7 +14,7 @@ public class OrderDetailDAOTest {
 
     @Test
     public void getByOrderId() throws Exception {
-        List<OrderDetail> list = dao.listByOrderId(1000L);
+        List<OrderDetail> list = dao.listByOrderId(2L);
         System.out.println(list);
 
         ConnectionProxy.close();
@@ -30,7 +30,7 @@ public class OrderDetailDAOTest {
 
     @Test
     public void updateById() {
-        OrderDetail detail = new OrderDetail(1001L, OrderDetailStatus.COMPLETED.getCode());
+        OrderDetail detail = new OrderDetail(1L, OrderDetailStatus.COMPLETED.getCode());
         dao.updateById(detail);
 
         ConnectionProxy.close();

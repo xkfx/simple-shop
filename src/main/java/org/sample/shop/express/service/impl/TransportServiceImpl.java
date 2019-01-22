@@ -24,7 +24,7 @@ import static org.sample.shop.common.enums.business.BusinessCode.*;
 public class TransportServiceImpl implements TransportService {
 
     private static final Logger LOGGER = LogManager.getLogger();
-    private TransportOrderDAO transportOrderDAO = TransportOrderDAOImpl.INSTANCE;
+    private TransportOrderDAO transportOrderDAO = new TransportOrderDAOImpl();
     private OrderDetailDAO detailDAO = new OrderDetailDAOImpl();
 
     @Override

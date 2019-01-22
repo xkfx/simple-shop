@@ -1,10 +1,10 @@
 package org.sample.shop.common.dao.impl;
 
 import org.sample.shop.common.dao.UserDAO;
-import org.sample.shop.common.db.queryrunner.QueryRunnerProxy;
-import org.sample.shop.common.db.queryrunner.RsHandlers;
-import org.sample.shop.common.db.queryrunner.Statements;
+import org.sample.shop.common.db.QueryRunnerProxy;
 import org.sample.shop.common.entity.User;
+
+import java.util.List;
 
 /**
  * 该类方法统一抛出DaoException！！！
@@ -13,21 +13,29 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User getByUsername(String username) {
-        return QueryRunnerProxy.query(Statements.USER_GET_BY_USERNAME, RsHandlers.USER, username);
+        List list = QueryRunnerProxy.query("user_getByUsername", username);
+        if (list.size() > 0) {
+            return (User) list.get(0);
+        }
+        return null;
     }
 
     @Override
     public User getUser(String username, String password) {
-        return QueryRunnerProxy.query(Statements.USER_GET, RsHandlers.USER, username, password);
+        List list = QueryRunnerProxy.query("user_get", username, password);
+        if (list.size() > 0) {
+            return (User) list.get(0);
+        }
+        return null;
     }
 
     @Override
     public int saveUser(User user) {
-        return QueryRunnerProxy.update(Statements.USER_SAVE_USER, user.getType(), user.getUsername(), user.getPassword());
+        return QueryRunnerProxy.update("user_saveUser", user.getType(), user.getUsername(), user.getPassword());
     }
 
     @Override
     public int updateById(User user) {
-        return QueryRunnerProxy.update(Statements.USER_UPDATE_BY_ID, user.getPassword(), user.getId());
+        return QueryRunnerProxy.update("user_updateById", user.getPassword(), user.getId());
     }
 }

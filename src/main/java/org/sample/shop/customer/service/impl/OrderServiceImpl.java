@@ -23,7 +23,7 @@ import static org.sample.shop.common.enums.entitystatus.impl.OrderDetailStatus.N
 public class OrderServiceImpl implements OrderService {
 
     private static final Logger LOGGER = LogManager.getLogger();
-    private final OrderDAO orderDAO = OrderDAOImpl.INSTANCE;
+    private final OrderDAO orderDAO = new OrderDAOImpl();
     private final CartDAO cartDAO = new CartDAOImpl();
     private final OrderDetailDAO detailDAO = new OrderDetailDAOImpl();
 

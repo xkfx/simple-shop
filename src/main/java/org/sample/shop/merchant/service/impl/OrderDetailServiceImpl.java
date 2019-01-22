@@ -22,7 +22,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 
     private static final Logger LOGGER = LogManager.getLogger();
     private final OrderDetailDAO detailDAO = new OrderDetailDAOImpl();
-    private final TransportOrderDAO transportDAO = TransportOrderDAOImpl.INSTANCE;
+    private final TransportOrderDAO transportDAO = new TransportOrderDAOImpl();
 
     @Override
     public ServiceResult<List<OrderDetail>> getByMerchantId(long merchantId) {

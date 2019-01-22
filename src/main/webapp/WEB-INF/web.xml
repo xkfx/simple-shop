@@ -74,13 +74,4 @@
         <servlet-name>OrderDetailController</servlet-name>
         <url-pattern>/api/v1/details</url-pattern>
     </servlet-mapping>
-
-    <servlet>
-        <servlet-name>ItemController-v2</servlet-name>
-        <servlet-class>org.sample.shop.merchant.web.controller.v2.ItemController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ItemController-v2</servlet-name>
-        <url-pattern>/api/v2/items</url-pattern>
-    </servlet-mapping>
 </web-app>

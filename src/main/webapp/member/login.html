@@ -62,7 +62,7 @@
 						let pwd = inputPwd.value;
 						ipg.log(username + ":" + pwd);
 						User.query(username, pwd).then(user => {
-							ipg.log(obj2url(user));
+							ipg.log("成功," + obj2url(user));
 							if(user.type === 1) {								
 								let dom1 = elt("div", {}, "管理你的商品：", elt("a", {
 									href: "../merchant/items.html?userId=" + user.id,
@@ -91,9 +91,18 @@
 								let parent = elt("div", {}, dom1, dom2, dom3);
 								ipg.powerfulLog(parent);								
 							}
+							if (user.type === 2) {
+								let dom1 = elt("div", {}, "查看运单：", elt("a", {
+									href: "../express/transport.html?userId=" + user.id,
+									target: "_blank",
+								}, "transport_url4_" + user.id));
+								let parent = elt("div", {}, dom1);
+								ipg.powerfulLog(parent);								
+							}
 						}).catch(e => {
-							ipg.log(obj2url(e));
-							ipg.powerfulLog("");
+							ipg.log("出错了");
+							console.log(e);
+							ipg.powerfulLog("~~~~~");
 						});
 					},
 				};

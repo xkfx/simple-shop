@@ -1,3 +1,6 @@
+-- Deprecated
+-- 由于在“一键重构”时失误。。下面的表中存在错误
+
 -- 用户
 DROP TABLE simple_user;
 DROP SEQUENCE simple_user_id_seq;

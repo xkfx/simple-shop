@@ -20,9 +20,7 @@ import static org.sample.shop.common.enums.business.BusinessCode.*;
 public class ItemServiceImpl implements ItemService {
 
     private static final Logger LOGGER = LogManager.getLogger();
-    private final ItemDAO itemDAO = ItemDAOImpl.INSTANCE;
-
-    private static final int DEFAULT_PAGE_SIZE = 20;
+    private final ItemDAO itemDAO = new ItemDAOImpl();
 
     @Override
     public ServiceResult<Item> createNew(Long uid, String name, double price, int quantity) {
@@ -38,55 +36,21 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ServiceResult<List<Item>> listOnSale(Long uid, int curPage) {
-        return listByUidAndStatus(uid, ItemStatus.ON_SALE, curPage);
-    }
-
-    @Override
-    public ServiceResult<List<Item>> listOnSale(Long uid, int curPage, int pageSize) {
-        return listByUidAndStatus(uid, ItemStatus.ON_SALE, curPage, pageSize);
-    }
-
-    @Override
-    public ServiceResult<List<Item>> listOffSale(Long uid, int curPage) {
-        return listByUidAndStatus(uid, ItemStatus.OFF_SALE, curPage);
-    }
-
-    @Override
-    public ServiceResult<List<Item>> listOffSale(Long uid, int curPage, int pageSize) {
-        return listByUidAndStatus(uid, ItemStatus.OFF_SALE, curPage, pageSize);
-    }
-
-    @Override
-    public ServiceResult<List<Item>> listByUidAndStatusNew(Long uid) {
+    public ServiceResult<List<Item>> listByUidAndStatus(Long uid) {
         int defaultStatus = ItemStatus.ON_SALE.getCode();
-        return listByUidAndStatusNew(uid, defaultStatus);
+        return listByUidAndStatus(uid, defaultStatus);
     }
 
     @Override
-    public ServiceResult<List<Item>> listByUidAndStatusNew(Long uid, Integer status) {
+    public ServiceResult<List<Item>> listByUidAndStatus(Long uid, Integer status) {
         int defaultOffset = Short.MAX_VALUE;
-        return listByUidAndStatusNew(uid, status, 1, defaultOffset);
+        return listByUidAndStatus(uid, status, 1, defaultOffset);
     }
 
     @Override
-    public ServiceResult<List<Item>> listByUidAndStatusNew(Long uid, Integer status, Integer start, Integer offset) {
+    public ServiceResult<List<Item>> listByUidAndStatus(Long uid, Integer status, Integer start, Integer offset) {
         try {
-            return new ServiceResult<>(ITEM_LIST_SUCCESS, itemDAO.listByUidAndStatusNew(uid, status, start, offset));
-        } catch (DaoException e) {
-            return new ServiceResult<>(ITEM_LIST_FAIL);
-        } finally {
-            ConnectionProxy.close();
-        }
-    }
-
-    private ServiceResult<List<Item>> listByUidAndStatus(Long uid, ItemStatus status, int curPage) {
-        return listByUidAndStatus(uid, status, curPage, DEFAULT_PAGE_SIZE);
-    }
-
-    private ServiceResult<List<Item>> listByUidAndStatus(Long uid, ItemStatus status, int curPage, int pageSize) {
-        try {
-            return new ServiceResult<>(ITEM_LIST_SUCCESS, itemDAO.listByUidAndStatus(uid, status.getCode(), curPage, pageSize));
+            return new ServiceResult<>(ITEM_LIST_SUCCESS, itemDAO.listByUidAndStatus(uid, status, start, offset));
         } catch (DaoException e) {
             return new ServiceResult<>(ITEM_LIST_FAIL);
         } finally {
@@ -107,51 +71,6 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ServiceResult<Item> updateInfo(Long id, String name) {
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("name", name);
-        return abstractUpdate(id, parameters);
-    }
-
-    @Override
-    public ServiceResult<Item> updateInfo(Long id, double price) {
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("price", price);
-        return abstractUpdate(id, parameters);
-    }
-
-    @Override
-    public ServiceResult<Item> updateInfo(Long id, int quantity) {
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("quantity", quantity);
-        return abstractUpdate(id, parameters);
-    }
-
-    @Override
-    public ServiceResult<Item> updateInfo(Long id, String name, double price) {
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("name", name);
-        parameters.put("price", price);
-        return abstractUpdate(id, parameters);
-    }
-
-    @Override
-    public ServiceResult<Item> updateInfo(Long id, String name, int quantity) {
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("name", name);
-        parameters.put("quantity", quantity);
-        return abstractUpdate(id, parameters);
-    }
-
-    @Override
-    public ServiceResult<Item> updateInfo(Long id, double price, int quantity) {
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("price", price);
-        parameters.put("quantity", quantity);
-        return abstractUpdate(id, parameters);
-    }
-
-    @Override
     public ServiceResult<Item> updateInfo(Long id, String name, double price, int quantity) {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("name", name);
@@ -161,25 +80,9 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ServiceResult<Item> upShelf(Long id) {
-        return abstractUpdateStatus(id, ItemStatus.OFF_SALE);
-    }
-
-    @Override
-    public ServiceResult<Item> offShelf(Long id) {
-        return abstractUpdateStatus(id, ItemStatus.OFF_SALE);
-    }
-
-    @Override
     public ServiceResult<Item> updateStatus(Long id, int status) {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("status", status);
-        return abstractUpdate(id, parameters);
-    }
-
-    private ServiceResult<Item> abstractUpdateStatus(Long id, ItemStatus status) {
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("status", status.getCode());
         return abstractUpdate(id, parameters);
     }
 

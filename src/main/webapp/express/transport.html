@@ -31,6 +31,9 @@
 			 * 优化与改善:重写代码,采用类似滑动窗口的设计.
 			 */
 			$(document).ready(() => {
+				// global 
+				let uid = getParamFromUrl("userId");
+				// common ui
 				let container = qE("#container-transports");
 				let pConsole = qE("#p-console");
 				let myPg = {					
@@ -40,12 +43,12 @@
 					pageSize: 10, // const：每页的数据量					
 					pagesPerQuery: null, // const：在init里初始化。每次请求新数据的页数offset/pageSize
 					queryTimes: 0, // var：请求新记录集的次数，在每次queryNew时更新。
-					firstQuery: function() {
-						myPg.start += myPg.offset;
-						return Transports.defaultQuery(myPg.start, myPg.offset);					
+					firstQuery: function() {				
+						return Transports.defaultQuery(myPg.start, myPg.offset, uid);					
 					},
 					queryNew: function() {	
 						myPg.queryTimes++;
+						myPg.start += myPg.offset;
 						return myPg.firstQuery();					
 					},
 					showData: function() {
@@ -68,7 +71,7 @@
 						myPg.pagesPerQuery = myPg.offset / myPg.pageSize;
 						myPg.firstQuery(myPg.start, myPg.offset).then(result => {
 							myPg.pgs = new PageSet(result, myPg.pageSize);					
-							myPg.defaultAction("Hello，快递员编号1003");
+							myPg.defaultAction("Hello，快递员编号" + uid);
 						});			
 					},	
 					next: function() {

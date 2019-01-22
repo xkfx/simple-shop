@@ -9,17 +9,17 @@ import java.util.List;
 
 public class CartDAOTest {
 
-    CartDAO cartDAO = new CartDAOImpl();
+    private CartDAO cartDAO = new CartDAOImpl();
 
     @Test
     public void addItem() {
-        int updates = cartDAO.addItem(1000L, 11353L);
+        int updates = cartDAO.addItem(1000L, 1000L);
         System.out.println(updates);
     }
 
     @Test
     public void removeItem() {
-        int updates = cartDAO.removeItem(1001L);
+        int updates = cartDAO.removeAll(1000L);
         System.out.println(updates);
     }
 

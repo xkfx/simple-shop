@@ -1,0 +1,14 @@
+<sql id="order_saveOrder">
+    INSERT INTO simple_order(user_id, total)
+    VALUES(?, ?)
+</sql>
+<sql id="order_getLastInsertId" type="java.lang.Number">
+    SELECT LAST_INSERT_ID() as id;
+</sql>
+<sql id="order_saveOrderDetail">
+    INSERT INTO order_detail(order_id, item_id, user_id, quantity, price, status)
+    VALUES(?, ?, ?, ?, ?, ?)
+</sql>
+<sql id="order_listByUid" type="org.sample.shop.common.entity.Order">
+    SELECT id, user_id AS userId, total FROM simple_order WHERE user_id=?
+</sql>

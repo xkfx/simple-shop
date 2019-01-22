@@ -6,11 +6,9 @@ import java.util.List;
 
 public interface ItemDAO {
 
-    List<Item> listByUidAndStatus(Long uid, int status, int curPage, int pageSize);
+    List<Item> listByUidAndStatus(Long uid, int status, int start, int offset);
 
-    List<Item> listByUidAndStatusNew(Long uid, int status, int start, int offset);
-
-    int saveItem(Item item);
+    void saveItem(Item item);
 
     int removeById(Long id);
 

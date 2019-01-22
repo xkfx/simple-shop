@@ -1,0 +1,25 @@
+<sql id="cart_addItem">
+    INSERT INTO cart(user_id, item_id)
+    VALUES (?, ?)
+</sql>
+<sql id="cart_removeAll">
+    DELETE FROM cart WHERE user_id=?
+</sql>
+<sql id="cart_removeItem">
+    DELETE FROM cart WHERE id=?
+</sql>
+<sql id="cart_getByUid" type="org.sample.shop.common.entity.Cart">
+    SELECT id, user_id AS userId, item_id AS itemId FROM cart WHERE user_id=?
+</sql>
+<sql id="cart_getPreOrder" type="org.sample.shop.common.entity.OrderDetail">
+    SELECT cart.id, item_id AS itemId, item.user_id AS userId, price
+    FROM cart
+    LEFT JOIN item ON cart.item_id = item.id
+    WHERE cart.user_id=?
+</sql>
+<sql id="cart_getSum" type="java.lang.Number">
+    SELECT SUM(price) AS sum
+    FROM cart
+    LEFT JOIN item ON cart.item_id = item.id
+    WHERE cart.user_id=?
+</sql>

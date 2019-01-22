@@ -29,6 +29,6 @@ public class ServletUtils {
         // 妈的 为啥不直接提供个方法， 说我试图调用这个就好了 ，不是有方法引用嘛
         String[] parameterNames = new String[] {"uid", "status", "start", "offset"};
         Class<?>[] parameterTypes = new Class[] {Long.class, Integer.class, Integer.class, Integer.class};
-        // ServletUtils.invokeService(service, "listByUidAndStatusNew", parameterNames, parameterTypes);
+        // ServletUtils.invokeService(service, "listByUidAndStatus", parameterNames, parameterTypes);
     }
 }

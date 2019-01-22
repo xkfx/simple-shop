@@ -15,41 +15,29 @@ public class UserDAOTest {
 
     private UserDAO dao = new UserDAOImpl();
 
-    public static String randomStr() {
+    private static String randomStr() {
         return Math.random() + "";
     }
 
-    public static User randomUser() {
+    private static User randomUser() {
         return new User(1, randomStr(), "123");
     }
 
     @Test
     public void saveUser() {
-        try {
-            int i = dao.saveUser(randomUser());
-            assertEquals(1, i);
-        } catch (DaoException e) {
-            e.printStackTrace();
-            assertTrue(e.getCause() instanceof SQLIntegrityConstraintViolationException);
-            // TODO DBUtils会把这个具体异常泛化掉，这种写法不可行，暂时不理会，有空去补习数据库知识。
-        } finally {
-            try {
-                ConnectionProxy.close();
-            } catch (DaoException e) {
-                throw e;
-            }
-        }
+        int i = dao.saveUser(randomUser());
+        assertEquals(1, i);
     }
 
     @Test
     public void getByUsername() {
-        System.out.println(dao.getByUsername("admin234"));
+        System.out.println(dao.getByUsername("test_merchant"));
         ConnectionProxy.close();
     }
 
     @Test
     public void getUser() {
-        System.out.println(dao.getUser("xkfx1997", "123"));
+        System.out.println(dao.getUser("test_merchant", "1234"));
         ConnectionProxy.close();
     }
 
@@ -62,6 +50,4 @@ public class UserDAOTest {
 
         ConnectionProxy.close();
     }
-
-
 }

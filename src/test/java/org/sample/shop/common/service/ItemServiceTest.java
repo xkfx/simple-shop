@@ -22,12 +22,6 @@ public class ItemServiceTest {
     }
 
     @Test
-    public void listByUidAndStatus() throws Exception {
-        ServiceResult<List<Item>> result = itemService.listOffSale(1000L, 0, 2);
-        LOGGER.debug(result);
-    }
-
-    @Test
     public void delete() throws Exception {
         ServiceResult<Item> result = itemService.delete(1050L);
         LOGGER.debug(result);
@@ -38,17 +32,4 @@ public class ItemServiceTest {
         ServiceResult<Item> result = itemService.updateInfo(1000L, "超群瓦罐3", 33.5, 56);
         LOGGER.debug(result);
     }
-
-    @Test
-    public void upShelf() throws Exception {
-        ServiceResult<Item> result = itemService.upShelf(1000L);
-        LOGGER.debug(result);
-    }
-
-    @Test
-    public void offShelf() throws Exception {
-        ServiceResult<Item> result = itemService.offShelf(1000L);
-        LOGGER.debug(result);
-    }
-
 }

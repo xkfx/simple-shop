@@ -11,7 +11,7 @@ import java.util.List;
 
 public class OrderDAOTest {
 
-    private final OrderDAO dao = OrderDAOImpl.INSTANCE;
+    private final OrderDAO dao = new OrderDAOImpl();
 
     @Test
     public void saveOrder() {
@@ -30,7 +30,7 @@ public class OrderDAOTest {
 
     @Test
     public void getByUid() {
-        List<Order> order = dao.listByUid(1000L);
+        List<Order> order = dao.listByUid(1001L);
         System.out.println(order);
 
         ConnectionProxy.close();
