@@ -35,7 +35,7 @@ public class UserController extends HttpServlet {
         final String type = req.getParameter("type");
         // 调服务
         LOGGER.debug("[UserController]register: username={}, password={}, type={}", username, password, type);
-        ServiceResult<User> result = userService.register(Integer.parseInt(type), username, password);
+        ServiceResult<User> result = userService.saveUser(Integer.parseInt(type), username, password);
         LOGGER.debug("[UserController]register: username={}, {}", username, result);
         // 返回HTTP状态码 + json
         PrintWriter pw = resp.getWriter();

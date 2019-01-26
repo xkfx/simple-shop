@@ -12,7 +12,7 @@ import java.util.Map;
 public class HandlerBuffer {
 
     /**
-     * TODO map加载完之后基本就维持不变了，不同步是否可行呢？
+     * TODO map加载完之后就维持不变了，不同步是否可行呢？
      */
     private static Map<String, ResultSetHandler> map = new HashMap<>();
 

@@ -1,43 +1,41 @@
 package org.sample.shop.common.service.impl;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.sample.shop.common.dao.UserDAO;
 import org.sample.shop.common.dao.impl.UserDAOImpl;
-import org.sample.shop.common.db.connmanager.ConnectionProxy;
-import org.sample.shop.common.entity.User;
-import org.sample.shop.common.exception.DaoException;
 import org.sample.shop.common.dto.ServiceResult;
+import org.sample.shop.common.entity.User;
 import org.sample.shop.common.service.UserService;
+import org.sample.shop.common.util.ServiceUtils;
 
-import static org.sample.shop.common.enums.business.BusinessCode.*;
+import java.sql.Connection;
 
 public class UserServiceImpl implements UserService {
 
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final String USER_EXISTED = "用户名已被注册。";
+    private static final String LOGIN_FAIL = "用户名或者密码错误。";
+
     private final UserDAO userDAO = new UserDAOImpl();
 
     @Override
-    public ServiceResult<User> register(int type, String username, String password) {
-        // TODO 其实只要再拿个uid就可以了.........
+    public ServiceResult<User> saveUser(int type, String username, String password) {
+        /*
+        check user.type:
+        check username:
+        check password:
+
+         */
         User user = new User(type, username, password);
-        try {
-            userDAO.saveUser(user);
-            return new ServiceResult<>(REGISTER_SUCCESS, userDAO.getByUsername(username));
-        } catch (DaoException e) {
-            return new ServiceResult<>(USER_EXISTED);
-        } finally {
-            ConnectionProxy.close(); // 异常内部处理了。
-        }
+        return ServiceUtils.daoOperation(() -> {
+            int updates = userDAO.saveUser(user);
+            return updates == 0 ? ServiceResult.fail(USER_EXISTED) : ServiceResult.ok(user);
+        }, Connection.TRANSACTION_READ_UNCOMMITTED);
     }
 
     @Override
-    public ServiceResult getUser(String username, String password) {
-        User user = userDAO.getUser(username, password);
-        if (user != null) {
-            return new ServiceResult<>(LOGIN_SUCCESS, user);
-        } else {
-            return new ServiceResult<>(LOGIN_FAIL);
-        }
+    public ServiceResult<User> getUser(String username, String password) {
+        return ServiceUtils.daoOperation(() -> {
+            User user = userDAO.getUser(username, password);
+            return user != null ? ServiceResult.ok(user) : new ServiceResult<>(LOGIN_FAIL);
+        }, Connection.TRANSACTION_READ_COMMITTED);
     }
 }

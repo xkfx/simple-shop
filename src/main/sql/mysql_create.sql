@@ -1,11 +1,11 @@
 CREATE DATABASE shop1;
 -- recreate tables
-TRUNCATE `cart`;
-TRUNCATE `transport_order`;
-TRUNCATE `order_detail`;
-TRUNCATE `item`;
-TRUNCATE `simple_order`;
-TRUNCATE `simple_user`;
+DROP TABLE IF EXISTS `cart`;
+DROP TABLE IF EXISTS `transport_order`;
+DROP TABLE IF EXISTS `order_detail`;
+DROP TABLE IF EXISTS `item`;
+DROP TABLE IF EXISTS `simple_order`;
+DROP TABLE IF EXISTS `simple_user`;
 -- simple_user
 DROP TABLE IF EXISTS `simple_user`;
 CREATE TABLE simple_user (

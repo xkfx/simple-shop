@@ -5,7 +5,7 @@ import org.sample.shop.common.entity.User;
 
 public interface UserService {
 
-    ServiceResult<User> register(int type, String username, String password);
+    ServiceResult<User> saveUser(int type, String username, String password);
 
-    ServiceResult getUser(String username, String password);
+    ServiceResult<User> getUser(String username, String password);
 }

@@ -16,14 +16,13 @@ public class MetadataBuffer {
     private static final String CHAR_SET = "UTF-8";
 
     /**
-     * TODO map加载完之后基本就维持不变了，不同步是否可行呢？
+     * TODO map加载完之后就维持不变了，不同步是否可行呢？
      */
     private static Map<String, Metadata> map = new HashMap<>();
 
     private static String metadataId2Pathname(String metadataId) {
         final String resourceName = metadataId.substring(0, metadataId.indexOf('_')) + ".html";
-        final String pathname = MetadataBuffer.class.getResource(RESOURCE_ROOT + resourceName).getPath();
-        return pathname;
+        return MetadataBuffer.class.getResource(RESOURCE_ROOT + resourceName).getPath();
     }
     private static void html2buffer(String pathname) throws IOException {
         final Document doc = Jsoup.parse(new File(pathname), CHAR_SET, "");

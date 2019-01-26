@@ -25,6 +25,15 @@ public class ConnectionProxy {
         }
     }
 
+    public static void setTransactionIsolation(int level) {
+        try {
+            Connection conn = ConnectionFactory.getConnection();
+            conn.setTransactionIsolation(level);
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
     public static void commit() {
         try {
             Connection conn = ConnectionFactory.getConnection();
@@ -39,7 +48,7 @@ public class ConnectionProxy {
             Connection conn = ConnectionFactory.getConnection();
             conn.rollback();
         } catch (SQLException e) {
-            throw new DaoException(e);
+            LOGGER.error(e);
         }
     }
 
