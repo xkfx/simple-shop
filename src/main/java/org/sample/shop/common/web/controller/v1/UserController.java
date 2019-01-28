@@ -44,7 +44,7 @@ public class UserController extends HttpServlet {
             pw.print(JsonUtil.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(result.getData()));
         } else {
             resp.setStatus(400);
-            JsonError error = new JsonError(result.getDefaultDescription());
+            JsonError error = new JsonError(result.getError());
             pw.print(JsonUtil.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(error));
         }
         pw.flush();
@@ -64,7 +64,7 @@ public class UserController extends HttpServlet {
             pw.print(JsonUtil.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(result.getData()));
         } else {
             resp.setStatus(404);
-            JsonError error = new JsonError(result.getDefaultDescription());
+            JsonError error = new JsonError(result.getError());
             pw.print(JsonUtil.getMapper().writerWithDefaultPrettyPrinter().writeValueAsString(error));
         }
         pw.flush();
