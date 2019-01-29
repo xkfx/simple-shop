@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif+SC');
+html {
+	font-family: 'Noto Serif SC', STFangSong, serif;
+}
+
+header h1 {
+	margin: 0;
+}
+
+header h1 a {
+	text-decoration: none;
+	color: black;
+}
+
+header {
+	margin: 20px 0px;
+}
+
+main {
+	margin: 20px 0px;
+}
+
+footer {
+	margin: 20px 0px;
+}
+
+button {
+	margin: 0px 1px;
+	border: 1px solid black;
+	font-size: 16px;
+	background-color: white;
+}
+
+input[type=text],
+input[type=password] {
+	border: none;
+	font-size: 15px;
+}
+
+.error {
+	color: red;
+}
