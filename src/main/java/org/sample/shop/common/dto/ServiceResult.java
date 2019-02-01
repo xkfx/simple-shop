@@ -1,10 +1,12 @@
 package org.sample.shop.common.dto;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.sample.shop.common.enums.business.BusinessCode;
 
 public class ServiceResult<T> {
 
-    public static final String SERVER_ERROR = "服务器内部错误！";
+    private static final String SERVER_ERROR = "服务器内部错误！";
 
     private boolean success;
 
@@ -44,6 +46,22 @@ public class ServiceResult<T> {
 
     public String getError() {
         return error;
+    }
+
+    private static final ObjectMapper MAPPER = new ObjectMapper();
+
+    public ObjectNode failJson() {
+        if (isSuccess()) return MAPPER.valueToTree(data);
+        ObjectNode jsonNodes = MAPPER.createObjectNode();
+        jsonNodes.put("message", error);
+        return jsonNodes;
+    }
+
+    public ObjectNode getJson() {
+        if (isSuccess()) return MAPPER.valueToTree(data);
+        ObjectNode jsonNodes = MAPPER.createObjectNode();
+        jsonNodes.put("message", error);
+        return jsonNodes;
     }
 
     @Override

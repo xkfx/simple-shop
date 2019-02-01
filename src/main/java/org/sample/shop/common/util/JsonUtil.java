@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.sample.shop.common.dto.ServiceResult;
 
 import javax.servlet.http.HttpServletResponse;
-
+@Deprecated
 public class JsonUtil {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();

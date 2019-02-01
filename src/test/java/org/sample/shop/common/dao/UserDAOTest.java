@@ -4,12 +4,8 @@ import org.junit.Test;
 import org.sample.shop.common.dao.impl.UserDAOImpl;
 import org.sample.shop.common.db.connmanager.ConnectionProxy;
 import org.sample.shop.common.entity.User;
-import org.sample.shop.common.exception.DaoException;
-
-import java.sql.SQLIntegrityConstraintViolationException;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class UserDAOTest {
 

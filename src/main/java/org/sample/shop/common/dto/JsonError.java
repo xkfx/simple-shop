@@ -1,5 +1,6 @@
 package org.sample.shop.common.dto;
 
+@Deprecated
 public class JsonError {
 
     private String message;

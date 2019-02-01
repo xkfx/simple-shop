@@ -4,8 +4,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import org.sample.shop.common.dto.ServiceResult;
-import org.sample.shop.customer.service.impl.OrderServiceImpl;
 import org.sample.shop.customer.service.OrderService;
+import org.sample.shop.customer.service.impl.OrderServiceImpl;
 
 public class OrderServiceTest {
 

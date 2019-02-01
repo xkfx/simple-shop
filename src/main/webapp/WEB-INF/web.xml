@@ -9,69 +9,69 @@
     </context-param>
 
     <filter>
-        <filter-name>CharacterEncodingFilter</filter-name>
-        <filter-class>org.sample.shop.common.web.filter.CharacterEncodingFilter</filter-class>
+        <filter-name>BasicFilter</filter-name>
+        <filter-class>org.sample.shop.common.web.filter.BasicFilter</filter-class>
         <init-param>
             <param-name>charset</param-name>
             <param-value>UTF-8</param-value>
         </init-param>
     </filter>
     <filter-mapping>
-        <filter-name>CharacterEncodingFilter</filter-name>
+        <filter-name>BasicFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-    <servlet>
-        <servlet-name>UserController</servlet-name>
-        <servlet-class>org.sample.shop.common.web.controller.v1.UserController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>UserController</servlet-name>
-        <url-pattern>/api/v1/users</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>UserController</servlet-name>-->
+        <!--<servlet-class>org.sample.shop.common.web.controller.v1.UserController</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>UserController</servlet-name>-->
+        <!--<url-pattern>/api/v1/users</url-pattern>-->
+    <!--</servlet-mapping>-->
 
-    <servlet>
-        <servlet-name>ItemController</servlet-name>
-        <servlet-class>org.sample.shop.merchant.web.controller.v1.ItemController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ItemController</servlet-name>
-        <url-pattern>/api/v1/items</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>ItemController</servlet-name>-->
+        <!--<servlet-class>org.sample.shop.merchant.web.controller.v1.ItemController</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>ItemController</servlet-name>-->
+        <!--<url-pattern>/api/v1/items</url-pattern>-->
+    <!--</servlet-mapping>-->
 
-    <servlet>
-        <servlet-name>TransportController</servlet-name>
-        <servlet-class>org.sample.shop.express.web.controller.v1.TransportController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>TransportController</servlet-name>
-        <url-pattern>/api/v1/transports</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>TransportController</servlet-name>-->
+        <!--<servlet-class>org.sample.shop.express.web.controller.v1.TransportController</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>TransportController</servlet-name>-->
+        <!--<url-pattern>/api/v1/transports</url-pattern>-->
+    <!--</servlet-mapping>-->
 
-    <servlet>
-        <servlet-name>CartController</servlet-name>
-        <servlet-class>org.sample.shop.customer.web.controller.v1.CartController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>CartController</servlet-name>
-        <url-pattern>/api/v1/carts</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>CartController</servlet-name>-->
+        <!--<servlet-class>org.sample.shop.customer.web.controller.v1.CartController</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>CartController</servlet-name>-->
+        <!--<url-pattern>/api/v1/carts</url-pattern>-->
+    <!--</servlet-mapping>-->
 
-    <servlet>
-        <servlet-name>OrderController</servlet-name>
-        <servlet-class>org.sample.shop.customer.web.controller.v1.OrderController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>OrderController</servlet-name>
-        <url-pattern>/api/v1/orders</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>OrderController</servlet-name>-->
+        <!--<servlet-class>org.sample.shop.customer.web.controller.v1.OrderController</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>OrderController</servlet-name>-->
+        <!--<url-pattern>/api/v1/orders</url-pattern>-->
+    <!--</servlet-mapping>-->
 
-    <servlet>
-        <servlet-name>OrderDetailController</servlet-name>
-        <servlet-class>org.sample.shop.merchant.web.controller.v1.OrderDetailController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>OrderDetailController</servlet-name>
-        <url-pattern>/api/v1/details</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>OrderDetailController</servlet-name>-->
+        <!--<servlet-class>org.sample.shop.merchant.web.controller.v1.OrderDetailController</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>OrderDetailController</servlet-name>-->
+        <!--<url-pattern>/api/v1/details</url-pattern>-->
+    <!--</servlet-mapping>-->
 </web-app>

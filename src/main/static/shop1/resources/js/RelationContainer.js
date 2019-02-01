@@ -1,3 +1,4 @@
+// @Deprecated
 class RelationContainer {
 	static addRelation(component, action, ievent) {
 		component.addEventListener(action, ievent);

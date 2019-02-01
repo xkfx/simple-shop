@@ -1,3 +1,6 @@
+// 定义一些通用的常量
+const BASE_URL = "http://localhost:8080/test/api/v1";
+
 // 定义一些自定义的工具函数
 const log = console.log.bind(console);
 /**************************************************************
@@ -48,4 +51,9 @@ function getParamFromUrl(paramName) {
 	for (let [name, value] of params.map(x => x.split("="))) {
 		if (name === paramName) return value;
 	}
+}
+
+
+function addRel(component, action, ievent) {
+	component.addEventListener(action, ievent);
 }

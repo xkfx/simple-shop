@@ -2,9 +2,9 @@ package org.sample.shop.customer.web.controller.v1;
 
 import org.sample.shop.common.dto.JsonError;
 import org.sample.shop.common.dto.ServiceResult;
+import org.sample.shop.common.util.JsonUtil;
 import org.sample.shop.customer.service.OrderService;
 import org.sample.shop.customer.service.impl.OrderServiceImpl;
-import org.sample.shop.common.util.JsonUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

@@ -5,10 +5,8 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import org.sample.shop.common.dto.ServiceResult;
 import org.sample.shop.common.entity.Item;
-import org.sample.shop.merchant.service.impl.ItemServiceImpl;
 import org.sample.shop.merchant.service.ItemService;
-
-import java.util.List;
+import org.sample.shop.merchant.service.impl.ItemServiceImpl;
 
 public class ItemServiceTest {
 

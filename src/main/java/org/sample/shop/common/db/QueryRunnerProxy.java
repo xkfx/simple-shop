@@ -42,15 +42,4 @@ public class QueryRunnerProxy {
         }
         return result;
     }
-
-    public static int[] batch(String metadataId, Object[][] params) {
-        int[] result;
-        try {
-            Metadata metadata = MetadataBuffer.getMetadata(metadataId);
-            result = RUNNER.batch(ConnectionFactory.getConnection(), metadata.getSql(), params);
-        } catch (Exception e) {
-            throw new DaoException(e);
-        }
-        return result;
-    }
 }

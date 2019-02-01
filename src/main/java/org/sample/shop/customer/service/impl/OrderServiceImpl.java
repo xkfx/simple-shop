@@ -9,11 +9,11 @@ import org.sample.shop.common.dao.impl.CartDAOImpl;
 import org.sample.shop.common.dao.impl.OrderDAOImpl;
 import org.sample.shop.common.dao.impl.OrderDetailDAOImpl;
 import org.sample.shop.common.db.connmanager.ConnectionProxy;
+import org.sample.shop.common.dto.ServiceResult;
 import org.sample.shop.common.entity.Order;
 import org.sample.shop.common.entity.OrderDetail;
 import org.sample.shop.common.exception.DaoException;
 import org.sample.shop.customer.service.OrderService;
-import org.sample.shop.common.dto.ServiceResult;
 
 import java.util.List;
 

@@ -7,13 +7,11 @@ import org.sample.shop.common.dao.TransportOrderDAO;
 import org.sample.shop.common.dao.impl.OrderDetailDAOImpl;
 import org.sample.shop.common.dao.impl.TransportOrderDAOImpl;
 import org.sample.shop.common.db.connmanager.ConnectionProxy;
+import org.sample.shop.common.dto.ServiceResult;
 import org.sample.shop.common.entity.TransportOrder;
 import org.sample.shop.common.enums.entitystatus.impl.TransportStatus;
 import org.sample.shop.common.exception.DaoException;
-import org.sample.shop.common.dto.ServiceResult;
 import org.sample.shop.express.service.TransportService;
-import org.sample.shop.merchant.service.OrderDetailService;
-import org.sample.shop.merchant.service.impl.OrderDetailServiceImpl;
 
 import java.util.HashMap;
 import java.util.List;

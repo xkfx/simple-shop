@@ -14,7 +14,7 @@ public class ConnectionFactory {
         // Exists to defeat instantiation
     }
 
-    private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 
     static {
         try {
