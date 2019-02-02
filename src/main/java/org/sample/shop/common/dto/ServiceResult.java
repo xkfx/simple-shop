@@ -48,22 +48,6 @@ public class ServiceResult<T> {
         return error;
     }
 
-    private static final ObjectMapper MAPPER = new ObjectMapper();
-
-    public ObjectNode failJson() {
-        if (isSuccess()) return MAPPER.valueToTree(data);
-        ObjectNode jsonNodes = MAPPER.createObjectNode();
-        jsonNodes.put("message", error);
-        return jsonNodes;
-    }
-
-    public ObjectNode getJson() {
-        if (isSuccess()) return MAPPER.valueToTree(data);
-        ObjectNode jsonNodes = MAPPER.createObjectNode();
-        jsonNodes.put("message", error);
-        return jsonNodes;
-    }
-
     @Override
     public String toString() {
         return "ServiceResult{" +

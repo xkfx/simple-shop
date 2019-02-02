@@ -6,9 +6,11 @@ import org.sample.shop.common.dto.ServiceResult;
 import org.sample.shop.common.entity.User;
 import org.sample.shop.common.service.UserService;
 import org.sample.shop.common.util.ServiceUtils;
+import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     private static final String USER_EXISTED = "用户名已被注册。";

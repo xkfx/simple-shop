@@ -44,14 +44,4 @@ public class MetadataBuffer {
             }
         }
     }
-
-    public static void main(String[] args) {
-        Metadata metadata = null;
-        try {
-            metadata = getMetadata("user_saveUser");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println(metadata.getSql());
-    }
 }
