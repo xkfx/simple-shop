@@ -24,7 +24,6 @@ public class UserServiceImpl implements UserService {
         check user.type:
         check username:
         check password:
-
          */
         User user = new User(type, username, password);
         return ServiceUtils.daoOperation(() -> {

@@ -4,7 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.sample.shop.common.dao.ItemDAO;
 import org.sample.shop.common.dao.impl.ItemDAOImpl;
-import org.sample.shop.common.db.connmanager.ConnectionProxy;
+import org.sample.shop.common.db.connmanager.LocalConnectionProxy;
 import org.sample.shop.common.dto.ServiceResult;
 import org.sample.shop.common.entity.Item;
 import org.sample.shop.common.enums.entitystatus.impl.ItemStatus;
@@ -31,7 +31,7 @@ public class ItemServiceImpl implements ItemService {
         } catch (DaoException e) {
             return new ServiceResult<>(ITEM_CREATE_FAIL);
         } finally {
-            ConnectionProxy.close();
+            LocalConnectionProxy.close();
         }
     }
 
@@ -54,7 +54,7 @@ public class ItemServiceImpl implements ItemService {
         } catch (DaoException e) {
             return new ServiceResult<>(ITEM_LIST_FAIL);
         } finally {
-            ConnectionProxy.close();
+            LocalConnectionProxy.close();
         }
     }
 
@@ -66,7 +66,7 @@ public class ItemServiceImpl implements ItemService {
         } catch (DaoException e) {
             return new ServiceResult<>(INNER_ERROR);
         } finally {
-            ConnectionProxy.close();
+            LocalConnectionProxy.close();
         }
     }
 
@@ -109,7 +109,7 @@ public class ItemServiceImpl implements ItemService {
         } catch (DaoException e) {
             return new ServiceResult<>(INNER_ERROR);
         } finally {
-            ConnectionProxy.close();
+            LocalConnectionProxy.close();
         }
     }
 }

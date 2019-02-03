@@ -6,7 +6,11 @@ public class DaoException extends RuntimeException {
         super(cause);
     }
 
-    public DaoException(String s) {
-        super(s);
+    public DaoException(String message) {
+        super(message);
+    }
+
+    public DaoException(String message, Throwable cause) {
+        super(message, cause);
     }
 }

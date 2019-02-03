@@ -2,7 +2,7 @@ package org.sample.shop.customer.service.impl;
 
 import org.sample.shop.common.dao.CartDAO;
 import org.sample.shop.common.dao.impl.CartDAOImpl;
-import org.sample.shop.common.db.connmanager.ConnectionProxy;
+import org.sample.shop.common.db.connmanager.LocalConnectionProxy;
 import org.sample.shop.common.dto.ServiceResult;
 import org.sample.shop.common.entity.Cart;
 import org.sample.shop.common.exception.DaoException;
@@ -24,7 +24,7 @@ public class CartServiceImpl implements CartService {
         } catch (DaoException e) {
             return new ServiceResult<>(cart_addItem_fail);
         } finally {
-            ConnectionProxy.close();
+            LocalConnectionProxy.close();
         }
     }
 
@@ -39,7 +39,7 @@ public class CartServiceImpl implements CartService {
         } catch (DaoException e) {
             return new ServiceResult<>(cart_removeItem_fail);
         } finally {
-            ConnectionProxy.close();
+            LocalConnectionProxy.close();
         }
     }
 
@@ -50,7 +50,7 @@ public class CartServiceImpl implements CartService {
         } catch (DaoException e) {
             return new ServiceResult<>(cart_getByUid_fail);
         } finally {
-            ConnectionProxy.close();
+            LocalConnectionProxy.close();
         }
     }
 }

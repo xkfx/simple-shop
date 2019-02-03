@@ -8,7 +8,7 @@ import org.sample.shop.common.dao.OrderDetailDAO;
 import org.sample.shop.common.dao.impl.CartDAOImpl;
 import org.sample.shop.common.dao.impl.OrderDAOImpl;
 import org.sample.shop.common.dao.impl.OrderDetailDAOImpl;
-import org.sample.shop.common.db.connmanager.ConnectionProxy;
+import org.sample.shop.common.db.connmanager.LocalConnectionProxy;
 import org.sample.shop.common.dto.ServiceResult;
 import org.sample.shop.common.entity.Order;
 import org.sample.shop.common.entity.OrderDetail;
@@ -34,7 +34,7 @@ public class OrderServiceImpl implements OrderService {
         } catch (DaoException e) {
             return new ServiceResult<>(ORDER_LIST_FAIL);
         } finally {
-            ConnectionProxy.close();
+            LocalConnectionProxy.close();
         }
     }
 
@@ -45,7 +45,7 @@ public class OrderServiceImpl implements OrderService {
         } catch (DaoException e) {
             return new ServiceResult<>(order_getPreOrder_fail);
         } finally {
-            ConnectionProxy.close();
+            LocalConnectionProxy.close();
         }
     }
 
@@ -62,7 +62,7 @@ public class OrderServiceImpl implements OrderService {
         } catch (DaoException e) {
             return new ServiceResult<>(order_placeOrder_fail);
         } finally {
-            ConnectionProxy.close();
+            LocalConnectionProxy.close();
         }
     }
 
@@ -80,7 +80,7 @@ public class OrderServiceImpl implements OrderService {
         } catch (DaoException e) {
             return new ServiceResult<>(order_payOrder_fail);
         } finally {
-            ConnectionProxy.close();
+            LocalConnectionProxy.close();
         }
     }
 

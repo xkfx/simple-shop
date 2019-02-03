@@ -6,7 +6,7 @@ import org.sample.shop.common.dao.OrderDetailDAO;
 import org.sample.shop.common.dao.TransportOrderDAO;
 import org.sample.shop.common.dao.impl.OrderDetailDAOImpl;
 import org.sample.shop.common.dao.impl.TransportOrderDAOImpl;
-import org.sample.shop.common.db.connmanager.ConnectionProxy;
+import org.sample.shop.common.db.connmanager.LocalConnectionProxy;
 import org.sample.shop.common.dto.ServiceResult;
 import org.sample.shop.common.entity.TransportOrder;
 import org.sample.shop.common.enums.entitystatus.impl.TransportStatus;
@@ -21,9 +21,7 @@ import static org.sample.shop.common.enums.business.BusinessCode.*;
 
 public class TransportServiceImpl implements TransportService {
 
-    private static final Logger LOGGER = LogManager.getLogger();
     private TransportOrderDAO transportOrderDAO = new TransportOrderDAOImpl();
-    private OrderDetailDAO detailDAO = new OrderDetailDAOImpl();
 
     @Override
     public ServiceResult<TransportOrder> createNew(long userId, long detailId, String location) {
@@ -34,7 +32,7 @@ public class TransportServiceImpl implements TransportService {
         } catch (DaoException e) {
             return new ServiceResult<>(TRANSPORT_CREATE_FAIL);
         } finally {
-            ConnectionProxy.close();
+            LocalConnectionProxy.close();
         }
     }
 
@@ -46,7 +44,7 @@ public class TransportServiceImpl implements TransportService {
         } catch (DaoException e) {
             return new ServiceResult<>(TRANSPORT_GET_FAIL);
         } finally {
-            ConnectionProxy.close();
+            LocalConnectionProxy.close();
         }
     }
 
@@ -58,7 +56,7 @@ public class TransportServiceImpl implements TransportService {
         } catch (DaoException e) {
             return new ServiceResult<>(TRANSPORT_GET_FAIL);
         } finally {
-            ConnectionProxy.close();
+            LocalConnectionProxy.close();
         }
     }
 
@@ -116,7 +114,7 @@ public class TransportServiceImpl implements TransportService {
         } catch (DaoException e) {
             return new ServiceResult<>(INNER_ERROR);
         } finally {
-            ConnectionProxy.close();
+            LocalConnectionProxy.close();
         }
     }
 }

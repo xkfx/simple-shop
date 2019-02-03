@@ -2,7 +2,7 @@ package org.sample.shop.common.dao;
 
 import org.junit.Test;
 import org.sample.shop.common.dao.impl.OrderDAOImpl;
-import org.sample.shop.common.db.connmanager.ConnectionProxy;
+import org.sample.shop.common.db.connmanager.LocalConnectionProxy;
 import org.sample.shop.common.entity.Order;
 import org.sample.shop.common.entity.OrderDetail;
 
@@ -25,7 +25,7 @@ public class OrderDAOTest {
         int i = dao.saveOrder(order);
         System.out.println(i);
 
-        ConnectionProxy.close();
+        LocalConnectionProxy.close();
     }
 
     @Test
@@ -33,6 +33,6 @@ public class OrderDAOTest {
         List<Order> order = dao.listByUid(1001L);
         System.out.println(order);
 
-        ConnectionProxy.close();
+        LocalConnectionProxy.close();
     }
 }

@@ -2,7 +2,7 @@ package org.sample.shop.common.db;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
-import org.sample.shop.common.db.connmanager.ConnectionFactory;
+import org.sample.shop.common.db.connmanager.LocalConnectionProxy;
 import org.sample.shop.common.db.handler.HandlerBuffer;
 import org.sample.shop.common.db.html.Metadata;
 import org.sample.shop.common.db.html.MetadataBuffer;
@@ -20,9 +20,9 @@ public class QueryRunnerProxy {
         int updates = 0;
         try {
             Metadata metadata = MetadataBuffer.getMetadata(metadataId);
-            updates = RUNNER.update(ConnectionFactory.getConnection(), metadata.getSql(), param);
+            updates = RUNNER.update(LocalConnectionProxy.getConn(), metadata.getSql(), param);
         } catch (Exception e) {
-            throw new DaoException(e);
+            throw new DaoException("An exception occurred while updating the data, metadataId=" + metadataId, e);
         }
         return updates;
     }
@@ -33,12 +33,12 @@ public class QueryRunnerProxy {
             Metadata metadata = MetadataBuffer.getMetadata(metadataId);
             ResultSetHandler handler = HandlerBuffer.getHandler(metadata.getType());
             if (handler != null) {
-                result = RUNNER.query(ConnectionFactory.getConnection(), metadata.getSql(), (ResultSetHandler<T>) handler, params);
+                result = RUNNER.query(LocalConnectionProxy.getConn(), metadata.getSql(), (ResultSetHandler<T>) handler, params);
             } else {
-                throw new DaoException("ResultSet Handler did not exist");
+                throw new DaoException("ResultSet Handler did not found.");
             }
         } catch (Exception e) {
-            throw new DaoException(e);
+            throw new DaoException("An exception occurred while querying the data, metadataId=" + metadataId, e);
         }
         return result;
     }

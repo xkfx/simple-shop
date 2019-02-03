@@ -40,7 +40,7 @@ public class MetadataBuffer {
             if (result != null) {
                 return result;
             } else {
-                throw new IOException("Invalid id");
+                throw new IOException("Invalid metadataId " + metadataId);
             }
         }
     }

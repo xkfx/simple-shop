@@ -30,12 +30,4 @@ public class HandlerBuffer {
         }
         return handler;
     }
-
-    public static void main(String[] args) {
-        try {
-            System.out.println(getHandler("org.sample.shop.common.entity.Cart"));
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
 }

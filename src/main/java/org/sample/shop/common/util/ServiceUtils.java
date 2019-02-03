@@ -1,32 +1,32 @@
 package org.sample.shop.common.util;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.sample.shop.common.db.connmanager.ConnectionProxy;
+import org.sample.shop.common.db.connmanager.LocalConnectionProxy;
 import org.sample.shop.common.dto.ServiceResult;
+import org.sample.shop.common.exception.DaoException;
 
-import java.sql.Connection;
-
+/**
+ * 消除Service层模板代码
+ */
 public class ServiceUtils {
-
-    private static final Logger LOGGER = LogManager.getLogger();
 
     public interface DaoOperation<T> {
         ServiceResult<T> execute();
     }
 
+    /**
+     * 该调用可能抛出运行时异常：DAOException
+     */
     public static <T> ServiceResult<T> daoOperation(DaoOperation<T> operation, int level) {
         try {
-            ConnectionProxy.setTransactionIsolation(level);
+            LocalConnectionProxy.setTransactionIsolation(level);
             ServiceResult<T> result = operation.execute();
-            ConnectionProxy.commit();
+            LocalConnectionProxy.commit();
             return result;
         } catch (Exception e) {
-            LOGGER.error(e);
-            ConnectionProxy.rollback();
-            return ServiceResult.error();
+            LocalConnectionProxy.rollback();
+            throw new DaoException(e);
         } finally {
-            ConnectionProxy.close(); // 异常内部处理了。
+            LocalConnectionProxy.close();
         }
     }
 }
