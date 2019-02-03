@@ -35,7 +35,7 @@ public class QueryRunnerProxy {
             if (handler != null) {
                 result = RUNNER.query(LocalConnectionProxy.getConn(), metadata.getSql(), (ResultSetHandler<T>) handler, params);
             } else {
-                throw new DaoException("ResultSet Handler did not found.");
+                throw new DaoException("ResultSet Handler not found.");
             }
         } catch (Exception e) {
             throw new DaoException("An exception occurred while querying the data, metadataId=" + metadataId, e);

@@ -1,5 +1,6 @@
 package org.sample.shop.common.service.impl;
 
+import org.sample.shop.common.annotation.CheckFormat;
 import org.sample.shop.common.dao.UserDAO;
 import org.sample.shop.common.dao.impl.UserDAOImpl;
 import org.sample.shop.common.dto.ServiceResult;
