@@ -19,15 +19,16 @@ public class RegexpValidator implements Validator {
 
     private static final String NAME = "regexp";
 
+    private static final String FILE_NAME = File.separator + "easy-validator.properties";
+
     private static final Map<String, Pattern> MAP = new HashMap<>();
 
     static {
         // 把.properties文件里的键值对读到内存里
         Properties prop = new Properties();
-        String filename = File.separator + "easy-validator.properties";
-        try (InputStream input = ServiceMethodAspect.class.getClassLoader().getResourceAsStream(filename)){
+        try (InputStream input = ServiceMethodAspect.class.getClassLoader().getResourceAsStream(FILE_NAME)){
             if (input == null) {
-                throw new RuntimeException("Sorry, unable to find " + filename);
+                throw new RuntimeException("Sorry, unable to find " + FILE_NAME);
             }
             prop.load(input);
             Enumeration<?> e = prop.propertyNames();
@@ -37,7 +38,7 @@ public class RegexpValidator implements Validator {
                 MAP.put(key, Pattern.compile(value));
             }
         } catch (IOException e) {
-            throw new RuntimeException("An exception occurred while reading " + filename, e);
+            throw new RuntimeException("An exception occurred while reading " + FILE_NAME, e);
         }
     }
 

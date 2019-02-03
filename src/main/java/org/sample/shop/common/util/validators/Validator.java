@@ -2,6 +2,9 @@ package org.sample.shop.common.util.validators;
 
 public interface Validator {
 
+    /**
+     * 用于标识和查找校验器
+     */
     String getName();
 
     void validate(Object o);

@@ -23,7 +23,7 @@ public class UserServiceTest {
 
     @Test
     public void getUser() {
-        ServiceResult<User> result = userService.getUser("TEST_TRANSACTION", "123");
+        ServiceResult<User> result = userService.getUser("fdfds", "123456");
         System.out.println(result);
     }
 }

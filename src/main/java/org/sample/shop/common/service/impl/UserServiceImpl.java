@@ -1,6 +1,6 @@
 package org.sample.shop.common.service.impl;
 
-import org.sample.shop.common.annotation.CheckFormat;
+import org.sample.shop.common.annotation.Validator;
 import org.sample.shop.common.dao.UserDAO;
 import org.sample.shop.common.dao.impl.UserDAOImpl;
 import org.sample.shop.common.dto.ServiceResult;
@@ -20,12 +20,7 @@ public class UserServiceImpl implements UserService {
     private final UserDAO userDAO = new UserDAOImpl();
 
     @Override
-    public ServiceResult<User> saveUser(int type, String username, String password) {
-        /*
-        check user.type:
-        check username:
-        check password:
-         */
+    public ServiceResult<User> saveUser(int type, @Validator("username.regexp") String username, @Validator("password.regexp") String password) {
         User user = new User(type, username, password);
         return ServiceUtils.daoOperation(() -> {
             int updates = userDAO.saveUser(user);
@@ -34,7 +29,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ServiceResult<User> getUser(String username, String password) {
+    public ServiceResult<User> getUser(@Validator("username.regexp") String username, @Validator("password.regexp") String password) {
         return ServiceUtils.daoOperation(() -> {
             User user = userDAO.getUser(username, password);
             return user != null ? ServiceResult.ok(user) : new ServiceResult<>(LOGIN_FAIL);

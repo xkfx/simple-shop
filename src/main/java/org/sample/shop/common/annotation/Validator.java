@@ -7,6 +7,6 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface CheckFormat {
-    String value() default "";
+public @interface Validator {
+    String value();
 }
