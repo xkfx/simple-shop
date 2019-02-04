@@ -1,7 +1,5 @@
 package org.sample.shop.common.dto;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.sample.shop.common.enums.business.BusinessCode;
 
 public class ServiceResult<T> {

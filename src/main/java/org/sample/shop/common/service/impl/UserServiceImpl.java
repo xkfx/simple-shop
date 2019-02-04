@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
     public ServiceResult<User> getUser(@Validator("username.regexp") String username, @Validator("password.regexp") String password) {
         return ServiceUtils.daoOperation(() -> {
             User user = userDAO.getUser(username, password);
-            return user != null ? ServiceResult.ok(user) : new ServiceResult<>(LOGIN_FAIL);
+            return user != null ? ServiceResult.ok(user) : ServiceResult.fail(LOGIN_FAIL);
         }, Connection.TRANSACTION_READ_COMMITTED);
     }
 }

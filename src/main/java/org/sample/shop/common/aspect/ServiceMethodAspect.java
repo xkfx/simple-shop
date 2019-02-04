@@ -3,11 +3,13 @@ package org.sample.shop.common.aspect;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.sample.shop.common.annotation.Validator;
+import org.sample.shop.common.dto.ServiceRecord;
 import org.sample.shop.common.dto.ServiceResult;
 import org.sample.shop.common.exception.ValidateException;
 import org.sample.shop.common.util.EasyValidator;
@@ -21,7 +23,7 @@ import java.lang.reflect.Parameter;
 import java.util.Arrays;
 
 /**
- * 该切面做3件事情：参数校验、异常处理、错误日志
+ * 该切面做3件事情：参数校验、异常处理、日志
  */
 @Aspect
 @Configuration
@@ -33,6 +35,8 @@ public class ServiceMethodAspect {
 
     private static final EasyValidator EASY_VALIDATOR = new EasyValidator();
 
+    private static final ThreadLocal<ServiceRecord> SERVICE_RECORD_THREAD_LOCAL = new ThreadLocal<>();
+
     static {
         EASY_VALIDATOR.addValidator(new RegexpValidator());
     }
@@ -42,13 +46,15 @@ public class ServiceMethodAspect {
 
     @Around("serviceMethod()")
     public ServiceResult work(ProceedingJoinPoint jp) {
-        // 参数校验
-        Method method = ((MethodSignature) jp.getSignature()).getMethod();
-        Parameter[] parameter = method.getParameters(); // 便于获取注解对象
-        String[] parameterName = DISCOVERER.getParameterNames(method);
+        MethodSignature signature = (MethodSignature) jp.getSignature();
         Object[] parameterValue = jp.getArgs();
-        String currentValidatorName;
+        SERVICE_RECORD_THREAD_LOCAL.set(new ServiceRecord(System.currentTimeMillis(), signature, parameterValue));
+        // 参数校验
+        Method method = signature.getMethod();
+        String[] parameterName = DISCOVERER.getParameterNames(method);
+        Parameter[] parameter = method.getParameters(); // 便于获取注解对象
         try {
+            String currentValidatorName;
             // 逐个参数进行校验，先尝试获取Validator注解值，注解不存在用参数名作为校验器名
             for (int i = 0; i != parameter.length; ++i) {
                 if (parameter[i].getAnnotation(Validator.class) != null) {
@@ -56,7 +62,6 @@ public class ServiceMethodAspect {
                 } else {
                     currentValidatorName = parameterName[i];
                 }
-                LOGGER.info("check: object={}, validatorName={}", parameterValue[i], currentValidatorName); // 偶尔出现校验异常有日志可查 TODO 用户信息
                 EASY_VALIDATOR.check(parameterValue[i], currentValidatorName);
             }
             return (ServiceResult) jp.proceed();
@@ -64,28 +69,21 @@ public class ServiceMethodAspect {
             return ServiceResult.fail(e.getMessage());
         } catch (Throwable throwable) {
             // 错误日志
-            LOGGER.error(new DetailedInfo(jp.getArgs(), throwable.getMessage()), throwable);
+            LOGGER.error("", throwable);
             return ServiceResult.error();
         }
     }
 
-    private class DetailedInfo {
-
-        private Object[] args;
-
-        private String message;
-
-        DetailedInfo(Object[] args, String message) {
-            this.args = args;
-            this.message = message;
+    @AfterReturning(pointcut = "serviceMethod()", returning = "result")
+    public void logRecord(ServiceResult result) {
+        ServiceRecord record = SERVICE_RECORD_THREAD_LOCAL.get();
+        if (record != null) {
+            record.setResult(result);
+            record.setEndTime(System.currentTimeMillis());
+            LOGGER.info(record);
+        } else {
+            LOGGER.warn("Abnormal service method, {}", result);
         }
-
-        @Override
-        public String toString() {
-            return "DetailedInfo{" +
-                    "args=" + Arrays.toString(args) +
-                    ", message='" + message + '\'' +
-                    '}';
-        }
+        SERVICE_RECORD_THREAD_LOCAL.remove();
     }
 }

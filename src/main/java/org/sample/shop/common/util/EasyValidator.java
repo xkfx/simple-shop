@@ -1,8 +1,6 @@
 package org.sample.shop.common.util;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.sample.shop.common.exception.ValidatorException;
 import org.sample.shop.common.util.validators.Validator;
 
@@ -13,7 +11,6 @@ import java.util.Map;
  * 自定义的一个简易参数校验器
  */
 public class EasyValidator {
-    private static final Logger LOGGER = LogManager.getLogger();
     /**
      * 初始化后不再更新，否则在多线程环境下有风险
      */

@@ -1,10 +1,6 @@
 package org.sample.shop.express.service.impl;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.sample.shop.common.dao.OrderDetailDAO;
 import org.sample.shop.common.dao.TransportOrderDAO;
-import org.sample.shop.common.dao.impl.OrderDetailDAOImpl;
 import org.sample.shop.common.dao.impl.TransportOrderDAOImpl;
 import org.sample.shop.common.db.connmanager.LocalConnectionProxy;
 import org.sample.shop.common.dto.ServiceResult;
