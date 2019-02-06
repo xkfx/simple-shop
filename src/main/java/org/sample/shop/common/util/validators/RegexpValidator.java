@@ -49,7 +49,7 @@ public class RegexpValidator implements Validator {
 
     @Override
     public void validate(Object o) {
-        throw new ValidatorException("validate(Object o)方法未定义");
+        throw new ValidatorException("RegexpValidator的validate(Object o)方法未定义");
     }
 
     @Override

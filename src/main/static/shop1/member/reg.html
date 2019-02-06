@@ -14,10 +14,6 @@
 			main>table td {
 				border: 1px solid black;
 			}
-			
-			main .buttons {
-				margin: 15px 0;
-			}
 		</style>
 		<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 		<script src="../resources/js/utils/customUtils.js"></script>
@@ -26,7 +22,7 @@
 
 	<body>
 		<header>
-			<h1><a href="" title="返回首页">用户注册</a></h1>
+			<h1><a href="../index.html" title="返回首页">用户注册</a></h1>
 		</header>
 
 		<main>
@@ -54,6 +50,7 @@
 				<button name="jump">已有账号，立即登陆</button>
 			</div>
 		</main>
+
 		<footer>
 			<div id="console">
 			</div>
@@ -61,11 +58,15 @@
 
 		<script>
 			$(document).ready(() => {
-				let inputUsername = qE("input[name=username]");
-				let inputPwd = qE("input[name=password]");
-				let inputTypes = document.querySelectorAll("input[name=type]");
+				// input
+				let usernameBox = qE("input[name=username]");
+				let pwdBox = qE("input[name=password]");
+				let typeBox = document.querySelectorAll("input[name=type]");
+				// button
 				let btnSubmit = qE(".buttons [name=submit]");
+				let btnClear = qE(".buttons [name=clear]");
 				let btnJump = qE(".buttons [name=jump]");
+				// div
 				let divConsole = qE("#console");
 
 				let ipg = {
@@ -82,41 +83,57 @@
 						ipg.log(dom);
 					},
 					getSelectedType: function() {
-						for(let x of Array.from(inputTypes)) {
+						for(let x of Array.from(typeBox)) {
 							if(x.checked) {
 								return x.value;
 							}
 						}
 					},
 					clear: function() {
-						inputUsername.value = "";
-						inputPwd.value = "";
-						inputTypes[0].checked = true;
+						usernameBox.value = "";
+						pwdBox.value = "";
+						typeBox[0].checked = true;
+						ipg.log("清除完毕");
 					},
 					regSuccess: function() {
-						
+
 					},
 					_submit: function() {
-						let username = inputUsername.value;
-						let pwd = inputPwd.value;
+						let username = usernameBox.value;
+						let pwd = pwdBox.value;
 						let type = ipg.getSelectedType();
+						btnSubmit.disabled = true;
+						ipg.log("正在处理注册请求，请稍等······")
 						User.save(username, pwd, type).then(user => {
 							ipg.log("注册成功！");
-							
-							btnSubmit.disable = true;
-//							if(user.type === 1) {
-//								let dom = elt("div", {}, "管理你的商品：", elt("a", {
-//									href: "../merchant/items.html?userId=" + user.id,
-//								}, "url4" + user.id));
-//								ipg.log(dom);
-//							}
+							//							if(user.type === 1) {
+							//								let dom = elt("div", {}, "管理你的商品：", elt("a", {
+							//									href: "../merchant/items.html?userId=" + user.id,
+							//								}, "url4" + user.id));
+							//								ipg.log(dom);
+							//							}
 						}).catch(e => {
-							ipg.logError("注册失败！" + e.message);
+							let respJSON = e.responseJSON;
+							if (respJSON != undefined && respJSON.hasOwnProperty("message")) {
+								ipg.logError("注册失败！" + respJSON.message);
+								btnSubmit.disabled = false;
+							} else if (e.status == 201) {
+								ipg.log("注册成功！");
+							} else {
+								console.log(e);
+								ipg.logError("客户端异常，请稍后再试");
+							}
 						});
 					},
+					jump: function() {
+						window.location.replace("login.html");
+					},
 				};
+
+				ipg.log("仅限字母（区分大小写）、数字、下划线的组合，用户名4~16位，密码6~16位。")
 				addRel(btnSubmit, "click", ipg._submit);
-				addRel(qE(".buttons [name=clear]"), "click", ipg.clear);
+				addRel(btnClear, "click", ipg.clear);
+				addRel(btnJump, "click", ipg.jump);
 			});
 		</script>
 	</body>

@@ -9,18 +9,18 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.sample.shop.common.annotation.Validator;
-import org.sample.shop.common.dto.ServiceRecord;
+import org.sample.shop.common.pojo.ServiceRecord;
 import org.sample.shop.common.dto.ServiceResult;
 import org.sample.shop.common.exception.ValidateException;
 import org.sample.shop.common.util.EasyValidator;
 import org.sample.shop.common.util.validators.RegexpValidator;
+import org.sample.shop.common.util.validators.UserValidator;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.core.ParameterNameDiscoverer;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.util.Arrays;
 
 /**
  * 该切面做3件事情：参数校验、异常处理、日志
@@ -39,6 +39,7 @@ public class ServiceMethodAspect {
 
     static {
         EASY_VALIDATOR.addValidator(new RegexpValidator());
+        EASY_VALIDATOR.addValidator(new UserValidator());
     }
 
     @Pointcut("execution(* org.sample.shop.common.service.impl.*.*(..))")

@@ -25,7 +25,7 @@ public class EasyValidator {
         if (validator != null) {
             validator.validate(object, removeLast(validatorName));
         } else {
-            throw new ValidatorException("validator not found, validatorName=" + validatorName);
+            throw ValidatorException.undefined(validatorName);
         }
     }
 

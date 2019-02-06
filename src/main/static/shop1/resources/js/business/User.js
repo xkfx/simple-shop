@@ -15,7 +15,7 @@ class User {
 			}).done(data => {
 				resolve(data);
 			}).fail(e => {
-				reject(e.responseJSON);
+				reject(e);
 			});
 		});
 	}
@@ -34,8 +34,8 @@ class User {
 				crossDomain: true,
 			}).done(data => {
 				resolve(data);
-			}).fail(e => {
-				reject(e.responseJSON);
+			}).fail(e => {				
+				reject(e);
 			});
 		});
 	}

@@ -2,6 +2,11 @@ package org.sample.shop.common.dto;
 
 import org.sample.shop.common.enums.business.BusinessCode;
 
+/**
+ * DTO数据传输对象。
+ * VO由一个中间服务来做或者
+ * 直接由js来构造
+ */
 public class ServiceResult<T> {
 
     private static final String SERVER_ERROR = "服务器内部错误！";

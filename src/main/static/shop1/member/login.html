@@ -3,111 +3,143 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<title>SIMPLE SHOP</title>
+		<link rel="stylesheet" type="text/css" href="../resources/css/style.css" />
+		<style>
+			main>table {
+				margin: 15px 0;
+				border: 1px solid black;
+			}
+			
+			main>table td {
+				border: 1px solid black;
+			}
+		</style>
 		<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-		<script src="../resources/js/Iconst.js"></script>
 		<script src="../resources/js/utils/customUtils.js"></script>
-		<script src="../resources/js/RelationContainer.js"></script>
 		<script src="../resources/js/business/User.js"></script>
 	</head>
 
 	<body>
-		<p>登陆界面</p>
+		<header>
+			<h1><a href="../index.html" title="返回首页">用户登陆</a></h1>
+		</header>
 
-		<p></p>
-		<div id="div-reg">
-			<table id="table-reg" border="1">
+		<main>
+			<table>
 				<tr>
 					<td>用户名</td>
-					<td><input type="text" name="username" id="input-username" /></td>
+					<td><input type="text" name="username" /></td>
 				</tr>
 				<tr>
 					<td>密码</td>
-					<td><input type="password" name="password" id="input-pwd" /></td>
+					<td><input type="password" name="password" /></td>
 				</tr>
 			</table>
-		</div>
-		<p></p>
-		<button id="button-reg">提交</button>
-		<button id="button-clear">清空</button>
-		<p id="p-console" style="color: red;">empty</p>
-		<div id="div-console" style="color: red;">
-			<div></div>
-		</div>
-		<a href=""></a>
+			<div class="buttons">
+				<button name="submit">提交</button>
+				<button name="clear">清空</button>
+				<button name="jump">尚未注册</button>
+			</div>
+		</main>
+
+		<footer>
+			<div id="console">
+			</div>
+		</footer>
+
 		<script>
 			$(document).ready(() => {
-				let inputUsername = qE("#input-username");
-				let inputPwd = qE("#input-pwd");
-				let pConsole = qE("#p-console");
-				let divConsole = qE("#div-console");
+				// input
+				let usernameBox = qE("input[name=username]");
+				let pwdBox = qE("input[name=password]");
+				// button
+				let btnSubmit = qE(".buttons [name=submit]");
+				let btnClear = qE(".buttons [name=clear]");
+				let btnJump = qE(".buttons [name=jump]");
+				// div
+				let divConsole = qE("#console");
 
 				let ipg = {
-					log: function(str) {
-						let textNode = document.createTextNode(str);
-						pConsole.replaceChild(textNode, pConsole.firstChild);
-					},
-					powerfulLog: function(dom) {
+					log: function(dom) {
 						if(["string", "number"].indexOf(typeof dom) != -1) {
 							dom = document.createTextNode(dom);
 						}
 						divConsole.replaceChild(dom, divConsole.firstChild);
 					},
+					logError: function(message) {
+						let dom = elt("p", {
+							style: "color: red;",
+						}, message);
+						ipg.log(dom);
+					},
 					clear: function() {
-						inputUsername.value = "";
-						inputPwd.value = "";
+						usernameBox.value = "";
+						pwdBox.value = "";
+						ipg.log("清楚完毕");
 					},
 					_submit: function() {
-						let username = inputUsername.value;
-						let pwd = inputPwd.value;
-						ipg.log(username + ":" + pwd);
+						let username = usernameBox.value;
+						let pwd = pwdBox.value;
+						btnSubmit.disabled = true;
+						ipg.log("正在登陆中，请稍等······");
 						User.query(username, pwd).then(user => {
-							ipg.log("成功," + obj2url(user));
-							if(user.type === 1) {								
-								let dom1 = elt("div", {}, "管理你的商品：", elt("a", {
-									href: "../merchant/items.html?userId=" + user.id,
-									target: "_blank",
-								}, "items_url4_" + user.id));
-								let dom2 = elt("div", {}, "管理客户订单：", elt("a", {
-									href: "../merchant/details.html?userId=" + user.id,
-									target: "_blank",
-								}, "details_url4_" + user.id));
-								let parent = elt("div", {}, dom1, dom2);
-								ipg.powerfulLog(parent);
-							}
-							if (user.type === 0) {
-								let dom1 = elt("div", {}, "逛店铺：", elt("a", {
-									href: "../customer/items.html?userId=" + user.id,
-									target: "_blank",
-								}, "items_url4_" + user.id));
-								let dom2 = elt("div", {}, "查看我的购物车：", elt("a", {
-									href: "../customer/cart.html?userId=" + user.id,
-									target: "_blank",
-								}, "cart_url4_" + user.id));
-								let dom3 = elt("div", {}, "查看我的订单：", elt("a", {
-									href: "../customer/orders.html?userId=" + user.id,
-									target: "_blank",
-								}, "orders_url4_" + user.id));
-								let parent = elt("div", {}, dom1, dom2, dom3);
-								ipg.powerfulLog(parent);								
-							}
-							if (user.type === 2) {
-								let dom1 = elt("div", {}, "查看运单：", elt("a", {
-									href: "../express/transport.html?userId=" + user.id,
-									target: "_blank",
-								}, "transport_url4_" + user.id));
-								let parent = elt("div", {}, dom1);
-								ipg.powerfulLog(parent);								
-							}
+							ipg.log("登陆成功！" + obj2url(user));
+							//							if(user.type === 1) {
+							//								let dom1 = elt("div", {}, "管理你的商品：", elt("a", {
+							//									href: "../merchant/items.html?userId=" + user.id,
+							//									target: "_blank",
+							//								}, "items_url4_" + user.id));
+							//								let dom2 = elt("div", {}, "管理客户订单：", elt("a", {
+							//									href: "../merchant/details.html?userId=" + user.id,
+							//									target: "_blank",
+							//								}, "details_url4_" + user.id));
+							//								let parent = elt("div", {}, dom1, dom2);
+							//								ipg.powerfulLog(parent);
+							//							}
+							//							if(user.type === 0) {
+							//								let dom1 = elt("div", {}, "逛店铺：", elt("a", {
+							//									href: "../customer/items.html?userId=" + user.id,
+							//									target: "_blank",
+							//								}, "items_url4_" + user.id));
+							//								let dom2 = elt("div", {}, "查看我的购物车：", elt("a", {
+							//									href: "../customer/cart.html?userId=" + user.id,
+							//									target: "_blank",
+							//								}, "cart_url4_" + user.id));
+							//								let dom3 = elt("div", {}, "查看我的订单：", elt("a", {
+							//									href: "../customer/orders.html?userId=" + user.id,
+							//									target: "_blank",
+							//								}, "orders_url4_" + user.id));
+							//								let parent = elt("div", {}, dom1, dom2, dom3);
+							//								ipg.powerfulLog(parent);
+							//							}
+							//							if(user.type === 2) {
+							//								let dom1 = elt("div", {}, "查看运单：", elt("a", {
+							//									href: "../express/transport.html?userId=" + user.id,
+							//									target: "_blank",
+							//								}, "transport_url4_" + user.id));
+							//								let parent = elt("div", {}, dom1);
+							//								ipg.powerfulLog(parent);
+							//							}
 						}).catch(e => {
-							ipg.log("出错了");
-							console.log(e);
-							ipg.powerfulLog("~~~~~");
+							let respJSON = e.responseJSON;
+							if (respJSON != undefined && respJSON.hasOwnProperty("message")) {
+								ipg.logError("登陆失败！" + respJSON.message);
+								btnSubmit.disabled = false;
+							} else {
+								console.log(e);
+								ipg.logError("客户端异常，请稍后再试");
+							}
 						});
 					},
+					jump: function() {
+						window.location.replace("reg.html");
+					},
 				};
-				addRel(qE("#button-reg"), "click", ipg._submit);
-				addRel(qE("#button-clear"), "click", ipg.clear);
+
+				addRel(btnSubmit, "click", ipg._submit);
+				addRel(btnClear, "click", ipg.clear);
+				addRel(btnJump, "click", ipg.jump);
 			});
 		</script>
 	</body>

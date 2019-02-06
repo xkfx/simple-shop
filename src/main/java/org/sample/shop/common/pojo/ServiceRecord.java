@@ -1,9 +1,13 @@
-package org.sample.shop.common.dto;
+package org.sample.shop.common.pojo;
 
 import org.aspectj.lang.reflect.MethodSignature;
+import org.sample.shop.common.dto.ServiceResult;
 
 import java.util.Arrays;
 
+/**
+ * 方便打info日志的POJO对象
+ */
 public class ServiceRecord {
 
     private long startTime;

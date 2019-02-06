@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
     private final UserDAO userDAO = new UserDAOImpl();
 
     @Override
-    public ServiceResult<User> saveUser(int type, @Validator("username.regexp") String username, @Validator("password.regexp") String password) {
+    public ServiceResult<User> saveUser(@Validator("type.user") int type, @Validator("username.regexp") String username, @Validator("password.regexp") String password) {
         User user = new User(type, username, password);
         return ServiceUtils.daoOperation(() -> {
             int updates = userDAO.saveUser(user);

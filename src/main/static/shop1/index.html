@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>SIMPLE SHOP</title>
+		<link rel="stylesheet" type="text/css" href="./resources/css/style.css" />
+		<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+		<script src="./resources/js/utils/customUtils.js"></script>
+	</head>
+
+	<body>
+		<header>
+			<h1>Welcome to simple shop</h1>
+			<p>
+				<a href="member/login.html" title="立即登陆">[尚未登陆]</a>
+				<a href="index2.html">[秒杀专场]</a>
+			</p>
+		</header>
+
+		<main>
+			<input type="search" placeholder="商品关键字/店铺id" />
+			<button name="search">搜索</button>
+		</main>
+
+		<footer>
+			<div id="console">
+			</div>
+		</footer>
+		
+		<script>
+			$(document).ready(() => {
+				// button
+				let btnSearch = qE("button[name=search]");
+				// div
+				let divConsole = qE("#console");
+				
+				let ipg = {
+					log: function(dom) {
+						if(["string", "number"].indexOf(typeof dom) != -1) {
+							dom = document.createTextNode(dom);
+						}
+						divConsole.replaceChild(dom, divConsole.firstChild);
+					},
+					logError: function(message) {
+						let dom = elt("p", {
+							style: "color: red;",
+						}, message);
+						ipg.log(dom);
+					},
+					search: function() {
+						ipg.logError("搜索功能仍在施工中。。。。。。。");
+					},
+				};
+				
+				addRel(btnSearch, "click", ipg.search);
+			});
+		</script>
+	</body>
+
+</html>
