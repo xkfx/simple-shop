@@ -1,4 +1,4 @@
-CREATE DATABASE shop1;
+-- CREATE DATABASE shop1;
 -- recreate tables
 DROP TABLE IF EXISTS `cart`;
 DROP TABLE IF EXISTS `transport_order`;
@@ -74,3 +74,28 @@ CREATE TABLE cart (
   FOREIGN KEY(user_id) REFERENCES simple_user(id),
   FOREIGN KEY(item_id) REFERENCES item(id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
+
+-- 2019-02-09 秒杀模块
+-- 秒杀活动表
+DROP TABLE IF EXISTS `seckill`;
+CREATE TABLE seckill (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  item_id BIGINT NOT NULL,
+  price DECIMAL(8, 2),
+  quantity DECIMAL(4, 0),
+  create_time TIMESTAMP NOT NULL DEFAULT current_timestamp COMMENT '创建时间',
+  start_time TIMESTAMP NOT NULL COMMENT '秒杀开始时间',
+  end_time TIMESTAMP NOT NULL COMMENT '秒杀结束时间',
+  PRIMARY KEY (id),
+  FOREIGN KEY(item_id) REFERENCES item(id)
+) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
+-- seckill 测试数据
+INSERT INTO seckill(item_id, price, quantity, start_time, end_time)
+VALUES
+  (1001, 1, 100, '2019-02-10 00:00:00', '2019-02-10 00:01:00'),
+  (1002, 1, 100, '2019-02-10 00:00:00', '2019-02-10 00:01:00'),
+  (1003, 0.1, 100, '2019-02-10 00:00:00', '2019-02-10 00:01:00'),
+  (1004, 0.1, 100, '2019-02-10 00:00:00', '2019-02-10 00:01:00');
+-- 没有及时付款的秒杀是无效的 ...
+ALTER TABLE order_detail
+ADD end_time TIMESTAMP COMMENT '截至日期'; -- 暂时没用到

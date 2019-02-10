@@ -42,7 +42,7 @@ public class ServiceMethodAspect {
         EASY_VALIDATOR.addValidator(new UserValidator());
     }
 
-    @Pointcut("execution(* org.sample.shop.common.service.impl.*.*(..))")
+    @Pointcut("execution(public org.sample.shop.common.dto.ServiceResult org.sample.shop.*.service.impl.*.*(..))")
     public void serviceMethod() {}
 
     @Around("serviceMethod()")
