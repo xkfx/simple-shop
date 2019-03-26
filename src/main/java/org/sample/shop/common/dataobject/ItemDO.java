@@ -1,6 +1,6 @@
-package org.sample.shop.common.entity;
+package org.sample.shop.common.dataobject;
 
-public class Item {
+public class ItemDO {
 
     private Long id;
     private Long userId;
@@ -9,10 +9,10 @@ public class Item {
     private int status;
     private int quantity;
 
-    public Item() {
+    public ItemDO() {
     }
 
-    public Item(Long userId, String name, double price, int status, int quantity) {
+    public ItemDO(Long userId, String name, double price, int status, int quantity) {
         this.userId = userId;
         this.name = name;
         this.price = price;
@@ -70,7 +70,7 @@ public class Item {
 
     @Override
     public String toString() {
-        return "Item{" +
+        return "ItemDO{" +
                 "id=" + id +
                 ", userId=" + userId +
                 ", name='" + name + '\'' +

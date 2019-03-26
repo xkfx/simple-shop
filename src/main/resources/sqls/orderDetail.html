@@ -1,9 +1,9 @@
-<sql id="orderDetail_listByOrderId" type="org.sample.shop.common.entity.OrderDetail">
+<sql id="orderDetail_listByOrderId" type="org.sample.shop.common.dataobject.OrderDetail">
     SELECT id, order_id AS orderId, item_id AS itemId, user_id AS userId, quantity, price, status
     FROM order_detail
     WHERE order_id=?
 </sql>
-<sql id="orderDetail_listByUid" type="org.sample.shop.common.entity.OrderDetail">
+<sql id="orderDetail_listByUid" type="org.sample.shop.common.dataobject.OrderDetail">
     SELECT id, order_id AS orderId, item_id AS itemId, user_id AS userId, quantity, price, status
     FROM order_detail
     WHERE user_id=?

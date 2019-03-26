@@ -1,4 +1,4 @@
-package org.sample.shop.common.entity;
+package org.sample.shop.common.dataobject;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

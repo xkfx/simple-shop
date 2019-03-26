@@ -1,9 +1,11 @@
+-- Deprecated
+
 -- CREATE DATABASE shop1;
 -- recreate tables
 DROP TABLE IF EXISTS `cart`;
 DROP TABLE IF EXISTS `transport_order`;
 DROP TABLE IF EXISTS `order_detail`;
-DROP TABLE IF EXISTS `item`;
+DROP TABLE IF EXISTS `itemDO`;
 DROP TABLE IF EXISTS `simple_order`;
 DROP TABLE IF EXISTS `simple_user`;
 -- simple_user
@@ -24,9 +26,9 @@ CREATE TABLE simple_order (
 	PRIMARY KEY (id),
 	FOREIGN KEY(user_id) REFERENCES simple_user(id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
--- item
-DROP TABLE IF EXISTS `item`;
-CREATE TABLE item (
+-- itemDO
+DROP TABLE IF EXISTS `itemDO`;
+CREATE TABLE itemDO (
   id BIGINT NOT NULL AUTO_INCREMENT,
   user_id BIGINT NOT NULL,
   name VARCHAR(63) NOT NULL,
@@ -48,7 +50,7 @@ CREATE TABLE order_detail (
   price DECIMAL(8, 2), -- 简单起见，这个字段暂时没用到，直接和item表进行连表计算。
 	PRIMARY KEY (id),
 	FOREIGN KEY(order_id) REFERENCES simple_order(id),
-	FOREIGN KEY(item_id) REFERENCES item(id),
+	FOREIGN KEY(item_id) REFERENCES itemDO(id),
 	FOREIGN KEY(user_id) REFERENCES simple_user(id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
 -- transport_order
@@ -72,7 +74,7 @@ CREATE TABLE cart (
   quantity DECIMAL(4, 0), -- 数量上限9999，ps:简单起见，未用该字段，假设只能一个一个买。
   PRIMARY KEY (id),
   FOREIGN KEY(user_id) REFERENCES simple_user(id),
-  FOREIGN KEY(item_id) REFERENCES item(id)
+  FOREIGN KEY(item_id) REFERENCES itemDO(id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
 
 -- 2019-02-09 秒杀模块
@@ -87,7 +89,7 @@ CREATE TABLE seckill (
   start_time TIMESTAMP NOT NULL COMMENT '秒杀开始时间',
   end_time TIMESTAMP NOT NULL COMMENT '秒杀结束时间',
   PRIMARY KEY (id),
-  FOREIGN KEY(item_id) REFERENCES item(id)
+  FOREIGN KEY(item_id) REFERENCES itemDO(id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
 -- seckill 测试数据
 INSERT INTO seckill(item_id, price, quantity, start_time, end_time)

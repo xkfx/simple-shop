@@ -20,8 +20,8 @@
 			</select>
 		</p>
 		<p></p>
-		<div id="container-items">
-			<table id="table-items">正在努力加载！！！</table>
+		<div id="container-itemDOS">
+			<table id="table-itemDOS">正在努力加载！！！</table>
 		</div>
 		<p></p>
 
@@ -33,9 +33,9 @@
 		<button id="button-update">改</button>
 		<p></p>
 		<button id="button-onoff">上架/下架</button>
-		<div id="div-item-create" hidden>
+		<div id="div-itemDO-create" hidden>
 			<p>创建新商品：</p>
-			<table id="table-item-create" border="1">
+			<table id="table-itemDO-create" border="1">
 				<tr>
 					<td>商品名</td>
 					<td><input type="text" name="name" id="inputName" value="" /></td>
@@ -50,13 +50,13 @@
 				</tr>
 			</table>
 			<p></p>
-			<button id="btn-item-submit">提交</button>
-			<button id="btn-item-clear">清空</button>
-			<button id="btn-item-hide">隐藏</button>
+			<button id="btn-itemDO-submit">提交</button>
+			<button id="btn-itemDO-clear">清空</button>
+			<button id="btn-itemDO-hide">隐藏</button>
 		</div>
-		<div id="div-item-remove" hidden>
+		<div id="div-itemDO-remove" hidden>
 			<p>删除商品：</p>
-			<table id="table-item-remove" border="1">
+			<table id="table-itemDO-remove" border="1">
 				<tr>
 					<td>商品id</td>
 					<td><input type="number" name="id" id="input-deleteItem-id" min="1000" /></td>
@@ -66,9 +66,9 @@
 			<button id="btn-remove-submit">提交</button>
 			<button id="btn-remove-hide">隐藏</button>
 		</div>
-		<div id="div-item-update" hidden>
+		<div id="div-itemDO-update" hidden>
 			<p>更新商品信息：</p>
-			<table id="table-item-update" border="1">
+			<table id="table-itemDO-update" border="1">
 				<tr>
 					<td>商品id</td>
 					<td><input type="text" name="name" id="inputUpId" value="" /></td>
@@ -91,9 +91,9 @@
 			<button id="btn-update-clear">清空</button>
 			<button id="btn-update-hide">隐藏</button>
 		</div>
-		<div id="div-item-onoff" hidden>
+		<div id="div-itemDO-onoff" hidden>
 			<p>上架/下架：</p>
-			<table id="table-item-onoff" border="1">
+			<table id="table-itemDO-onoff" border="1">
 				<tr>
 					<td>商品id</td>
 					<td><input type="number" name="name" id="ipUpdateStatusId" value="" /></td>
@@ -108,7 +108,7 @@
 
 		<script>
 			$(document).ready(() => {
-				let container = qE("#container-items");
+				let container = qE("#container-itemDOS");
 				let pConsole = qE("#p-console");
 				let statusSelector = qE("#select-status");
 				let userId = getParamFromUrl("userId");
@@ -171,7 +171,7 @@
 				/**
 				 * 添加商品
 				 */
-				let ItemCreatePanel = qE("#div-item-create");
+				let ItemCreatePanel = qE("#div-itemDO-create");
 				let btnCreate = qE("#button-create");
 				let inputName = qE("#inputName");
 				let inputPrice = qE("#inputPrice");
@@ -192,8 +192,8 @@
 						let price = inputPrice.value;
 						let quantity = inputQuantity.value;
 						ipg.log(name + ":" + price + ":" + quantity);
-						Items.saveItem(userId, name, price, quantity).then(item => {
-							ipg.log(obj2url(item));
+						Items.saveItem(userId, name, price, quantity).then(itemDO => {
+							ipg.log(obj2url(itemDO));
 						}).catch(e => {
 							ipg.log(obj2url(e));
 						});
@@ -208,20 +208,20 @@
 
 				icp.hide();
 				addRel(btnCreate, "click", icp.appear);
-				addRel(qE("#btn-item-hide"), "click", icp.hide);
-				addRel(qE("#btn-item-submit"), "click", icp._submit);
-				addRel(qE("#btn-item-clear"), "click", icp.clear);
+				addRel(qE("#btn-itemDO-hide"), "click", icp.hide);
+				addRel(qE("#btn-itemDO-submit"), "click", icp._submit);
+				addRel(qE("#btn-itemDO-clear"), "click", icp.clear);
 
 				/*
 				 * 删除商品
 				 */
-				let ItemRemovePanel = qE("#div-item-remove");
+				let ItemRemovePanel = qE("#div-itemDO-remove");
 				let inputDeleteItemId = qE("#input-deleteItem-id");
 				let btnRemoveSubmit = qE("#btn-remove-submit");
 				let btnRemoveHide = qE("#btn-remove-hide");
 				let btnRemovePanelShow = qE("#button-remove");
 
-				let irp = { // item remove panel
+				let irp = { // itemDO remove panel
 					remove: function() { // rpc
 						ipg.log("irp:remove");
 						// 1.拿参数
@@ -253,7 +253,7 @@
 				 * 商品更新
 				 */
 				// 显示&控制组件
-				let itemUpdatePanel = qE("#div-item-update");
+				let itemUpdatePanel = qE("#div-itemDO-update");
 				let btnUpSubmit = qE("#btn-update-submit");
 				let btnUpClear = qE("#btn-update-clear");
 				let btnUpHide = qE("#btn-update-hide");
@@ -263,7 +263,7 @@
 				let inputUpName = qE("#inputUpName");
 				let inputUpPrice = qE("#inputUpPrice");
 				let inputUpQuantity = qE("#inputUpQuantity");
-				let iup = { // item update panel
+				let iup = { // itemDO update panel
 					// handler methods 
 					update: function() {
 						ipg.log("iup:update:prepare");
@@ -298,7 +298,7 @@
 				 * 商品上架&下架管理
 				 */
 				// 显示&操控组件
-				let itemOnoffPanel = qE("#div-item-onoff");
+				let itemOnoffPanel = qE("#div-itemDO-onoff");
 				let btnOnoff = qE("#button-onoff");
 				let btnOnoffOn = qE("#btn-onoff-on");
 				let btnOnoffoff = qE("#btn-onoff-off");

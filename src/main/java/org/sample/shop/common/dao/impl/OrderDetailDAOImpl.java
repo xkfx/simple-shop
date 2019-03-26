@@ -2,7 +2,7 @@ package org.sample.shop.common.dao.impl;
 
 import org.sample.shop.common.dao.OrderDetailDAO;
 import org.sample.shop.common.db.QueryRunnerProxy;
-import org.sample.shop.common.entity.OrderDetail;
+import org.sample.shop.common.dataobject.OrderDetail;
 
 import java.util.List;
 

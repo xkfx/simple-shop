@@ -3,7 +3,7 @@ package org.sample.shop.common.dao;
 import org.junit.Test;
 import org.sample.shop.common.dao.impl.OrderDetailDAOImpl;
 import org.sample.shop.common.db.connmanager.LocalConnectionProxy;
-import org.sample.shop.common.entity.OrderDetail;
+import org.sample.shop.common.dataobject.OrderDetail;
 import org.sample.shop.common.enums.entitystatus.impl.OrderDetailStatus;
 
 import java.util.List;

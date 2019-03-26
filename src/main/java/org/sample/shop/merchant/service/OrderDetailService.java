@@ -1,7 +1,7 @@
 package org.sample.shop.merchant.service;
 
 import org.sample.shop.common.dto.ServiceResult;
-import org.sample.shop.common.entity.OrderDetail;
+import org.sample.shop.common.dataobject.OrderDetail;
 
 import java.util.List;
 

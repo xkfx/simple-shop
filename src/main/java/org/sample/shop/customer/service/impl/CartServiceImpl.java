@@ -4,7 +4,7 @@ import org.sample.shop.common.dao.CartDAO;
 import org.sample.shop.common.dao.impl.CartDAOImpl;
 import org.sample.shop.common.db.connmanager.LocalConnectionProxy;
 import org.sample.shop.common.dto.ServiceResult;
-import org.sample.shop.common.entity.Cart;
+import org.sample.shop.common.dataobject.Cart;
 import org.sample.shop.common.exception.DaoException;
 import org.sample.shop.customer.service.CartService;
 

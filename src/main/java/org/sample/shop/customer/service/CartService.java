@@ -1,7 +1,7 @@
 package org.sample.shop.customer.service;
 
 import org.sample.shop.common.dto.ServiceResult;
-import org.sample.shop.common.entity.Cart;
+import org.sample.shop.common.dataobject.Cart;
 
 import java.util.List;
 

@@ -4,7 +4,7 @@ import org.sample.shop.common.annotation.Validator;
 import org.sample.shop.common.dao.UserDAO;
 import org.sample.shop.common.dao.impl.UserDAOImpl;
 import org.sample.shop.common.dto.ServiceResult;
-import org.sample.shop.common.entity.User;
+import org.sample.shop.common.dataobject.User;
 import org.sample.shop.common.service.UserService;
 import org.sample.shop.common.util.ServiceUtils;
 import org.springframework.stereotype.Service;

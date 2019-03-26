@@ -1,7 +1,7 @@
 package org.sample.shop.common.service;
 
 import org.sample.shop.common.dto.ServiceResult;
-import org.sample.shop.common.entity.User;
+import org.sample.shop.common.dataobject.User;
 
 public interface UserService {
 

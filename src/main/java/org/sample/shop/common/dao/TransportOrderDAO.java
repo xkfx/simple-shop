@@ -1,6 +1,6 @@
 package org.sample.shop.common.dao;
 
-import org.sample.shop.common.entity.TransportOrder;
+import org.sample.shop.common.dataobject.TransportOrder;
 
 import java.util.List;
 

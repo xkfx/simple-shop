@@ -1,18 +1,18 @@
 package org.sample.shop.common.dao;
 
-import org.sample.shop.common.entity.Item;
+import org.sample.shop.common.dataobject.ItemDO;
 
 import java.util.List;
 
 public interface ItemDAO {
 
-    List<Item> listByUidAndStatus(Long uid, int status, int start, int offset);
+    List<ItemDO> listByUidAndStatus(Long uid, int status, int start, int offset);
 
-    void saveItem(Item item);
+    void saveItem(ItemDO itemDO);
 
     int removeById(Long id);
 
-    int updateById(Item item);
+    int updateById(ItemDO itemDO);
 
-    Item getById(Long id);
+    ItemDO getById(Long id);
 }

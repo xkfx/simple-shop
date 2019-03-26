@@ -3,7 +3,7 @@ package org.sample.shop.common.dao;
 import org.junit.Test;
 import org.sample.shop.common.dao.impl.UserDAOImpl;
 import org.sample.shop.common.db.connmanager.LocalConnectionProxy;
-import org.sample.shop.common.entity.User;
+import org.sample.shop.common.dataobject.User;
 
 import static org.junit.Assert.assertEquals;
 

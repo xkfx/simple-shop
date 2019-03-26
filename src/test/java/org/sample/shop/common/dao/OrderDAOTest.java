@@ -3,8 +3,8 @@ package org.sample.shop.common.dao;
 import org.junit.Test;
 import org.sample.shop.common.dao.impl.OrderDAOImpl;
 import org.sample.shop.common.db.connmanager.LocalConnectionProxy;
-import org.sample.shop.common.entity.Order;
-import org.sample.shop.common.entity.OrderDetail;
+import org.sample.shop.common.dataobject.Order;
+import org.sample.shop.common.dataobject.OrderDetail;
 
 import java.util.ArrayList;
 import java.util.List;

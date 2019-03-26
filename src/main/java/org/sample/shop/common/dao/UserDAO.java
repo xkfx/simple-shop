@@ -1,6 +1,6 @@
 package org.sample.shop.common.dao;
 
-import org.sample.shop.common.entity.User;
+import org.sample.shop.common.dataobject.User;
 
 public interface UserDAO {
 

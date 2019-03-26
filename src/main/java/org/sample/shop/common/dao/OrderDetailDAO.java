@@ -1,6 +1,6 @@
 package org.sample.shop.common.dao;
 
-import org.sample.shop.common.entity.OrderDetail;
+import org.sample.shop.common.dataobject.OrderDetail;
 
 import java.util.List;
 

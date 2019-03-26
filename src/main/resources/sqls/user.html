@@ -1,9 +1,9 @@
-<sql id="user_get" type="org.sample.shop.common.entity.User">
+<sql id="user_get" type="org.sample.shop.common.dataobject.User">
     SELECT id, username, password, type
     FROM simple_user
     WHERE username=? AND password=?
 </sql>
-<sql id="user_getByUsername" type="org.sample.shop.common.entity.User">
+<sql id="user_getByUsername" type="org.sample.shop.common.dataobject.User">
     SELECT id, username, password, type
     FROM simple_user
     WHERE username=?

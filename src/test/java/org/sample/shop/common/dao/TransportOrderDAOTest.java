@@ -3,7 +3,7 @@ package org.sample.shop.common.dao;
 import org.junit.Test;
 import org.sample.shop.common.dao.impl.TransportOrderDAOImpl;
 import org.sample.shop.common.db.connmanager.LocalConnectionProxy;
-import org.sample.shop.common.entity.TransportOrder;
+import org.sample.shop.common.dataobject.TransportOrder;
 
 import java.util.List;
 

@@ -2,8 +2,8 @@ package org.sample.shop.common.dao.impl;
 
 import org.sample.shop.common.dao.OrderDAO;
 import org.sample.shop.common.db.QueryRunnerProxy;
-import org.sample.shop.common.entity.Order;
-import org.sample.shop.common.entity.OrderDetail;
+import org.sample.shop.common.dataobject.Order;
+import org.sample.shop.common.dataobject.OrderDetail;
 
 import java.util.List;
 import java.util.Map;

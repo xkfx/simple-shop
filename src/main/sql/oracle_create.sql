@@ -1,5 +1,4 @@
 -- Deprecated
--- 由于在“一键重构”时失误。。下面的表中存在错误
 
 -- 用户
 DROP TABLE simple_user;
@@ -50,9 +49,9 @@ END;
 /
 
 -- 物品
-DROP TABLE item;
+DROP TABLE itemDO;
 DROP SEQUENCE item_seq;
-CREATE TABLE item (
+CREATE TABLE itemDO (
   id NUMBER(8, 0),
   user_id NUMBER(8, 0) NOT NULL,
   name VARCHAR2(20) NOT NULL,
@@ -69,7 +68,7 @@ START WITH 1000
 INCREMENT BY 1
 CACHE 50;
 CREATE OR REPLACE TRIGGER item_autoincrement
-BEFORE INSERT ON item
+BEFORE INSERT ON itemDO
 FOR EACH ROW
 BEGIN
   SELECT item_seq.nextval INTO:NEW.id FROM DUAL;
@@ -90,8 +89,8 @@ CREATE TABLE order_detail (
   price NUMBER(8, 2) NOT NULL,
 	PRIMARY KEY (id),
 	FOREIGN KEY(order_id) REFERENCES simple_order(id),
-	FOREIGN KEY(item_id) REFERENCES item(id),
-	FOREIGN KEY(user_id) REFERENCES item(id)
+	FOREIGN KEY(item_id) REFERENCES itemDO(id),
+	FOREIGN KEY(user_id) REFERENCES itemDO(id)
 );
 CREATE SEQUENCE order_detail_seq
 MINVALUE 1000
@@ -145,7 +144,7 @@ CREATE TABLE cart (
   quantity NUMBER(4, 0), -- 数量上限9999
   PRIMARY KEY (id),
   FOREIGN KEY(user_id) REFERENCES simple_user(id),
-  FOREIGN KEY(item_id) REFERENCES item(id)
+  FOREIGN KEY(item_id) REFERENCES itemDO(id)
 );
 CREATE SEQUENCE cart_id_seq
 MINVALUE 1000

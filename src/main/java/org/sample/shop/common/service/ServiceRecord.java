@@ -1,4 +1,4 @@
-package org.sample.shop.common.pojo;
+package org.sample.shop.common.service;
 
 import org.aspectj.lang.reflect.MethodSignature;
 import org.sample.shop.common.dto.ServiceResult;
@@ -6,7 +6,7 @@ import org.sample.shop.common.dto.ServiceResult;
 import java.util.Arrays;
 
 /**
- * 方便打info日志的POJO对象
+ * 方便打印Service层info日志
  */
 public class ServiceRecord {
 

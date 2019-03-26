@@ -4,7 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.sample.shop.common.dto.JsonError;
 import org.sample.shop.common.dto.ServiceResult;
-import org.sample.shop.common.entity.Item;
+import org.sample.shop.common.dataobject.ItemDO;
 import org.sample.shop.common.util.JsonUtil;
 import org.sample.shop.merchant.service.ItemService;
 import org.sample.shop.merchant.service.impl.ItemServiceImpl;
@@ -30,7 +30,7 @@ public class ItemController extends HttpServlet {
         final Long uid = Long.parseLong(parameter);
 
         // 根据参数签名调服务
-        ServiceResult<List<Item>> result;
+        ServiceResult<List<ItemDO>> result;
         if (p2 != null) {
             final int status = Integer.parseInt(p2);
             result = itemService.listByUidAndStatus(uid, status);
@@ -62,7 +62,7 @@ public class ItemController extends HttpServlet {
         final Double price = Double.parseDouble(p3);
         final int quantity = Integer.parseInt(p4);
         // 根据参数签名调服务
-        ServiceResult<Item> result = itemService.createNew(uid, name, price, quantity);
+        ServiceResult<ItemDO> result = itemService.createNew(uid, name, price, quantity);
         // 将结果解析封装成对应的接口
         PrintWriter pw = resp.getWriter();
         if(result.getCode() % 100 >= 50) { // 失败
@@ -81,7 +81,7 @@ public class ItemController extends HttpServlet {
         final String p1 = req.getParameter("id");
         final Long id = Long.parseLong(p1);
         // 根据参数签名调服务
-        ServiceResult<Item> result = itemService.delete(id);
+        ServiceResult<ItemDO> result = itemService.delete(id);
         // 将结果解析封装成对应的接口
         PrintWriter pw = resp.getWriter();
         if(result.getCode() % 100 >= 50) { // 失败
@@ -103,7 +103,7 @@ public class ItemController extends HttpServlet {
         final String p3 = req.getParameter("price");
         final String p4 = req.getParameter("quantity");
 
-        ServiceResult<Item> result;
+        ServiceResult<ItemDO> result;
         final Long id = Long.parseLong(p1);
         if (name != null && p3 != null && p4 != null) {
             final Double price = Double.parseDouble(p3);

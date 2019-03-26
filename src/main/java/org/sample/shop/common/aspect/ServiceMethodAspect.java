@@ -9,7 +9,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.sample.shop.common.annotation.Validator;
-import org.sample.shop.common.pojo.ServiceRecord;
+import org.sample.shop.common.service.ServiceRecord;
 import org.sample.shop.common.dto.ServiceResult;
 import org.sample.shop.common.exception.ValidateException;
 import org.sample.shop.common.util.EasyValidator;

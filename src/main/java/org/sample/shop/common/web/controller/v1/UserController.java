@@ -6,9 +6,7 @@ import org.sample.shop.common.util.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "api/v1/users")
@@ -21,14 +19,14 @@ public class UserController {
         userService = service;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public ResponseEntity<?> saveUser(int type, String username, String password) {
         ServiceResult result = userService.saveUser(type, username, password);
         if (result.isSuccess()) return new ResponseEntity<>(HttpStatus.CREATED);
         return new ResponseEntity<>(JsonUtils.fail(result.getError()), HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public ResponseEntity<?> getUser(String username, String password) {
         ServiceResult result = userService.getUser(username, password);
         if (result.isSuccess()) return new ResponseEntity<>(result.getData(), HttpStatus.OK);

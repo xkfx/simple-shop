@@ -2,7 +2,7 @@ package org.sample.shop.customer.web.controller.v1;
 
 import org.sample.shop.common.dto.JsonError;
 import org.sample.shop.common.dto.ServiceResult;
-import org.sample.shop.common.entity.Cart;
+import org.sample.shop.common.dataobject.Cart;
 import org.sample.shop.common.util.JsonUtil;
 import org.sample.shop.customer.service.CartService;
 import org.sample.shop.customer.service.impl.CartServiceImpl;

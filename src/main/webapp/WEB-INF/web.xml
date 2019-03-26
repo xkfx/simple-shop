@@ -36,7 +36,7 @@
     <!--</servlet>-->
     <!--<servlet-mapping>-->
         <!--<servlet-name>ItemController</servlet-name>-->
-        <!--<url-pattern>/api/v1/items</url-pattern>-->
+        <!--<url-pattern>/apiitemDOStems</url-pattern>-->
     <!--</servlet-mapping>-->
 
     <!--<servlet>-->

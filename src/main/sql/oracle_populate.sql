@@ -1,13 +1,15 @@
+-- Deprecated
+
 -- saveUser
 INSERT INTO simple_user(type, username, password) VALUES (0, 'admin123', 123);
 COMMIT;
 
 
 -- removeById
-DELETE FROM item WHERE id=1052
+DELETE FROM itemDO WHERE id=1052
 
 -- updateById
-UPDATE item SET name='updete', price=20.5, code=0, quantity=100 WHERE id=1000
+UPDATE itemDO SET name='updete', price=20.5, code=0, quantity=100 WHERE id=1000
 
 -- saveOrder
 INSERT INTO simple_order(user_id, total) VALUES (1000, 333.33);

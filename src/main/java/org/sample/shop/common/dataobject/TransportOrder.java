@@ -1,4 +1,4 @@
-package org.sample.shop.common.entity;
+package org.sample.shop.common.dataobject;
 
 public class TransportOrder {
 

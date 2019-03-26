@@ -10,8 +10,8 @@ import org.sample.shop.common.dao.impl.OrderDAOImpl;
 import org.sample.shop.common.dao.impl.OrderDetailDAOImpl;
 import org.sample.shop.common.db.connmanager.LocalConnectionProxy;
 import org.sample.shop.common.dto.ServiceResult;
-import org.sample.shop.common.entity.Order;
-import org.sample.shop.common.entity.OrderDetail;
+import org.sample.shop.common.dataobject.Order;
+import org.sample.shop.common.dataobject.OrderDetail;
 import org.sample.shop.common.exception.DaoException;
 import org.sample.shop.customer.service.OrderService;
 

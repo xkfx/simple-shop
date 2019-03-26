@@ -9,6 +9,6 @@
     INSERT INTO order_detail(order_id, item_id, user_id, quantity, price, status)
     VALUES(?, ?, ?, ?, ?, ?)
 </sql>
-<sql id="order_listByUid" type="org.sample.shop.common.entity.Order">
+<sql id="order_listByUid" type="org.sample.shop.common.dataobject.Order">
     SELECT id, user_id AS userId, total FROM simple_order WHERE user_id=?
 </sql>

@@ -1,26 +1,26 @@
-<sql id="item_listByUidAndStatus" type="org.sample.shop.common.entity.Item">
+<sql id="item_listByUidAndStatus" type="org.sample.shop.common.dataobject.ItemDO">
     SELECT id, user_id AS userId, name, price, status, quantity
-    FROM item
+    FROM itemDO
     WHERE user_id=? AND status=?
     ORDER BY id DESC
     LIMIT ?,?
 </sql>
 <sql id="item_saveItem">
-    INSERT INTO item(user_id, name, price, status, quantity)
+    INSERT INTO itemDO(user_id, name, price, status, quantity)
     VALUES (?, ?, ?, ?, ?)
 </sql>
 <sql id="item_removeById">
-    DELETE FROM item
+    DELETE FROM itemDO
     WHERE id=?
 </sql>
 <sql id="item_updateById">
-    UPDATE item
+    UPDATE itemDO
     SET name=?, price=?, status=?, quantity=?
     WHERE id=?
 </sql>
-<sql id="item_getById" type="org.sample.shop.common.entity.Item">
+<sql id="item_getById" type="org.sample.shop.common.dataobject.ItemDO">
     SELECT id, user_id AS userId, name,
     price, status, quantity
-    FROM item
+    FROM itemDO
     WHERE id=?
 </sql>
